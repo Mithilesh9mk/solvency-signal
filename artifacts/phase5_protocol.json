@@ -1,0 +1,101 @@
+{
+ "frozen_commit": "fdef552",
+ "git_head_at_freeze": "14b5dd3",
+ "seed": 42,
+ "bootstrap_n": 1000,
+ "ece_bins": 10,
+ "headline_model": "lightgbm",
+ "reference_models": [
+  "logistic_regression",
+  "neural_net"
+ ],
+ "headline_cuts": {
+  "method": "platt",
+  "t_watch": 0.17360288352005987,
+  "t_high": 0.2403358325465458
+ },
+ "band_rule": {
+  "high_min_precision": 0.6,
+  "watch_min_recall": 0.8
+ },
+ "metrics_stated_in_advance": [
+  "pr_auc",
+  "roc_auc",
+  "prevalence_pr_auc",
+  "brier",
+  "log_loss",
+  "ece",
+  "band_counts",
+  "recall_precision_watch_plus_high",
+  "recall_precision_high",
+  "confusion_at_high_cut"
+ ],
+ "verdict_rule": [
+  "a. the test PR AUC point estimate lies inside the validation 95% CI of the headline model",
+  "b. the lower bound of the test PR AUC 95% CI is above the prevalence baseline",
+  "c. the 95% CI of High-band precision on test contains the 0.60 precision floor"
+ ],
+ "validation_pr_auc_ci_headline": [
+  0.6972750076089075,
+  0.8627928537330898
+ ],
+ "versions": {
+  "python": "3.11.4",
+  "scikit-learn": "1.9.1",
+  "numpy": "2.4.6",
+  "pandas": "3.0.6",
+  "lightgbm": "4.7.0",
+  "torch": "2.14.1",
+  "joblib": "1.6.0"
+ },
+ "files": {
+  "models/lightgbm.joblib": {
+   "group": "models",
+   "sha256": "4e81d03e88b82208e76675f471c1588e5fdc88a00c9e832b8a4627be5a00f49d",
+   "bytes": 535588,
+   "in_git": false
+  },
+  "models/logistic_regression.joblib": {
+   "group": "models",
+   "sha256": "22e76808d8ed31806d5029041721a1b12cce5eea717edd35b62062fd1b1bb43d",
+   "bytes": 7562,
+   "in_git": false
+  },
+  "models/neural_net.joblib": {
+   "group": "models",
+   "sha256": "88d98f160fb07f11102ba75daa0736090b158e8abdd52258a455616e37659a6a",
+   "bytes": 949875,
+   "in_git": false
+  },
+  "artifacts/calibration/calibrators.json": {
+   "group": "calibration",
+   "sha256": "b514b722b5a990a966ca49159291e6df37c111194286053c4f78bea48a713b86",
+   "bytes": 5646,
+   "matches_commit_blob": true
+  },
+  "artifacts/calibration/bands.json": {
+   "group": "calibration",
+   "sha256": "b507b74b588c48382f60bae70e2e27719dcd6b2be471363ed569b4e8aded5433",
+   "bytes": 736,
+   "matches_commit_blob": true
+  },
+  "artifacts/calibration/config.json": {
+   "group": "calibration",
+   "sha256": "f5e746102a2757985b51bfccc5f30b5aa047751f4a684439381f866a19ddaae5",
+   "bytes": 788,
+   "matches_commit_blob": true
+  },
+  "reports/phase4_calibration.json": {
+   "group": "comparison_sources",
+   "sha256": "9772601cc7974225c39efee9e3c06b156d89e99deb6b2b030d8d28b7f28ce296",
+   "bytes": 48730,
+   "in_git": true
+  },
+  "reports/models_val.json": {
+   "group": "comparison_sources",
+   "sha256": "a907499e7e7bb5fad26bf76bc5fa4b9621ce5b5da6b4aeb18ac8d4a24928cee8",
+   "bytes": 4483,
+   "in_git": true
+  }
+ }
+}

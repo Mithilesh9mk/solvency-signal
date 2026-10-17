@@ -63,3 +63,59 @@ New rule, fixed before the rerun, applied to the calibrated probability of each 
   optimistic, with only 61 positives. The independent check is the same cuts applied to train out-of-fold scores,
   which played no part in setting them. The test split stays unread and is the only fully untouched data.
 - The post-hoc 0.50 alternative from the previous run is dropped.
+
+## 2026-10-17 (Phase 5 protocol, written BEFORE the test split is read)
+
+Phase 5 is the one-shot evaluation on the locked test split. This section is committed before the test file is
+touched. Nothing is tuned, selected or changed based on test results, and disappointing results are reported as they are.
+
+1. **Frozen artifacts.** LightGBM + Platt, with the calibrator and band cuts committed at `fdef552`. The SHA256 of
+   every artifact, and the library versions, are in `artifacts/phase5_protocol.json` (written by
+   `python -m scripts.final_test_eval --freeze`, once) and in the table below. The model files are gitignored, so
+   their hashes pin the exact files on disk; a rebuild is not guaranteed to be bit-identical. The script aborts on any
+   hash mismatch, and before reading the test split it also checks that the frozen artifacts reproduce the Phase 4
+   validation numbers exactly.
+
+Frozen commit: `fdef552`. Git HEAD when frozen: `14b5dd3`. Headline cuts read from bands.json: Watch 0.1736, High 0.2403, calibration platt.
+
+| File | SHA256 | Note |
+|---|---|---|
+| `models/lightgbm.joblib` | `4e81d03e88b82208e76675f471c1588e5fdc88a00c9e832b8a4627be5a00f49d` | gitignored, hash pins the exact file |
+| `models/logistic_regression.joblib` | `22e76808d8ed31806d5029041721a1b12cce5eea717edd35b62062fd1b1bb43d` | gitignored, hash pins the exact file |
+| `models/neural_net.joblib` | `88d98f160fb07f11102ba75daa0736090b158e8abdd52258a455616e37659a6a` | gitignored, hash pins the exact file |
+| `artifacts/calibration/calibrators.json` | `b514b722b5a990a966ca49159291e6df37c111194286053c4f78bea48a713b86` | equals the fdef552 blob: True |
+| `artifacts/calibration/bands.json` | `b507b74b588c48382f60bae70e2e27719dcd6b2be471363ed569b4e8aded5433` | equals the fdef552 blob: True |
+| `artifacts/calibration/config.json` | `f5e746102a2757985b51bfccc5f30b5aa047751f4a684439381f866a19ddaae5` | equals the fdef552 blob: True |
+| `reports/phase4_calibration.json` | `9772601cc7974225c39efee9e3c06b156d89e99deb6b2b030d8d28b7f28ce296` | comparison source, committed |
+| `reports/models_val.json` | `a907499e7e7bb5fad26bf76bc5fa4b9621ce5b5da6b4aeb18ac8d4a24928cee8` | comparison source, committed |
+
+2. **Headline model.** LightGBM with Platt, bands as committed (Watch 0.1736, High 0.2403). Logistic regression and the
+   neural network are scored as reference only and are not eligible to replace the headline model, whatever the test
+   shows.
+3. **Metrics, stated in advance.** PR AUC and ROC AUC with stratified bootstrap 95% CIs (1000 resamples, seed 42), the
+   prevalence baseline PR AUC, Brier score, log loss (clipped at 1e-4 as in Phase 4), ECE (10 equal-frequency bins, as in
+   Phase 4), and per-band firm counts, bankrupt counts and rates. Recall and precision for Watch+High and for High
+   alone, and the confusion matrix at the High cut.
+4. **Verdict rule, fixed now.** The headline model "holds up" only if all three hold: (a) the test PR AUC point
+   estimate lies inside the validation 95% CI; (b) the lower bound of the test PR AUC CI is above the prevalence
+   baseline; (c) the 95% CI of High-band precision on test contains the 0.60 precision floor. Otherwise it is reported as
+   "does not fully hold up", with the numbers.
+5. **Comparison.** Test is set next to validation and train OOF. Gaps expected as optimism, stated before the run:
+   validation cuts are fitted on validation (in-sample); LightGBM was chosen using validation (winner's curse); OOF
+   Brier, log loss and ECE are in-sample for the two-parameter Platt map; OOF models see 80% of train so they understate
+   the refit model slightly. The test set is clean of all four. A gap in the direction of those sources is expected; a
+   larger or opposite gap is not explained by them.
+6. **One-shot enforcement.** `scripts/final_test_eval.py` verifies hashes, refuses to run if
+   `reports/phase5_test_results.json` or `artifacts/phase5.lock` exists, and requires a clean git tree. It writes the lock
+   BEFORE it reads the test file (a deliberate addition to the user's spec: a crash after the read cannot be followed by a
+   second read). On success it completes the lock with the test file SHA256 and the results SHA256. Tests prove the
+   second run is refused and that no other source reads the test split.
+7. **After the run.** No retraining, recalibration or re-cutting. If something looks wrong it goes into the Flags section
+   and work stops. No fix-and-rerun. The markdown report can be re-rendered from the saved JSON (`--render-only`),
+   which does not read the test split.
+8. **Pre-run dry run.** `--dry-run` executes the same code on the validation split with temporary output, to catch code
+   errors without spending the test split.
+9. **Expectations before the run (no numbers).** I expect the test PR AUC at or somewhat below validation. I expect the
+   Watch band to hold too few firms to read. I do not predict a direction for High precision: validation was built to
+   reach the floor in-sample, while train OOF came out higher than the floor.
+10. **Out of scope.** SHAP, the app, the Indian case study and Graphify.
