@@ -30,8 +30,8 @@ A Streamlit app and an Indian case study come in later phases.
 - End of every phase: `python -m scripts.update_state --phase "<phase>"`, then commit
 
 ## Status
-Current phase: Phase 4: calibration, thresholds and risk bands (complete, awaiting decisions)
-Last phase commit: pending
+Current phase: Phase 4: calibration, thresholds and risk bands (complete, awaiting user decisions)
+Last phase commit: 7d9c24f
 
 ## Pointers
 For details read docs/STATE.md, docs/decisions.md, docs/data_card.md only when needed.
