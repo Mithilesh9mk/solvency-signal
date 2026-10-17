@@ -26,7 +26,7 @@ def page_text(at: AppTest) -> str:
 def test_default_demo_firm_is_scored_and_page_has_required_text(guard):
     at = AppTest.from_file(APP, default_timeout=120).run()
     assert not at.exception
-    assert [t.label for t in at.tabs] == ["Score a firm", "How it was checked", "What drives the model", "Limitations and data"]
+    assert [t.label for t in at.tabs] == ["Quick check (4 ratios)", "Score a firm", "How it was checked", "What drives the model", "Limitations and data"]
     bands = [m.value for m in at.metric if m.label == "Risk band"]
     assert bands and bands[0] in ("Low", "Watch", "High")
     text = page_text(at)
@@ -96,3 +96,36 @@ def test_app_stops_with_an_error_when_the_blank_rule_cannot_be_read(monkeypatch)
     st.cache_resource.clear()
     assert at.error and "blank-attribute rule" in at.error[0].value
     assert not [m for m in at.metric if m.label == "Risk band"]
+
+
+def test_quick_check_tab_scores_four_ratios_and_moves_the_right_way():
+    at = AppTest.from_file(APP, default_timeout=120).run()
+    assert not at.exception
+    assert [n.label.split(" (")[0] for n in at.number_input][:4] == ["Current ratio", "Debt-to-equity ratio", "Net profit margin",
+                                                                      "Cash earnings ratio"]
+    quick = {m.label: m.value for m in at.metric if m.label.startswith(("Quick", "Model probability"))}
+    assert quick["Quick score"].endswith(" of 10") and quick["Quick band"] in ("Low", "Watch", "Elevated", "High")
+    text = page_text(at)
+    assert "proxy" in text.lower() and "Not lending advice" in text and "much less informative than all 64" in text
+    safe_score = int(quick["Quick score"].split()[0])
+    for key, val in (("q_current_ratio", 0.2), ("q_debt_to_equity", 8.0), ("q_net_profit_margin", -0.5), ("q_cash_earnings_ratio", -0.5)):
+        at.number_input(key=key).set_value(val)
+    at.run()
+    assert not at.exception
+    risky = {m.label: m.value for m in at.metric if m.label.startswith("Quick")}
+    assert int(risky["Quick score"].split()[0]) > safe_score and risky["Quick band"] in ("Elevated", "High")
+
+
+def test_quick_check_is_switched_off_but_the_rest_of_the_app_works_when_its_file_is_unreadable(monkeypatch):
+    from src import quick as Q
+    st.cache_resource.clear()
+
+    def bad(root=Q.ROOT):
+        raise Q.QuickModelError("quick model file is not readable: quick_model.json")
+
+    monkeypatch.setattr(Q, "load", bad)
+    at = AppTest.from_file(APP, default_timeout=120).run()
+    st.cache_resource.clear()
+    assert any("quick check could not be loaded" in e.value for e in at.error)
+    assert not [m for m in at.metric if m.label == "Quick score"]
+    assert [m.value for m in at.metric if m.label == "Risk band"]

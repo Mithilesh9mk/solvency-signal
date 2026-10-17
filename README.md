@@ -2,7 +2,7 @@
 
 An early-warning neural network for corporate financial distress.
 
-> Status: Phases 8 and 9 done (the Streamlit app with the Phase 9 blank rule, deployed). Phase 7 was the Attr21 missingness analysis (descriptive). Phase 6 gave SHAP explanations of the frozen LightGBM + Platt model. The test split was read once, in Phase 5, and is locked.
+> Status: Phases 8 to 10 done (the Streamlit app with the Phase 9 blank rule and the Phase 10 four-ratio Quick check, deployed). Phase 7 was the Attr21 missingness analysis (descriptive). Phase 6 gave SHAP explanations of the frozen LightGBM + Platt model. The test split was read once, in Phase 5, and is locked.
 
 ## Problem
 
@@ -144,6 +144,15 @@ Firms the app scores under all blank rules (report only):
 | validation | 780 | 98 of 878 | 0.388 | 0.333 | 0.448 |
 | train out-of-fold | 3667 | 427 of 4094 | 0.486 | 0.447 | 0.497 |
 
+Quick check, 4 ratios (Phase 10):
+
+A separate 4-ratio model (current ratio, debt-to-equity, net profit margin, cash earnings ratio as an operating cash flow proxy), monotone LightGBM + Platt, a 1 to 10 score and four bands. Fitted on train, reported on validation, test not read. Train 5-fold PR AUC: logistic regression 0.299, challenger 0.351. Details: reports/phase10_quick.md.
+
+| Model | Validation PR AUC | Validation ROC AUC | ECE |
+|---|---|---|---|
+| 4-ratio Quick check | 0.315 (0.235 to 0.435) | 0.837 | 0.0184 |
+| 64-ratio frozen model | 0.782 (0.698 to 0.867) | 0.957 | 0.0134 |
+
 Details, reliability diagrams, band tables, cost framing and the model decision: [reports/phase4_calibration.md](reports/phase4_calibration.md). Earlier phases: [reports/models_val.md](reports/models_val.md).
 
 ### Flags
@@ -215,6 +224,7 @@ Details, reliability diagrams, band tables, cost framing and the model decision:
 65. Phase 9: A blocked blank is a guard against trusting a score driven by a blank. It is not a claim that the model is wrong on those firms: see the observed rate against the mean predicted probability among blank firms in the table.
 66. Phase 9: The test split is spent, so no rule change can be checked on untouched data. Blanks in real use are probably not random like these.
 67. Phase 9: Test split untouched in this phase. No model, calibrator or cut was changed.
+68. Phase 10: the 4-ratio model ranks firms far worse than the 64-ratio model (see the table), and its cash earnings ratio is a proxy, not operating cash flow. The 1 to 10 scale is a rank within the Polish training data, not an absolute risk.
 
 <!-- RESULTS:END -->
 
@@ -285,7 +295,9 @@ python -m scripts.run_phase8_prep
 streamlit run app/streamlit_app.py
 ```
 
-The app is a screening signal for firms like those in the Polish data. It is not lending advice, and it was checked on a random
+The first tab, Quick check, takes four ratios (current ratio, debt-to-equity, net profit margin and a cash earnings ratio) and returns a 1 to 10 score, a band and the observed bankruptcy rate of Polish training firms with that score. It is a separate small model (Phase 10, `src/quick.py`, fitted model in `artifacts/quick/quick_model.json`) and ranks firms much worse than the full 64-ratio model, with the numbers in the Phase 10 block above. The cash earnings ratio, (net profit + depreciation) / total liabilities, is a proxy because the data has no operating cash flow.
+
+The remaining tabs use the 64-ratio model. The app is a screening signal for firms like those in the Polish data. It is not lending advice, and it was checked on a random
 split only. It does not score a firm with Attr21 (sales growth), Attr24 or Attr27 blank (the Phase 9 rule, read from `reports/phase9_blank_rule.json`), and it does not score a firm with more than 6 other
 blank attributes. Uploaded data is processed in memory and is not written to disk by this app. At start-up it checks the model
 and calibration files against the hashes in `artifacts/phase5_protocol.json` and stops on a mismatch. To deploy on Streamlit

@@ -15,8 +15,8 @@ A Streamlit app and an Indian case study come in later phases.
 
 ## Repo map
 - `src/`: preprocess, polish_features (dictionary, categories), train, nn (TremorNet), evaluate, calibrate, explain, plotting
-- `scripts/`: update_state.py (regenerates docs/STATE.md), run_phase4.py, run_phase6.py (SHAP), run_phase7_attr21.py, run_phase8_prep.py (app numbers, demo firms), run_phase9_blanks.py (blank-attribute probe), final_test_eval.py (one-shot, refuses a rerun)
-- `app/`: streamlit_app.py, demo_firms.json, requirements.txt (logic in `src/app_logic.py`)
+- `scripts/`: update_state.py (regenerates docs/STATE.md), run_phase4.py, run_phase6.py (SHAP), run_phase7_attr21.py, run_phase8_prep.py (app numbers, demo firms), run_phase9_blanks.py (blank-attribute probe), run_phase10_quick.py (4-ratio Quick check model), final_test_eval.py (one-shot, refuses a rerun)
+- `app/`: streamlit_app.py, demo_firms.json, requirements.txt (logic in `src/app_logic.py`; Quick check logic in `src/quick.py`, fitted model in `artifacts/quick/quick_model.json`)
 - `tests/`: pytest suite, includes the test-split guard
 - `reports/`: generated reports and figures (validation only)
 - `artifacts/calibration/`: fitted calibrators, band thresholds and config (JSON, committed); `phase5_protocol.json` and `phase5.lock`: frozen hashes and the one-shot lock
@@ -27,13 +27,13 @@ A Streamlit app and an Indian case study come in later phases.
 ## Commands (use `.venv/Scripts/python`)
 - Tests: `python -m pytest -q`
 - Data: `python -m src.preprocess`; train: `python -m src.train`; curves: `python -m src.evaluate`
-- Phase 4: `python -m scripts.run_phase4`. Phase 5 is done and cannot be rerun (lock in `artifacts/phase5.lock`). Phase 6: `python -m scripts.run_phase6`. Phase 7: `python -m scripts.run_phase7_attr21`. Phase 8: `python -m scripts.run_phase8_prep`, `streamlit run app/streamlit_app.py`. Phase 9: `python -m scripts.run_phase9_blanks --override-ceiling` (user decision, writes the rule the app reads), then `python -m scripts.run_phase8_prep`.
+- Phase 4: `python -m scripts.run_phase4`. Phase 5 is done and cannot be rerun (lock in `artifacts/phase5.lock`). Phase 6: `python -m scripts.run_phase6`. Phase 7: `python -m scripts.run_phase7_attr21`. Phase 8: `python -m scripts.run_phase8_prep`, `streamlit run app/streamlit_app.py`. Phase 9: `python -m scripts.run_phase9_blanks --override-ceiling` (user decision, writes the rule the app reads), then `python -m scripts.run_phase8_prep`. Phase 10: `python -m scripts.run_phase10_quick` (train and validation only).
 - End of every phase: `python -m scripts.update_state --phase "<phase>"`, then commit
 
 ## Status
 Headline model: LightGBM + Platt (user decision), frozen at fdef552. The neural network is the deep learning comparison, not deployed. Test result: reports/phase5_test_results.md.
-Current phase: Phase 9: blank rule applied in the app, deployed on Streamlit Community Cloud
-Last phase commit: 0ae6891
+Current phase: Phase 10: Quick check (4-ratio model) added to the app
+Last phase commit: 47f4f98
 
 ## Pointers
 For details read docs/STATE.md, docs/decisions.md, docs/data_card.md only when needed.

@@ -480,3 +480,15 @@ logistic regression. The protocol did not say how to finish that case, so before
 - **Contributions.** LightGBM native contributions times the Platt slope, in calibrated log-odds, as in the main app.
 - **Artifact.** `artifacts/quick/quick_model.json` holds the LightGBM model as its text dump plus numbers. No pickle.
 - The stopped first-run report is kept as `reports/phase10_quick_stopped_lr_vs_challenger.md`.
+
+## 2026-10-17 (Phase 10, after the run)
+
+- Run as amended: the challenger replaced logistic regression, Platt fitted on train out-of-fold raw scores, scale cuts from train
+  out-of-fold percentiles, range from the observed rate per score. All figures are in `reports/phase10_quick.md`; none are typed here.
+- The Quick check is the first tab of the app. Inputs are the four ratios the user chose; the repeated current ratio in the request was
+  treated as one. The cash earnings ratio is a labelled proxy. A debt-to-equity of 0 is read as no debt, a negative value as
+  negative equity.
+- The tab states, on the page, that four ratios are much less informative than 64 and gives both validation PR AUCs with intervals
+  read from the report. The frozen 64-ratio model, calibrator and cuts are unchanged. The test split was not read.
+- If `artifacts/quick/quick_model.json` is missing or inconsistent, only the Quick check tab is switched off, with an error; the
+  other tabs keep working. Tests pin the file to the report, the protocol margin, monotone direction and fail-closed loading.

@@ -18,6 +18,7 @@ import pandas as pd  # noqa: E402
 import streamlit as st  # noqa: E402
 
 from src import app_logic as A  # noqa: E402
+from src import quick as Q  # noqa: E402
 
 BLUE, VERMILLION = "#0072B2", "#D55E00"
 CLAIM = ("A screening signal for firms like those in the Polish bankruptcy data. Not lending advice. "
@@ -68,8 +69,99 @@ REFUSED = A.refused_blank_names(BLOCKED)
 
 st.title("solvency-signal")
 st.write(CLAIM)
-tab_score, tab_valid, tab_drivers, tab_limits = st.tabs(
-    ["Score a firm", "How it was checked", "What drives the model", "Limitations and data"])
+tab_quick, tab_score, tab_valid, tab_drivers, tab_limits = st.tabs(
+    ["Quick check (4 ratios)", "Score a firm", "How it was checked", "What drives the model", "Limitations and data"])
+
+BAND_COLORS = {"Low": "#56B4E9", "Watch": "#F0E442", "Elevated": "#E69F00", "High": VERMILLION}
+
+
+@st.cache_resource
+def get_quick():
+    return Q.load()
+
+
+# ------------------------------------------------------------------------------ quick check
+def scale_strip(score: int) -> str:
+    """The 1 to 10 scale as ten coloured cells, the chosen one solid and large, with a marker under it."""
+    cells, marks = [], []
+    for s in range(1, 11):
+        on = s == score
+        cells.append(f'<div style="flex:1;text-align:center;padding:{10 if on else 14}px 0;border-radius:4px;'
+                     f'background:{BAND_COLORS[Q.band_for(s)]};color:#111;font-weight:700;font-size:{28 if on else 14}px;'
+                     f'opacity:{1.0 if on else 0.4}">{s}</div>')
+        marks.append(f'<div style="flex:1;text-align:center;font-size:18px;line-height:1">{"&#9650;" if on else "&nbsp;"}</div>')
+    legend = " &nbsp; ".join(f'<span style="display:inline-block;width:12px;height:12px;border-radius:2px;'
+                             f'background:{c};margin-right:4px"></span>{name} ({lo} to {hi})'
+                             for (lo, hi, name), c in zip(Q.BANDS, BAND_COLORS.values()))
+    return (f'<div style="display:flex;gap:3px">{"".join(cells)}</div><div style="display:flex;gap:3px">{"".join(marks)}</div>'
+            f'<div style="font-size:13px;margin-top:4px">1 = safest, 10 = highest risk. {legend}</div>')
+
+
+def show_quick(p: dict) -> None:
+    st.subheader("Quick check: enter four ratios")
+    st.write("Fill in a company's four ratios, as plain numbers (for example 1.5 for a current ratio of 1.5, 0.05 for a 5% margin). "
+             "You get a 1 to 10 score, a band, and how often Polish firms with that score went bankrupt within a year.")
+    bounds = Q.input_bounds(p)
+    cols = st.columns(4)
+    vals = {}
+    for col, spec in zip(cols, Q.INPUTS):
+        lo, hi = bounds[spec["key"]]
+        hint = f"{spec['formula']}. Higher is {spec['higher']}."
+        if lo is not None and hi is not None:
+            hint += f" Most training firms were between {lo:.3g} and {hi:.3g}."
+        if spec["key"] == "debt_to_equity":
+            hint += " Enter a negative number if equity is negative, and 0 if there is no debt."
+        with col:
+            vals[spec["key"]] = st.number_input(spec["label"], value=float(spec["default"]), step=0.05, format="%.4f",
+                                                key="q_" + spec["key"], help=hint)
+    try:
+        out = Q.assess(vals, p)
+    except ValueError as exc:
+        st.error(f"Not scored. {exc}")
+        return
+    score, band = out["score"], out["band"]
+    left, mid, right = st.columns(3)
+    left.metric("Quick score", f"{score} of 10")
+    mid.metric("Quick band", band)
+    right.metric("Model probability", f"{out['probability']:.3f}")
+    st.markdown(scale_strip(score), unsafe_allow_html=True)
+    ob = out["observed"]
+    st.write(f"**What a score of {score} meant in the Polish data:** {ob['bankrupt']} of {ob['n']} training firms with this score "
+             f"went bankrupt within a year, a rate of {ob['rate']:.3f} (95% range {ob['range'][0]:.3f} to {ob['range'][1]:.3f}).")
+    if out["outside_range"]:
+        names = ", ".join(Q.LABEL_BY_FEATURE[n] for n in out["outside_range"])
+        st.warning(f"Outside the range of most training firms: {names}. The model treats extreme values as the nearest value "
+                   "it has seen, so the score is least reliable here.")
+    st.markdown("**What pushes this score up or down** (calibrated log-odds; positive raises the score):")
+    df = pd.DataFrame([{"ratio": Q.LABEL_BY_FEATURE[n].split(" (")[0], "contribution": c,
+                        "direction": "raises" if c > 0 else "lowers"} for n, c in out["contributions"].items()])
+    chart = alt.Chart(df).mark_bar().encode(
+        x=alt.X("contribution:Q", title="Contribution to the score"), y=alt.Y("ratio:N", sort=None, title=None),
+        color=alt.Color("direction:N", scale=alt.Scale(domain=["raises", "lowers"], range=[VERMILLION, BLUE]),
+                        legend=alt.Legend(title=None)))
+    st.altair_chart(chart, use_container_width=True)
+    with st.expander("What each score meant in the Polish data"):
+        rows = [{"Score": i + 1, "Band": Q.band_for(i + 1), "Firms": r["n"], "Bankrupt": r["bankrupt"],
+                 "Rate (95% interval)": with_ci(r["rate"], r["wilson"])} for i, r in enumerate(p["score_rates"])]
+        st.dataframe(pd.DataFrame(rows), hide_index=True)
+        st.caption("Training firms, scored out of fold. The scale ranks firms within the Polish training data in tenths. "
+                   "It is not an absolute risk.")
+    qrep = get_json("reports/phase10_quick.json")
+    v = qrep["val"]
+    st.info(f"Four ratios are much less informative than all 64. On validation firms, PR AUC was "
+            f"{with_ci(v['quick']['pr_auc'], v['quick']['pr_auc_ci'])} for this quick check and "
+            f"{with_ci(v['full_64']['pr_auc'], v['full_64']['pr_auc_ci'])} for the full 64-ratio model "
+            f"(a model with no skill scores {v['quick']['positive_rate']:.3f}). Use the Score a firm tab when all 64 ratios are available.")
+    st.caption("The cash earnings ratio is a proxy, (net profit + depreciation) / total liabilities, not operating cash flow / current "
+               "liabilities. Debt is read as total liabilities. Fitted on Polish firms: for other countries it is a rough screen only, "
+               "and the range covers sampling noise, not a different country, year or ratio definition. Not lending advice.")
+
+
+with tab_quick:
+    try:
+        show_quick(get_quick())
+    except (Q.QuickModelError, OSError, ValueError) as exc:
+        st.error(f"The quick check could not be loaded, so it is switched off. {exc}")
 
 
 # ------------------------------------------------------------------------------ score a firm
