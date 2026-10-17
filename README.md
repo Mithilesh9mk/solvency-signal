@@ -2,7 +2,7 @@
 
 An early-warning neural network for corporate financial distress.
 
-> Status: Phase 8 done (the Streamlit app, not yet deployed). Phase 7 was the Attr21 missingness analysis (descriptive). Phase 6 gave SHAP explanations of the frozen LightGBM + Platt model. The test split was read once, in Phase 5, and is locked.
+> Status: Phases 8 and 9 done (the Streamlit app with the Phase 9 blank rule, deployed). Phase 7 was the Attr21 missingness analysis (descriptive). Phase 6 gave SHAP explanations of the frozen LightGBM + Platt model. The test split was read once, in Phase 5, and is locked.
 
 ## Problem
 
@@ -289,11 +289,12 @@ The app is a screening signal for firms like those in the Polish data. It is not
 split only. It does not score a firm with Attr21 (sales growth), Attr24 or Attr27 blank (the Phase 9 rule, read from `reports/phase9_blank_rule.json`), and it does not score a firm with more than 6 other
 blank attributes. Uploaded data is processed in memory and is not written to disk by this app. At start-up it checks the model
 and calibration files against the hashes in `artifacts/phase5_protocol.json` and stops on a mismatch. To deploy on Streamlit
-Community Cloud, point it at `app/streamlit_app.py` (it uses `app/requirements.txt`). Deploying is left to the repo owner.
+Community Cloud, point it at `app/streamlit_app.py` (it uses `app/requirements.txt`). It is deployed this way, see Live app below.
 
 ## Live app
 
-TODO: Link to the deployed Streamlit app.
+Live: https://solvency-signal.streamlit.app (Streamlit Community Cloud, Python 3.11, built from `main` of
+https://github.com/Mithilesh9mk/solvency-signal). The free tier puts idle apps to sleep, so the first load can take a minute.
 
 ## Author
 
