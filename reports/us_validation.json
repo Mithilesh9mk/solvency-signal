@@ -1,0 +1,310 @@
+{
+ "no_skill_pr_auc": 0.008307075336579777,
+ "positives": 87,
+ "rows": 10473,
+ "models": {
+  "lightgbm": {
+   "pr_auc": 0.1067406156871604,
+   "roc_auc": 0.8927358004032838,
+   "pr_auc_ci": [
+    0.06381965419316904,
+    0.182864809124784
+   ],
+   "roc_auc_ci": [
+    0.8621202273700971,
+    0.9191802120702198
+   ],
+   "calibration": {
+    "mean_predicted": 0.007298603273066299,
+    "observed_rate": 0.008307075336579777,
+    "brier": 0.007894652143666267,
+    "ece": 0.004380785745077675
+   },
+   "by_year": [
+    {
+     "year": 2012,
+     "positives": 26,
+     "mean_predicted": 0.007707491491363136,
+     "observed_rate": 0.007460545193687231
+    },
+    {
+     "year": 2013,
+     "positives": 28,
+     "mean_predicted": 0.006910007936971071,
+     "observed_rate": 0.008036739380022962
+    },
+    {
+     "year": 2014,
+     "positives": 33,
+     "mean_predicted": 0.007278309525974772,
+     "observed_rate": 0.009417808219178082
+    }
+   ],
+   "flag": {
+    "top5": {
+     "cut": 0.022851818349144102,
+     "share_flagged": 0.04764632865463573,
+     "flagged": 499,
+     "true_positives": 38,
+     "precision": 0.07615230460921844,
+     "recall": 0.4367816091954023
+    },
+    "top10": {
+     "cut": 0.014953844983252706,
+     "share_flagged": 0.1031223145230593,
+     "flagged": 1080,
+     "true_positives": 53,
+     "precision": 0.049074074074074076,
+     "recall": 0.6091954022988506
+    }
+   },
+   "pr_auc_company_label": 0.10761631758855314,
+   "no_skill_company_label": 0.046882459658168625
+  },
+  "logistic": {
+   "pr_auc": 0.08174877057373958,
+   "roc_auc": 0.8498276858104744,
+   "pr_auc_ci": [
+    0.04833749966591014,
+    0.14638620044323708
+   ],
+   "roc_auc_ci": [
+    0.8151330296490608,
+    0.8812546054570877
+   ],
+   "calibration": {
+    "mean_predicted": 0.006651323145262204,
+    "observed_rate": 0.008307075336579777,
+    "brier": 0.008046092746426136,
+    "ece": 0.0026238847052649037
+   },
+   "by_year": [
+    {
+     "year": 2012,
+     "positives": 26,
+     "mean_predicted": 0.0068520114433324635,
+     "observed_rate": 0.007460545193687231
+    },
+    {
+     "year": 2013,
+     "positives": 28,
+     "mean_predicted": 0.006417877171277864,
+     "observed_rate": 0.008036739380022962
+    },
+    {
+     "year": 2014,
+     "positives": 33,
+     "mean_predicted": 0.006683836574082575,
+     "observed_rate": 0.009417808219178082
+    }
+   ],
+   "flag": {
+    "top5": {
+     "cut": 0.024265502235716913,
+     "share_flagged": 0.0414398930583405,
+     "flagged": 434,
+     "true_positives": 32,
+     "precision": 0.07373271889400922,
+     "recall": 0.367816091954023
+    },
+    "top10": {
+     "cut": 0.018025711232058372,
+     "share_flagged": 0.0868900983481333,
+     "flagged": 910,
+     "true_positives": 42,
+     "precision": 0.046153846153846156,
+     "recall": 0.4827586206896552
+    }
+   },
+   "pr_auc_company_label": 0.11968713054083269,
+   "no_skill_company_label": 0.046882459658168625
+  }
+ },
+ "paired_difference": {
+  "a": "lightgbm",
+  "b": "logistic",
+  "pr_auc": 0.024991845113420813,
+  "pr_auc_ci": [
+   -0.03506698137958843,
+   0.09374797295239529
+  ],
+  "roc_auc": 0.04290811459280941,
+  "roc_auc_ci": [
+   0.00899805164244614,
+   0.07833963941936986
+  ]
+ },
+ "seen_in_train": {
+  "lightgbm": {
+   "seen": {
+    "rows": 9008,
+    "positives": 83,
+    "pr_auc": 0.1175715076879326
+   },
+   "unseen": {
+    "rows": 1465,
+    "positives": 4,
+    "pr_auc": null
+   }
+  },
+  "logistic": {
+   "seen": {
+    "rows": 9008,
+    "positives": 83,
+    "pr_auc": 0.09115336250682538
+   },
+   "unseen": {
+    "rows": 1465,
+    "positives": 4,
+    "pr_auc": null
+   }
+  }
+ },
+ "oof_train": {
+  "lightgbm": {
+   "pr_auc": 0.03514349619417751,
+   "calibration": {
+    "mean_predicted": 0.007204779544270622,
+    "observed_rate": 0.0072058218749441235,
+    "brier": 0.00709324432752433,
+    "ece": 0.0008961627522728509
+   }
+  },
+  "logistic": {
+   "pr_auc": 0.030749669784685175,
+   "calibration": {
+    "mean_predicted": 0.0072177623313447415,
+    "observed_rate": 0.0072058218749441235,
+    "brier": 0.007071291623424095,
+    "ece": 0.0007847428102788657
+   }
+  }
+ },
+ "data": {
+  "train": {
+   "rows": 55927,
+   "companies": 7719,
+   "positives": 403,
+   "positive_rate": 0.0072058218749441235,
+   "positives_company_label": 4442
+  },
+  "val": {
+   "rows": 10473,
+   "companies": 4074,
+   "positives": 87,
+   "positive_rate": 0.008307075336579777,
+   "positives_company_label": 491
+  },
+  "train_by_year": [
+   {
+    "year": 1999,
+    "rows": 5308,
+    "positives": 3,
+    "positive_rate": 0.0005651846269781462
+   },
+   {
+    "year": 2000,
+    "rows": 5226,
+    "positives": 7,
+    "positive_rate": 0.0013394565633371603
+   },
+   {
+    "year": 2001,
+    "rows": 4897,
+    "positives": 10,
+    "positive_rate": 0.0020420665713702267
+   },
+   {
+    "year": 2002,
+    "rows": 4651,
+    "positives": 17,
+    "positive_rate": 0.0036551279294775316
+   },
+   {
+    "year": 2003,
+    "rows": 4417,
+    "positives": 29,
+    "positive_rate": 0.0065655422232284355
+   },
+   {
+    "year": 2004,
+    "rows": 4348,
+    "positives": 46,
+    "positive_rate": 0.010579576816927323
+   },
+   {
+    "year": 2005,
+    "rows": 4205,
+    "positives": 40,
+    "positive_rate": 0.009512485136741973
+   },
+   {
+    "year": 2006,
+    "rows": 4128,
+    "positives": 51,
+    "positive_rate": 0.012354651162790697
+   },
+   {
+    "year": 2007,
+    "rows": 4009,
+    "positives": 59,
+    "positive_rate": 0.014716887004240458
+   },
+   {
+    "year": 2008,
+    "rows": 3857,
+    "positives": 58,
+    "positive_rate": 0.015037593984962405
+   },
+   {
+    "year": 2009,
+    "rows": 3743,
+    "positives": 23,
+    "positive_rate": 0.006144803633449105
+   },
+   {
+    "year": 2010,
+    "rows": 3625,
+    "positives": 35,
+    "positive_rate": 0.009655172413793104
+   },
+   {
+    "year": 2011,
+    "rows": 3513,
+    "positives": 25,
+    "positive_rate": 0.007116424708226587
+   }
+  ],
+  "val_by_year": [
+   {
+    "year": 2012,
+    "rows": 3485,
+    "positives": 26,
+    "positive_rate": 0.007460545193687231
+   },
+   {
+    "year": 2013,
+    "rows": 3484,
+    "positives": 28,
+    "positive_rate": 0.008036739380022962
+   },
+   {
+    "year": 2014,
+    "rows": 3504,
+    "positives": 33,
+    "positive_rate": 0.009417808219178082
+   }
+  ],
+  "companies_in_both": 3290
+ },
+ "platt": {
+  "lightgbm": {
+   "a": 0.6911399986088843,
+   "b": -0.9228073139113271
+  },
+  "logistic": {
+   "a": 0.9613266871393594,
+   "b": -0.1703789637621254
+  }
+ }
+}

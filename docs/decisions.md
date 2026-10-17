@@ -512,3 +512,13 @@ logistic regression. The protocol did not say how to finish that case, so before
 - Tests: `tests/test_app_ui.py` now reads result cards through data attributes instead of `st.metric`; new tests cover the reset,
   example-value and outside-range states. `tests/test_app_ui_helpers.py` covers the HTML helpers.
 - Not changed: the reliability and SHAP figures are PNGs from `src/plotting` and keep their own style.
+
+## 2026-10-17 (US model, validation only)
+
+- Protocol: `docs/us_protocol.md`, committed before any fit. Separate model on the 18 raw US variables, time split 1999 to 2011,
+  2012 to 2014, 2015 to 2018. Not pooled with Polish. The Taiwanese file is pre-scaled to 0 to 1, and there is no Indian file.
+- Finding that changed the design: the provided `status_label` is company-level (every row of a failed company is labelled failed).
+  The primary label is therefore derived: positive only on a failed company's last observed year. The provided label is reported as a
+  diagnostic only.
+- Results are in `reports/us_validation.md`, written by `scripts/run_us_model.py`. No headline model is chosen. The test years are
+  read once by `scripts/us_final_test.py` (lock written first) and have not been read.
