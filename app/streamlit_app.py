@@ -56,6 +56,15 @@ except A.FrozenArtifactError as exc:
     st.title("Early Tremor")
     st.error(f"The frozen model files do not match their recorded hashes, so scoring is disabled. {exc}")
     st.stop()
+try:
+    rule = A.load_rule()
+    BLOCKED = rule["blocked"]
+    phase9 = get_json("reports/phase9_blanks.json")
+except (A.BlankRuleError, OSError, ValueError) as exc:
+    st.title("Early Tremor")
+    st.error(f"The blank-attribute rule could not be read, so scoring is disabled. {exc}")
+    st.stop()
+REFUSED = A.refused_blank_names(BLOCKED)
 
 st.title("Early Tremor")
 st.write(CLAIM)
@@ -126,8 +135,10 @@ with tab_score:
         st.caption(demo["rule"])
     else:
         st.write("Upload a CSV with one row per firm and all 64 attributes, columns named Attr1 to Attr64 (or the dictionary names). "
-                 "Blank cells are allowed, but a firm with Attr21 blank is not scored, and a firm with more than "
-                 f"{A.MAX_OTHER_BLANKS} other blank attributes is not scored. At most {A.MAX_ROWS} rows.")
+                 "Blank cells are allowed, but a firm with Attr21 blank"
+                 + (f" or {REFUSED} blank" if BLOCKED else "")
+                 + f" is not scored, and a firm with more than {A.MAX_OTHER_BLANKS} other blank attributes is not scored. "
+                 f"At most {A.MAX_ROWS} rows.")
         st.download_button("Download a header-only template", A.template_csv(), "early_tremor_template.csv", "text/csv")
         up = st.file_uploader("CSV file", type=["csv"])
         if up is not None:
@@ -140,7 +151,7 @@ with tab_score:
                 st.error(str(exc))
     st.caption(PRIVACY)
     if frame is not None:
-        results = A.score_frame(frozen, frame, problems)
+        results = A.score_frame(frozen, frame, problems, BLOCKED)
         if len(results) > 1:
             show = results[["row", "status", "band", "probability", "n_other_blank", "reason"]].copy()
             show["probability"] = show["probability"].round(3)
@@ -179,6 +190,18 @@ with tab_valid:
             st.dataframe(metric_table(numbers["numbers"][key]["all"]), hide_index=True)
     st.info(A.flattered_sentence(numbers))
     st.write(A.floor_statement(numbers))
+    sc = phase9.get("scorable")
+    if sc:
+        st.markdown(f"**Firms this app scores under all its blank rules** (Attr21 present, {REFUSED} not blank, at most {A.MAX_OTHER_BLANKS} other blanks)")
+        c1, c2 = st.columns(2)
+        for col, key, title in ((c1, "val", "Validation split"), (c2, "train_oof", "Train, out-of-fold")):
+            b = sc[key]
+            with col:
+                st.markdown(f"{title}: {b['refused_firms']} of {b['all_firms']} firms refused, {b['refused_bankrupt']} of them bankrupt")
+                st.dataframe(metric_table(b), hide_index=True)
+        st.caption("Report only. The refusal rule was chosen after looking at train and validation, the cuts and calibration were not changed, "
+                   "and train out-of-fold scores use a calibrator fitted on those same scores. The High band's precision here is read against the 0.60 floor "
+                   "the cut was built for, and no cut was moved to meet it.")
     st.markdown("**Historical bankrupt rate per band, firms with Attr21 present**")
     rows = []
     for label, k in (("Validation", "val"), ("Train, out-of-fold", "train_oof")):
@@ -217,16 +240,25 @@ with tab_drivers:
     st.write(f"In the training data, {p7['train']['missing']['bankrupt']} of {p7['train']['missing']['firms']} firms with Attr21 blank are bankrupt, "
              f"against {p7['train']['present']['bankrupt']} of {p7['train']['present']['firms']} with it present. The model treats a blank as a very strong signal, "
              "so this app does not score firms with Attr21 blank. The cause of the pattern is not known.")
+    if BLOCKED:
+        st.markdown(f"**Blank {REFUSED}**")
+        for a_, reason in BLOCKED.items():
+            st.write(f"- {reason}")
+        st.caption("These refusals follow criteria fixed before the check and met on train and validation. They are not described as validated, "
+                   "and the test split cannot confirm them. A refusal guards against a score driven by a blank. It is not a claim that the model is wrong on those firms.")
 
 
 # ------------------------------------------------------------------------------ limitations and data
 with tab_limits:
     st.subheader("Limitations and data")
+    refused_bullet = (f"- Firms with {REFUSED} blank are not scored. In the training data those blanks were tied to a very different bankrupt rate, "
+                      "and the score would reflect the blank. See the model page for the numbers.") if BLOCKED else ""
     st.markdown(f"""
 - {CLAIM}
 - The Polish data has no company id and no year, so the split is random and cannot show how the model behaves on later years.
 - The sector composition of the data is not stated on the UCI page (UNVERIFIED). Do not assume it fits a particular industry or country.
 - Firms with Attr21 (sales growth) blank are not scored. Attr21 needs last year's sales.
+{refused_bullet}
 - Other blank attributes are scored with LightGBM's native handling. The effect of those blanks on the score has not been tested, and a firm with more than {A.MAX_OTHER_BLANKS} other blank attributes is not scored.
 - Bands were set on all firms. On firms with Attr21 present the High band was less precise than the cut aimed for. See the checks page.
 - The model, calibration and cuts are frozen. They were not tuned on the test split.

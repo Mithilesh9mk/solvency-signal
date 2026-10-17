@@ -246,3 +246,78 @@ def test_deploy_files():
     assert not any(r.startswith(("torch", "shap", "numba")) for r in req)
     assert "*.joblib binary" in (ROOT / ".gitattributes").read_text()
     assert "!models/lightgbm.joblib" in (ROOT / ".gitignore").read_text()
+
+
+# ------------------------------------------------------------- Phase 9: refused blanks
+needs_rule = pytest.mark.skipif(not (ROOT / "reports" / "phase9_blank_rule.json").exists(), reason="needs the Phase 9 rule file")
+
+
+@needs_rule
+def test_blocked_set_comes_from_the_rule_file_and_matches_the_criteria():
+    rule = A.load_json("reports/phase9_blank_rule.json")
+    assert rule["applied"] and rule["ceiling_crossed"] and rule["ceiling_overridden"]
+    assert rule["count_limit"] == A.MAX_OTHER_BLANKS == 6 and not rule["count_limit_condition_met"]
+    meets = [a for a, c in rule["candidates"].items() if c["meets_all"]]
+    assert rule["blocked"] == rule["meets_criteria"] == meets
+    assert set(A.blocked_blanks()) == set(meets) == {"Attr24", "Attr27"}
+
+
+@needs_rule
+def test_refused_blanks_are_not_scored_and_the_reason_says_why():
+    b = A.blocked_blanks()
+    out27 = A.assess(full_row(Attr27=np.nan))
+    assert out27["status"] == "refused" and out27["reason"].startswith("Attr27")
+    assert "undefined when financial expenses are zero" in out27["reason"] and "UNVERIFIED" in out27["reason"]
+    assert "higher" in out27["reason"] and "not the firm's finances" in out27["reason"]
+    out24 = A.assess(full_row(Attr24=np.nan))
+    assert out24["status"] == "refused" and "lower" in out24["reason"] and "UNVERIFIED" not in out24["reason"].split("Dictionary note")[0]
+    both = A.assess(full_row(Attr24=np.nan, Attr27=np.nan))
+    assert both["status"] == "refused" and "Attr24" in both["reason"] and "Attr27" in both["reason"]
+    assert A.assess(full_row(Attr27=np.nan), blocked={})["status"] == "scored"      # explicit bypass for tests only
+    assert A.assess(full_row(Attr3=np.nan))["status"] == "scored"                    # other blanks keep the warning
+    assert A.assess(full_row(Attr21=np.nan, Attr27=np.nan))["reason"].startswith("Attr21")
+    assert set(b) == {"Attr24", "Attr27"}
+
+
+@needs_rule
+def test_blocked_blanks_do_not_count_against_nothing_when_present_and_limit_is_unchanged():
+    seven = {f"Attr{i}": np.nan for i in range(1, 8)}
+    assert A.assess(full_row(**seven))["status"] == "refused" and "limit" in A.assess(full_row(**seven))["reason"]
+
+
+def test_rule_file_missing_or_malformed_fails_closed(tmp_path):
+    with pytest.raises(A.BlankRuleError):
+        A.load_rule(tmp_path)
+    (tmp_path / "reports").mkdir()
+    (tmp_path / "reports" / "phase9_blank_rule.json").write_text("{not json", encoding="utf-8")
+    with pytest.raises(A.BlankRuleError):
+        A.load_rule(tmp_path)
+    (tmp_path / "reports" / "phase9_blank_rule.json").write_text(json.dumps({"applied": True, "blocked": ["Attr27"], "blocked_detail": {}}), encoding="utf-8")
+    with pytest.raises(A.BlankRuleError):
+        A.load_rule(tmp_path)
+    (tmp_path / "reports" / "phase9_blank_rule.json").write_text(json.dumps({"applied": False, "blocked": ["Attr27"]}), encoding="utf-8")
+    assert A.load_rule(tmp_path)["blocked"] == {}                                     # not applied means nothing refused
+
+
+@needs_frozen
+@needs_rule
+def test_demo_firms_are_swapped_not_exempted(frozen):
+    from scripts import run_phase8_prep as P
+    from src.train import load_split
+
+    demo = A.demo_firms()
+    blocked = A.blocked_blanks()
+    frame = A.demo_frame(demo)
+    for a in blocked:
+        assert frame[a].notna().all(), f"a demo firm has {a} blank"
+    X_va, y_va = load_split("val")
+    p = frozen["calibrator"].transform(frozen["model"].predict_proba(X_va)[:, 1])
+    again = P.pick_demo(X_va, y_va, p, frozen["bands"], blocked)
+    assert [f["val_row"] for f in demo["firms"]] == list(again.values())
+    old = P.pick_demo(X_va, y_va, p, frozen["bands"], {})                           # rule without the refusals
+    refused_old = [r for r in old.values() if r not in again.values()]
+    assert refused_old, "the Phase 8 pick should differ now"
+    names = {f[1]: f[0] for f in A.FEATURES}
+    for r in refused_old:
+        row = X_va.iloc[r].rename(index=names)
+        assert A.assess(row, blocked=blocked)["status"] == "refused"

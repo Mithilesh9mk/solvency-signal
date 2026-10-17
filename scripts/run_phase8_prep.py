@@ -125,10 +125,12 @@ def blank_effects(X_tr, y_tr, X_va, y_va, model, calibrator, min_firms: int = 20
     return out
 
 
-def pick_demo(X, y, p, bands) -> dict:
-    """Phase 6 rule restricted to Attr21-present validation firms."""
+def pick_demo(X, y, p, bands, blocked: dict = None) -> dict:
+    """Phase 6 rule restricted to validation firms the app would score (Phase 9 refusal rules included)."""
     y, p = np.asarray(y), np.asarray(p)
-    present = ~X[KEY].isna().to_numpy()
+    blocked = A.blocked_blanks() if blocked is None else blocked
+    names = {f[1]: f[0] for f in FEATURES}
+    present = np.array([A.assess(r, blocked=blocked)["status"] == "scored" for _, r in X.rename(columns=names).iterrows()])
     pos, neg = np.flatnonzero((y == 1) & present), np.flatnonzero((y == 0) & present)
     miss = pos[p[pos] < bands["t_watch"]]
     picks = {"highest_scoring_true_positive": int(pos[np.argmax(p[pos])]),
@@ -150,8 +152,9 @@ def demo_payload(X_va, y_va, p_va, bands, picks: dict) -> dict:
                       "model_probability": float(p_va[i]), "model_band": str(C.assign_bands([p_va[i]], bands["t_watch"], bands["t_high"])[0]),
                       "n_other_blank": assess["n_other_blank"], "would_be_scored": assess["status"] == "scored",
                       "values": values})
-    return {"rule": "Phase 6 rule restricted to Attr21-present validation firms: highest-scoring true positive, highest-scoring "
-                    "false alarm, highest-scoring bankrupt firm below the Watch cut. Rows are from the validation split of the "
+    return {"rule": "Phase 6 rule restricted to validation firms the app would score (Attr21 present, no refused blank, at most 6 other "
+                    "blanks): highest-scoring true positive, highest-scoring false alarm, highest-scoring bankrupt firm below the Watch cut. "
+                    "Rows are from the validation split of the "
                     "Polish 5year data (UCI, CC BY 4.0), identified by row number, with no company id.",
             "firms": firms}
 
@@ -287,7 +290,7 @@ def render(nums: dict, blanks: dict, demo: dict, bands: dict, flags: list, effec
         L.append(f"| {a} | {t['blank']['bankrupt']} of {t['blank']['firms']} ({f3(t['blank']['rate'])}) | {f3(t['present']['rate'])} | "
                  f"{v['blank']['bankrupt']} of {v['blank']['firms']} ({f3(v['blank']['rate'])}) | {f3(v['present']['rate'])} | "
                  f"{e['mean_contribution_when_blank_train']:+.2f} | {e['mean_contribution_when_present_train']:+.2f} |")
-    L += ["", "## 5. Demo firms (Phase 6 rule, restricted to Attr21-present validation firms)", "", demo["rule"], "",
+    L += ["", "## 5. Demo firms (Phase 6 rule, restricted to validation firms the app would score)", "", demo["rule"], "",
           "| Role | Validation row | Dataset label | Model probability | Band | Other blanks | Would be scored |", "|---|---|---|---|---|---|---|"]
     for f in demo["firms"]:
         L.append(f"| {f['role']} | {f['val_row']} | {f['dataset_label']} | {f['model_probability']:.3f} | {f['model_band']} | {f['n_other_blank']} | {f['would_be_scored']} |")

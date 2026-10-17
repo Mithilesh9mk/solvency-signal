@@ -135,7 +135,14 @@ Streamlit app (app/streamlit_app.py) scoring firms with the frozen LightGBM + Pl
 
 Blank attributes (Phase 9):
 
-Probe of how blank attributes change the score (train and validation only, frozen model). Criteria were fixed before the run. Attributes meeting all three: Attr24, Attr27. Decision: stopped: coverage ceiling crossed, user decides. Details: reports/phase9_blanks.md.
+Probe of how blank attributes change the score (train and validation only, frozen model). Criteria were fixed before the run. Attributes meeting all three: Attr24, Attr27. Decision: applied: coverage ceiling crossed and overridden by the user. Details: reports/phase9_blanks.md.
+
+Firms the app scores under all blank rules (report only):
+
+| Scores | Firms scored | Refused | PR AUC | High precision | High recall |
+|---|---|---|---|---|---|
+| validation | 780 | 98 of 878 | 0.388 | 0.333 | 0.448 |
+| train out-of-fold | 3667 | 427 of 4094 | 0.486 | 0.447 | 0.497 |
 
 Details, reliability diagrams, band tables, cost framing and the model decision: [reports/phase4_calibration.md](reports/phase4_calibration.md). Earlier phases: [reports/models_val.md](reports/models_val.md).
 
@@ -202,7 +209,7 @@ Details, reliability diagrams, band tables, cost framing and the model decision:
 59. Phase 8: Sector composition of the Polish data is not stated on the UCI page, so the sector is UNVERIFIED. The data is a random split, with no company id or year.
 60. Phase 8: Test split untouched in this phase. No model, calibrator or cut was changed.
 61. Phase 9: 13 attributes are blank in at least 20 Attr21-present train firms. 2 meet all three pre-registered criteria: Attr24, Attr27. Under the null, 0.00 would be expected by chance (1000 label permutations). Validation is reused, so these are not described as validated.
-62. Phase 9: Coverage ceiling CROSSED (train: new refusals hold 31.6% of Attr21-present bankrupt firms (ceiling 30%); val: new refusals hold 38.0% of Attr21-present bankrupt firms (ceiling 30%)). The phase stops after this report and the app is unchanged. Decision: stopped: coverage ceiling crossed, user decides.
+62. Phase 9: Coverage ceiling CROSSED (train: new refusals hold 31.6% of Attr21-present bankrupt firms (ceiling 30%); val: new refusals hold 38.0% of Attr21-present bankrupt firms (ceiling 30%)). Decision: applied: coverage ceiling crossed and overridden by the user.
 63. Phase 9: Count limit of 6: the 3 to 6 group does not meet the pre-registered condition, the limit stays at 6.
 64. Phase 9: Attr27 blank, ridge regression with 53 low-blank covariates: odds ratio 20.35 (14.59 to 36.21), 52 rows dropped. An association only, it does not feed the rule.
 65. Phase 9: A blocked blank is a guard against trusting a score driven by a blank. It is not a claim that the model is wrong on those firms: see the observed rate against the mean predicted probability among blank firms in the table.
@@ -279,7 +286,7 @@ streamlit run app/streamlit_app.py
 ```
 
 The app is a screening signal for firms like those in the Polish data. It is not lending advice, and it was checked on a random
-split only. It does not score a firm with Attr21 (sales growth) blank, and it does not score a firm with more than 6 other
+split only. It does not score a firm with Attr21 (sales growth), Attr24 or Attr27 blank (the Phase 9 rule, read from `reports/phase9_blank_rule.json`), and it does not score a firm with more than 6 other
 blank attributes. Uploaded data is processed in memory and is not written to disk by this app. At start-up it checks the model
 and calibration files against the hashes in `artifacts/phase5_protocol.json` and stops on a mismatch. To deploy on Streamlit
 Community Cloud, point it at `app/streamlit_app.py` (it uses `app/requirements.txt`). Deploying is left to the repo owner.

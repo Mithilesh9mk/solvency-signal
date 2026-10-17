@@ -227,7 +227,13 @@ def phase9_section() -> tuple:
     meets = [a for a, h in res["history"].items() if h["criteria"]["blocked"]]
     lines = ["Probe of how blank attributes change the score (train and validation only, frozen model). Criteria were fixed before the run. "
              f"Attributes meeting all three: {', '.join(meets) if meets else 'none'}. Decision: {res['decision']['status']}. "
-             "Details: reports/phase9_blanks.md."]
+             "Details: reports/phase9_blanks.md.", ""]
+    sc = res.get("scorable")
+    if sc:
+        lines += ["Firms the app scores under all blank rules (report only):", "", "| Scores | Firms scored | Refused | PR AUC | High precision | High recall |", "|---|---|---|---|---|---|"]
+        for name, key in (("validation", "val"), ("train out-of-fold", "train_oof")):
+            b = sc[key]
+            lines.append(f"| {name} | {b['firms']} | {b['refused_firms']} of {b['all_firms']} | {b['pr_auc']:.3f} | {b['high']['precision']:.3f} | {b['high']['recall']:.3f} |")
     return lines, [f"Phase 9: {f}" for f in res["flags"]]
 
 

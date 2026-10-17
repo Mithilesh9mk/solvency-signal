@@ -69,3 +69,30 @@ def test_app_stops_with_an_error_when_frozen_files_do_not_verify(monkeypatch):
     st.cache_resource.clear()
     assert at.error and "do not match" in at.error[0].value
     assert not [m for m in at.metric if m.label == "Risk band"]
+
+
+def test_page_states_the_refused_blanks_and_the_rule_numbers_come_from_files():
+    at = AppTest.from_file(APP, default_timeout=120).run()
+    assert not at.exception
+    text = page_text(at)
+    rule = A.load_rule()
+    names = A.refused_blank_names(rule["blocked"])
+    assert f"Firms with {names} blank are not scored" in text
+    assert "Firms this app scores under all its blank rules" in text
+    for reason in rule["blocked"].values():
+        assert reason in text
+    at.radio[0].set_value("Upload CSV").run()
+    assert f"or {names} blank" in page_text(at)
+
+
+def test_app_stops_with_an_error_when_the_blank_rule_cannot_be_read(monkeypatch):
+    st.cache_resource.clear()
+
+    def bad(root=A.ROOT):
+        raise A.BlankRuleError("rule file missing")
+
+    monkeypatch.setattr(A, "load_rule", bad)
+    at = AppTest.from_file(APP, default_timeout=120).run()
+    st.cache_resource.clear()
+    assert at.error and "blank-attribute rule" in at.error[0].value
+    assert not [m for m in at.metric if m.label == "Risk band"]

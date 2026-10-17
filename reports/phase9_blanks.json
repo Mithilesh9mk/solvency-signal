@@ -969,9 +969,13 @@
   "met": false
  },
  "decision": {
-  "applied": false,
-  "blocked_set": [],
-  "status": "stopped: coverage ceiling crossed, user decides"
+  "applied": true,
+  "blocked_set": [
+   "Attr24",
+   "Attr27"
+  ],
+  "status": "applied: coverage ceiling crossed and overridden by the user",
+  "ceiling_overridden": true
  },
  "stress": {
   "train": [
@@ -2003,6 +2007,294 @@
    }
   ]
  },
+ "scorable": {
+  "train_oof": {
+   "firms": 3667,
+   "bankrupt": 143,
+   "no_skill_pr_auc": 0.0389964548677393,
+   "pr_auc": 0.48571533463392425,
+   "pr_auc_ci": [
+    0.41041649882519116,
+    0.5675757802031801
+   ],
+   "roc_auc": 0.9274465602501925,
+   "roc_auc_ci": [
+    0.9041140967432114,
+    0.9459293118912869
+   ],
+   "ece": 0.0032908188777908444,
+   "ece_ci": [
+    0.0025911370361035376,
+    0.009398445121478933
+   ],
+   "mean_predicted": 0.04035974078699739,
+   "observed_rate": 0.0389964548677393,
+   "reliability": [
+    [
+     0.001278000877916684,
+     0.0,
+     367
+    ],
+    [
+     0.002075763837582238,
+     0.0,
+     367
+    ],
+    [
+     0.002947289694640657,
+     0.0027247956403269754,
+     367
+    ],
+    [
+     0.004055401300631563,
+     0.0027247956403269754,
+     367
+    ],
+    [
+     0.005649806724778547,
+     0.0027247956403269754,
+     367
+    ],
+    [
+     0.008011592120174299,
+     0.005449591280653951,
+     367
+    ],
+    [
+     0.01223262942864361,
+     0.01634877384196185,
+     367
+    ],
+    [
+     0.020042165534402804,
+     0.01912568306010929,
+     366
+    ],
+    [
+     0.04091938065633333,
+     0.04644808743169399,
+     366
+    ],
+    [
+     0.3070582402673418,
+     0.29508196721311475,
+     366
+    ]
+   ],
+   "high": {
+    "flagged": 159,
+    "bankrupt": 71,
+    "precision": 0.44654088050314467,
+    "precision_ci": [
+     0.3850812231247014,
+     0.5135379945162554
+    ],
+    "recall": 0.4965034965034965,
+    "recall_ci": [
+     0.4125874125874126,
+     0.5804195804195804
+    ]
+   },
+   "watch_plus_high": {
+    "flagged": 200,
+    "bankrupt": 82,
+    "precision": 0.41,
+    "precision_ci": [
+     0.3535272449263275,
+     0.4647132352941177
+    ],
+    "recall": 0.5734265734265734,
+    "recall_ci": [
+     0.4965034965034965,
+     0.6503496503496503
+    ]
+   },
+   "band_table": [
+    {
+     "band": "Low",
+     "firms": 3467,
+     "share_of_firms": 0.9454595036814835,
+     "bankrupt": 61,
+     "bankrupt_rate": 0.017594462070954716,
+     "share_of_all_bankrupt": 0.42657342657342656,
+     "wilson_95": [
+      0.013722059635356353,
+      0.02253469837912713
+     ]
+    },
+    {
+     "band": "Watch",
+     "firms": 41,
+     "share_of_firms": 0.011180801745295883,
+     "bankrupt": 11,
+     "bankrupt_rate": 0.2682926829268293,
+     "share_of_all_bankrupt": 0.07692307692307693,
+     "wilson_95": [
+      0.1569496397965945,
+      0.4193353323249267
+     ]
+    },
+    {
+     "band": "High",
+     "firms": 159,
+     "share_of_firms": 0.043359694573220614,
+     "bankrupt": 71,
+     "bankrupt_rate": 0.44654088050314467,
+     "share_of_all_bankrupt": 0.4965034965034965,
+     "wilson_95": [
+      0.3714363119340325,
+      0.5241676692831082
+     ]
+    }
+   ],
+   "refused_firms": 427,
+   "refused_bankrupt": 143,
+   "all_firms": 4094
+  },
+  "val": {
+   "firms": 780,
+   "bankrupt": 29,
+   "no_skill_pr_auc": 0.03717948717948718,
+   "pr_auc": 0.388087238432136,
+   "pr_auc_ci": [
+    0.24072794781816942,
+    0.5625509345864514
+   ],
+   "roc_auc": 0.9167546719316773,
+   "roc_auc_ci": [
+    0.8672574498369989,
+    0.9543792185132467
+   ],
+   "ece": 0.013031974090389597,
+   "ece_ci": [
+    0.007848109804858444,
+    0.02837665426195781
+   ],
+   "mean_predicted": 0.04788294099033003,
+   "observed_rate": 0.03717948717948718,
+   "reliability": [
+    [
+     0.0020807462978728796,
+     0.0,
+     78
+    ],
+    [
+     0.00329038754055257,
+     0.0,
+     78
+    ],
+    [
+     0.004400508695335297,
+     0.0,
+     78
+    ],
+    [
+     0.005509404787706768,
+     0.0,
+     78
+    ],
+    [
+     0.0071407244426738,
+     0.0,
+     78
+    ],
+    [
+     0.010457446722920233,
+     0.01282051282051282,
+     78
+    ],
+    [
+     0.016361490340884532,
+     0.02564102564102564,
+     78
+    ],
+    [
+     0.02718767989201699,
+     0.01282051282051282,
+     78
+    ],
+    [
+     0.0575519373301432,
+     0.05128205128205128,
+     78
+    ],
+    [
+     0.34484908385319407,
+     0.2692307692307692,
+     78
+    ]
+   ],
+   "high": {
+    "flagged": 39,
+    "bankrupt": 13,
+    "precision": 0.3333333333333333,
+    "precision_ci": [
+     0.20827205882352942,
+     0.4722222222222222
+    ],
+    "recall": 0.4482758620689655,
+    "recall_ci": [
+     0.27586206896551724,
+     0.6206896551724138
+    ]
+   },
+   "watch_plus_high": {
+    "flagged": 51,
+    "bankrupt": 17,
+    "precision": 0.3333333333333333,
+    "precision_ci": [
+     0.23404255319148937,
+     0.4445035460992907
+    ],
+    "recall": 0.5862068965517241,
+    "recall_ci": [
+     0.41293103448275864,
+     0.7586206896551724
+    ]
+   },
+   "band_table": [
+    {
+     "band": "Low",
+     "firms": 729,
+     "share_of_firms": 0.9346153846153846,
+     "bankrupt": 12,
+     "bankrupt_rate": 0.01646090534979424,
+     "share_of_all_bankrupt": 0.41379310344827586,
+     "wilson_95": [
+      0.009440973458159084,
+      0.028550134364529883
+     ]
+    },
+    {
+     "band": "Watch",
+     "firms": 12,
+     "share_of_firms": 0.015384615384615385,
+     "bankrupt": 4,
+     "bankrupt_rate": 0.3333333333333333,
+     "share_of_all_bankrupt": 0.13793103448275862,
+     "wilson_95": [
+      0.13812009012485987,
+      0.6093779130595061
+     ]
+    },
+    {
+     "band": "High",
+     "firms": 39,
+     "share_of_firms": 0.05,
+     "bankrupt": 13,
+     "bankrupt_rate": 0.3333333333333333,
+     "share_of_all_bankrupt": 0.4482758620689655,
+     "wilson_95": [
+      0.20632956108003392,
+      0.4902260572517306
+     ]
+    }
+   ],
+   "refused_firms": 98,
+   "refused_bankrupt": 32,
+   "all_firms": 878
+  }
+ },
  "deep_dive": {
   "attr2_train_median": 0.4467,
   "co_blank_train": [
@@ -2369,7 +2661,7 @@
  },
  "flags": [
   "13 attributes are blank in at least 20 Attr21-present train firms. 2 meet all three pre-registered criteria: Attr24, Attr27. Under the null, 0.00 would be expected by chance (1000 label permutations). Validation is reused, so these are not described as validated.",
-  "Coverage ceiling CROSSED (train: new refusals hold 31.6% of Attr21-present bankrupt firms (ceiling 30%); val: new refusals hold 38.0% of Attr21-present bankrupt firms (ceiling 30%)). The phase stops after this report and the app is unchanged. Decision: stopped: coverage ceiling crossed, user decides.",
+  "Coverage ceiling CROSSED (train: new refusals hold 31.6% of Attr21-present bankrupt firms (ceiling 30%); val: new refusals hold 38.0% of Attr21-present bankrupt firms (ceiling 30%)). Decision: applied: coverage ceiling crossed and overridden by the user.",
   "Count limit of 6: the 3 to 6 group does not meet the pre-registered condition, the limit stays at 6.",
   "Attr27 blank, ridge regression with 53 low-blank covariates: odds ratio 20.35 (14.59 to 36.21), 52 rows dropped. An association only, it does not feed the rule.",
   "A blocked blank is a guard against trusting a score driven by a blank. It is not a claim that the model is wrong on those firms: see the observed rate against the mean predicted probability among blank firms in the table.",

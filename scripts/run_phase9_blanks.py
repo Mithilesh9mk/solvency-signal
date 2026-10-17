@@ -7,6 +7,7 @@ and the test split is never loaded. Criteria, ceiling and the deep-dive design a
 protocol), written before this ran. All randomness uses SEED = 42.
 """
 
+import argparse
 import json
 from pathlib import Path
 
@@ -312,25 +313,41 @@ def deep_dive(X_tr, y_tr, X_va, y_va, p_tr, p_va) -> dict:
 # ----------------------------------------------------------------------------------- rule
 def rule_payload(hist: dict, cost: dict, null: dict, count_dec: dict, decision: dict) -> dict:
     blocked = decision["blocked_set"]
+    detail = {}
+    for a in blocked:
+        h = hist[a]
+        detail[a] = {"direction": h["criteria"]["direction"], "name": h["name"], "formula": h["formula"],
+                     "dictionary_flag": next(f[3] for f in FEATURES if f[0] == a),
+                     "mean_contribution_when_blank_train": h["mean_contribution_when_blank_train"],
+                     "train": {"blank_firms": h["train"]["blank"]["firms"], "blank_bankrupt": h["train"]["blank"]["bankrupt"],
+                               "present_rate": h["train"]["present"]["rate"]},
+                     "val": {"blank_firms": h["val"]["blank"]["firms"], "blank_bankrupt": h["val"]["blank"]["bankrupt"],
+                             "present_rate": h["val"]["present"]["rate"]}}
     return {"phase": 9, "criteria": {"ratio_up": RATIO_UP, "ratio_down": RATIO_DOWN, "min_abs_contribution": MIN_CONTRIB,
                                      "validation_ratio_up": VAL_RATIO_UP, "validation_ratio_down": VAL_RATIO_DOWN,
                                      "min_train_blank_firms": MIN_TRAIN_BLANK, "min_validation_blank_firms": MIN_VAL_BLANK},
             "candidates": {a: {"direction": h["criteria"]["direction"], "c1": h["criteria"]["c1"], "c2": h["criteria"]["c2"],
                                "c3": h["criteria"]["c3"], "meets_all": h["criteria"]["blocked"]} for a, h in hist.items()},
             "meets_criteria": [a for a, h in hist.items() if h["criteria"]["blocked"]],
-            "ceiling_crossed": cost["ceiling"]["crossed"], "count_limit_condition_met": count_dec["met"],
-            "applied": decision["applied"], "blocked": blocked, "count_limit": A.MAX_OTHER_BLANKS,
+            "ceiling_crossed": cost["ceiling"]["crossed"], "ceiling_overridden": decision["ceiling_overridden"],
+            "count_limit_condition_met": count_dec["met"],
+            "applied": decision["applied"], "blocked": blocked, "blocked_detail": detail, "count_limit": A.MAX_OTHER_BLANKS,
             "status": decision["status"],
             "expected_false_positives_under_null": null["expected_false_positives"]}
 
 
-def decide(hist: dict, cost: dict, count_dec: dict) -> dict:
+def decide(hist: dict, cost: dict, count_dec: dict, override_ceiling: bool = False) -> dict:
     meets = [a for a, h in hist.items() if h["criteria"]["blocked"]]
-    if cost["ceiling"]["crossed"]:
-        return {"applied": False, "blocked_set": [], "status": "stopped: coverage ceiling crossed, user decides"}
     if count_dec["met"]:
-        return {"applied": False, "blocked_set": [], "status": "stopped: count-limit condition met, user decides"}
-    return {"applied": True, "blocked_set": meets, "status": "applied" if meets else "no attribute meets the criteria, rule unchanged"}
+        return {"applied": False, "blocked_set": [], "status": "stopped: count-limit condition met, user decides", "ceiling_overridden": False}
+    if cost["ceiling"]["crossed"] and not override_ceiling:
+        return {"applied": False, "blocked_set": [], "status": "stopped: coverage ceiling crossed, user decides", "ceiling_overridden": False}
+    over = bool(cost["ceiling"]["crossed"] and override_ceiling)
+    if not meets:
+        status = "no attribute meets the criteria, rule unchanged"
+    else:
+        status = "applied: coverage ceiling crossed and overridden by the user" if over else "applied"
+    return {"applied": True, "blocked_set": meets, "status": status, "ceiling_overridden": over}
 
 
 # --------------------------------------------------------------------------------- report
@@ -349,8 +366,7 @@ def make_flags(hist, cost, null, count_dec, decision, ridge) -> list:
                  f"{', '.join(meets) if meets else 'none'}. Under the null, {null['expected_false_positives']:.2f} would be expected by chance "
                  f"({null['permutations']} label permutations). Validation is reused, so these are not described as validated.")
     c = cost["ceiling"]
-    flags.append("Coverage ceiling " + (f"CROSSED ({'; '.join(c['reasons'])}). The phase stops after this report and the app is unchanged." if c["crossed"]
-                                         else "not crossed.") + f" Decision: {decision['status']}.")
+    flags.append("Coverage ceiling " + (f"CROSSED ({'; '.join(c['reasons'])})." if c["crossed"] else "not crossed.") + f" Decision: {decision['status']}.")
     flags.append("Count limit of 6: " + ("condition met, the phase stops for the user." if count_dec["met"] else
                  ("not evaluable." if not count_dec["evaluable"] else "the 3 to 6 group does not meet the pre-registered condition, the limit stays at 6.")))
     if ridge.get("evaluable"):
@@ -451,12 +467,37 @@ def render(res: dict) -> str:
                  f"odds ratio {rg['odds_ratio']:.2f} ({rg['odds_ratio_ci'][0]:.2f} to {rg['odds_ratio_ci'][1]:.2f}). An association only, not a cause.")
     else:
         L.append(f"Not evaluable: {rg['dropped_share']:.1%} of rows would be dropped, above the {REG_MAX_DROP:.0%} limit.")
+    sc = res.get("scorable")
+    if sc:
+        L += ["", "## 7. Performance on the firms the app scores under all blank rules (report only)", "",
+              "Attr21 present, no refused blank, at most 6 other blanks. Cuts and calibrator unchanged. The rule was chosen after seeing train and validation, so this is descriptive.", "",
+              "| Scores | Firms scored | Bankrupt | Refused (of all firms) | Bankrupt refused | No-skill PR AUC | PR AUC (95% CI) | High precision (95% CI) | High recall (95% CI) | Watch+High recall (95% CI) |",
+              "|---|---|---|---|---|---|---|---|---|---|"]
+        for key, name in (("val", "validation"), ("train_oof", "train out-of-fold")):
+            b = sc[key]
+            L.append(f"| {name} | {b['firms']} | {b['bankrupt']} | {b['refused_firms']} of {b['all_firms']} | {b['refused_bankrupt']} | {b['no_skill_pr_auc']:.3f} | "
+                     f"{ci(b['pr_auc'], b['pr_auc_ci'])} | {ci(b['high']['precision'], b['high']['precision_ci'])} | {ci(b['high']['recall'], b['high']['recall_ci'])} | "
+                     f"{ci(b['watch_plus_high']['recall'], b['watch_plus_high']['recall_ci'])} |")
     L += ["", "## Flags", "", *[f"{i}. {f}" for i, f in enumerate(res["flags"], 1)], ""]
     return NL.join(L)
 
 
 # ----------------------------------------------------------------------------------- run
-def run(X_tr, y_tr, X_va, y_va, model, calibrator, bands, reports=REPORTS, n_perm: int = N_PERM) -> dict:
+def scorable_blocks(X_tr, y_tr, X_va, y_va, oof, p_va, bands, blocked: list, hist: dict) -> dict:
+    """Performance on the firms the app scores under all rules: Attr21 present, no refused blank, at most 6 other blanks."""
+    out = {}
+    for key, X, y, p in (("train_oof", X_tr, y_tr, oof), ("val", X_va, y_va, p_va)):
+        y = np.asarray(y)
+        m = ~X[KEY].isna().to_numpy() & (X.drop(columns=[KEY]).isna().sum(axis=1).to_numpy() <= A.MAX_OTHER_BLANKS)
+        for a in blocked:
+            m &= ~X[hist[a]["name"]].isna().to_numpy()
+        out[key] = {**subset_block(y[m], np.asarray(p)[m], bands, N_BOOT), "refused_firms": int((~m).sum()),
+                    "refused_bankrupt": int(y[~m].sum()), "all_firms": int(len(y))}
+    return out
+
+
+def run(X_tr, y_tr, X_va, y_va, model, calibrator, bands, reports=REPORTS, n_perm: int = N_PERM,
+        override_ceiling: bool = False) -> dict:
     reports = Path(reports)
     reports.mkdir(parents=True, exist_ok=True)
     oof = calibrator.transform(C.oof_predictions(make_lgbm, X_tr, y_tr))
@@ -467,12 +508,14 @@ def run(X_tr, y_tr, X_va, y_va, model, calibrator, bands, reports=REPORTS, n_per
     cost = cost_and_ceiling(X_tr, y_tr, X_va, y_va, meets, hist)
     groups = {"train_oof": count_groups(X_tr, y_tr, oof, bands), "val": count_groups(X_va, y_va, p_va, bands)}
     cdec = count_limit_decision(groups["train_oof"], groups["val"])
-    decision = decide(hist, cost, cdec)
+    decision = decide(hist, cost, cdec, override_ceiling)
+    scorable = (scorable_blocks(X_tr, y_tr, X_va, y_va, oof, p_va, bands, decision["blocked_set"], hist)
+                if decision["applied"] else None)
     st = {"train": stress(X_tr, model, calibrator, bands), "val": stress(X_va, model, calibrator, bands)}
     dd = deep_dive(X_tr, y_tr, X_va, y_va, oof, p_va)
     flags = make_flags(hist, cost, null, cdec, decision, dd["ridge_train"])
     res = {"history": hist, "null": null, "cost": cost, "count_groups": groups, "count_decision": cdec, "decision": decision,
-           "stress": st, "deep_dive": dd, "flags": flags, "seed": SEED, "bootstrap_n": N_BOOT,
+           "stress": st, "scorable": scorable, "deep_dive": dd, "flags": flags, "seed": SEED, "bootstrap_n": N_BOOT,
            "bands": {"t_watch": bands["t_watch"], "t_high": bands["t_high"]}}
     rule = rule_payload(hist, cost, null, cdec, decision)
     (reports / "phase9_blanks.json").write_text(json.dumps(res, indent=1), encoding="utf-8")
@@ -482,6 +525,10 @@ def run(X_tr, y_tr, X_va, y_va, model, calibrator, bands, reports=REPORTS, n_per
 
 
 def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--override-ceiling", action="store_true",
+                    help="user decision: apply the rule although the coverage ceiling is crossed")
+    args = ap.parse_args()
     np.random.seed(SEED)
     verify_frozen()
     art = C.load_artifacts(ROOT / "artifacts" / "calibration")
@@ -490,7 +537,7 @@ def main() -> None:
     model = joblib.load(ROOT / "models" / "lightgbm.joblib")
     X_tr, y_tr = load_split("train")
     X_va, y_va = load_split("val")
-    res = run(X_tr, y_tr, X_va, y_va, model, calibrator, bands)
+    res = run(X_tr, y_tr, X_va, y_va, model, calibrator, bands, override_ceiling=args.override_ceiling)
     print(f"wrote reports/phase9_blanks.md and phase9_blank_rule.json; decision: {res['decision']['status']}")
 
 

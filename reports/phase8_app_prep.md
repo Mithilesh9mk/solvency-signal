@@ -58,48 +58,48 @@ Attributes with blanks, Attr21-present firms (train and validation):
 | Attr45: net profit / inventory | 168 (0.042) | 44 (0.051) |
 | Attr60: sales / inventory | 168 (0.042) | 44 (0.051) |
 | Attr24: gross profit (in 3 years) / total assets | 90 (0.022) | 22 (0.025) |
-| Attr54: constant capital / fixed assets | 66 (0.016) | 12 (0.014) |
 | Attr28: working capital / fixed assets | 66 (0.016) | 12 (0.014) |
-| Attr64: sales / fixed assets | 66 (0.016) | 12 (0.014) |
 | Attr53: equity / fixed assets | 66 (0.016) | 12 (0.014) |
+| Attr54: constant capital / fixed assets | 66 (0.016) | 12 (0.014) |
+| Attr64: sales / fixed assets | 66 (0.016) | 12 (0.014) |
 | Attr41: total liabilities / ((profit on operating activities + depreciation) * (12/365)) | 57 (0.014) | 17 (0.020) |
 | Attr32: (current liabilities * 365) / cost of products sold | 34 (0.008) | 4 (0.005) |
 | Attr52: (short-term liabilities * 365) / cost of products sold | 26 (0.006) | 4 (0.005) |
 | Attr47: (inventory * 365) / cost of products sold | 25 (0.006) | 4 (0.005) |
-| Attr63: sales / short-term liabilities | 11 (0.003) | 6 (0.007) |
-| Attr40: (current assets - inventory - receivables) / short-term liabilities | 11 (0.003) | 6 (0.007) |
-| Attr33: operating expenses / short-term liabilities | 11 (0.003) | 6 (0.007) |
-| Attr46: (current assets - inventory) / short-term liabilities | 11 (0.003) | 6 (0.007) |
-| Attr12: gross profit / short-term liabilities | 11 (0.003) | 6 (0.007) |
 | Attr4: current assets / short-term liabilities | 11 (0.003) | 6 (0.007) |
-| Attr34: operating expenses / total liabilities | 9 (0.002) | 5 (0.006) |
-| Attr8: book value of equity / total liabilities | 9 (0.002) | 5 (0.006) |
-| Attr17: total assets / total liabilities | 9 (0.002) | 5 (0.006) |
-| Attr16: (gross profit + depreciation) / total liabilities | 9 (0.002) | 5 (0.006) |
+| Attr40: (current assets - inventory - receivables) / short-term liabilities | 11 (0.003) | 6 (0.007) |
+| Attr63: sales / short-term liabilities | 11 (0.003) | 6 (0.007) |
+| Attr46: (current assets - inventory) / short-term liabilities | 11 (0.003) | 6 (0.007) |
+| Attr33: operating expenses / short-term liabilities | 11 (0.003) | 6 (0.007) |
+| Attr12: gross profit / short-term liabilities | 11 (0.003) | 6 (0.007) |
 | Attr5: [(cash + short-term securities + receivables - short-term liabilities) / (operating expenses - depreciation)] * 365 | 9 (0.002) | 2 (0.002) |
+| Attr8: book value of equity / total liabilities | 9 (0.002) | 5 (0.006) |
 | Attr26: (net profit + depreciation) / total liabilities | 9 (0.002) | 5 (0.006) |
+| Attr16: (gross profit + depreciation) / total liabilities | 9 (0.002) | 5 (0.006) |
 | Attr50: current assets / total liabilities | 9 (0.002) | 5 (0.006) |
+| Attr34: operating expenses / total liabilities | 9 (0.002) | 5 (0.006) |
+| Attr17: total assets / total liabilities | 9 (0.002) | 5 (0.006) |
 | Attr61: sales / receivables | 7 (0.002) | 3 (0.003) |
 | Attr15: (total liabilities * 365) / (gross profit + depreciation) | 3 (0.001) | 3 (0.003) |
 | Attr1: net profit / total assets | 1 (0.000) | 0 (0.000) |
-| Attr22: profit on operating activities / total assets | 1 (0.000) | 0 (0.000) |
-| Attr48: EBITDA (profit on operating activities - depreciation) / total assets | 1 (0.000) | 0 (0.000) |
+| Attr29: logarithm of total assets | 1 (0.000) | 0 (0.000) |
+| Attr2: total liabilities / total assets | 1 (0.000) | 0 (0.000) |
 | Attr6: retained earnings / total assets | 1 (0.000) | 0 (0.000) |
-| Attr10: equity / total assets | 1 (0.000) | 0 (0.000) |
-| Attr14: (gross profit + interest) / total assets | 1 (0.000) | 0 (0.000) |
-| Attr59: long-term liabilities / equity | 1 (0.000) | 0 (0.000) |
+| Attr48: EBITDA (profit on operating activities - depreciation) / total assets | 1 (0.000) | 0 (0.000) |
+| Attr7: EBIT / total assets | 1 (0.000) | 0 (0.000) |
 | Attr35: profit on sales / total assets | 1 (0.000) | 0 (0.000) |
 | Attr18: gross profit / total assets | 1 (0.000) | 0 (0.000) |
-| Attr57: (current assets - inventory - short-term liabilities) / (sales - gross profit - depreciation) | 1 (0.000) | 0 (0.000) |
-| Attr36: total sales / total assets | 1 (0.000) | 0 (0.000) |
-| Attr38: constant capital / total assets | 1 (0.000) | 0 (0.000) |
-| Attr11: (gross profit + extraordinary items + financial expenses) / total assets | 1 (0.000) | 0 (0.000) |
-| Attr25: (equity - share capital) / total assets | 1 (0.000) | 0 (0.000) |
 | Attr51: short-term liabilities / total assets | 1 (0.000) | 0 (0.000) |
-| Attr2: total liabilities / total assets | 1 (0.000) | 0 (0.000) |
+| Attr59: long-term liabilities / equity | 1 (0.000) | 0 (0.000) |
+| Attr10: equity / total assets | 1 (0.000) | 0 (0.000) |
+| Attr11: (gross profit + extraordinary items + financial expenses) / total assets | 1 (0.000) | 0 (0.000) |
+| Attr38: constant capital / total assets | 1 (0.000) | 0 (0.000) |
+| Attr36: total sales / total assets | 1 (0.000) | 0 (0.000) |
+| Attr25: (equity - share capital) / total assets | 1 (0.000) | 0 (0.000) |
 | Attr3: working capital / total assets | 1 (0.000) | 0 (0.000) |
-| Attr7: EBIT / total assets | 1 (0.000) | 0 (0.000) |
-| Attr29: logarithm of total assets | 1 (0.000) | 0 (0.000) |
+| Attr14: (gross profit + interest) / total assets | 1 (0.000) | 0 (0.000) |
+| Attr22: profit on operating activities / total assets | 1 (0.000) | 0 (0.000) |
+| Attr57: (current assets - inventory - short-term liabilities) / (sales - gross profit - depreciation) | 1 (0.000) | 0 (0.000) |
 
 Descriptive history for attributes blank in at least 20 Attr21-present train firms (not a test of the effect):
 
@@ -119,13 +119,13 @@ Descriptive history for attributes blank in at least 20 Attr21-present train fir
 | Attr60 | 15 of 168 (0.089) | 0.052 | 3 of 44 (0.068) | 0.057 | +0.12 | -0.01 |
 | Attr64 | 4 of 66 (0.061) | 0.053 | 3 of 12 (0.250) | 0.055 | -0.24 | +0.01 |
 
-## 5. Demo firms (Phase 6 rule, restricted to Attr21-present validation firms)
+## 5. Demo firms (Phase 6 rule, restricted to validation firms the app would score)
 
-Phase 6 rule restricted to Attr21-present validation firms: highest-scoring true positive, highest-scoring false alarm, highest-scoring bankrupt firm below the Watch cut. Rows are from the validation split of the Polish 5year data (UCI, CC BY 4.0), identified by row number, with no company id.
+Phase 6 rule restricted to validation firms the app would score (Attr21 present, no refused blank, at most 6 other blanks): highest-scoring true positive, highest-scoring false alarm, highest-scoring bankrupt firm below the Watch cut. Rows are from the validation split of the Polish 5year data (UCI, CC BY 4.0), identified by row number, with no company id.
 
 | Role | Validation row | Dataset label | Model probability | Band | Other blanks | Would be scored |
 |---|---|---|---|---|---|---|
-| highest scoring true positive | 831 | bankrupt within the year | 0.990 | High | 1 | True |
+| highest scoring true positive | 626 | bankrupt within the year | 0.985 | High | 1 | True |
 | highest scoring false alarm | 571 | still operating | 0.798 | High | 1 | True |
 | nearest miss below watch cut | 319 | bankrupt within the year | 0.163 | Low | 0 | True |
 

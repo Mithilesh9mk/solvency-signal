@@ -81,3 +81,38 @@ def test_signed_log_and_stress_shape():
     x = np.array([-3.0, 0.0, 3.0])
     out = P.signed_log(x)
     assert out[1] == 0 and out[0] == -out[2]
+
+
+# ------------------------------------------------------------- override and generated files
+def test_override_applies_the_set_only_when_the_ceiling_is_the_reason_for_stopping():
+    hist = {"AttrA": {"criteria": {"blocked": True}}, "AttrB": {"criteria": {"blocked": False}}}
+    crossed = {"ceiling": {"crossed": True}}
+    clear = {"ceiling": {"crossed": False}}
+    d = P.decide(hist, crossed, {"met": False}, override_ceiling=True)
+    assert d["applied"] and d["blocked_set"] == ["AttrA"] and d["ceiling_overridden"] and "overridden" in d["status"]
+    d = P.decide(hist, crossed, {"met": False})
+    assert not d["applied"] and d["blocked_set"] == [] and not d["ceiling_overridden"]
+    d = P.decide(hist, clear, {"met": False}, override_ceiling=True)
+    assert d["applied"] and not d["ceiling_overridden"] and d["status"] == "applied"
+    d = P.decide(hist, crossed, {"met": True}, override_ceiling=True)                    # the count-limit stop is never overridden
+    assert not d["applied"] and "count-limit" in d["status"]
+    none = P.decide({"AttrB": {"criteria": {"blocked": False}}}, clear, {"met": False})
+    assert none["applied"] and none["blocked_set"] == [] and "unchanged" in none["status"]
+
+
+def test_generated_phase9_files_agree():
+    import json
+
+    from src.preprocess import ROOT
+
+    rule_p, res_p = ROOT / "reports" / "phase9_blank_rule.json", ROOT / "reports" / "phase9_blanks.json"
+    if not (rule_p.exists() and res_p.exists()):
+        return
+    rule, res = json.loads(rule_p.read_text()), json.loads(res_p.read_text())
+    assert rule["blocked"] == [a for a, h in res["history"].items() if h["criteria"]["blocked"]] if rule["applied"] else rule["blocked"] == []
+    assert set(rule["blocked_detail"]) == set(rule["blocked"])
+    assert res["cost"]["ceiling"]["crossed"] == rule["ceiling_crossed"]
+    if rule["applied"]:
+        for key in ("val", "train_oof"):
+            b = res["scorable"][key]
+            assert b["firms"] + b["refused_firms"] == b["all_firms"]

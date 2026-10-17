@@ -107,10 +107,50 @@
   "Attr27"
  ],
  "ceiling_crossed": true,
+ "ceiling_overridden": true,
  "count_limit_condition_met": false,
- "applied": false,
- "blocked": [],
+ "applied": true,
+ "blocked": [
+  "Attr24",
+  "Attr27"
+ ],
+ "blocked_detail": {
+  "Attr24": {
+   "direction": "down",
+   "name": "gp_3y_to_assets",
+   "formula": "gross profit (in 3 years) / total assets",
+   "dictionary_flag": "'gross profit' likely means profit before tax (translation); '(in 3 years)' unclear, possibly 3-year cumulative",
+   "mean_contribution_when_blank_train": -1.014098687178441,
+   "train": {
+    "blank_firms": 90,
+    "blank_bankrupt": 0,
+    "present_rate": 0.054693462223352834
+   },
+   "val": {
+    "blank_firms": 22,
+    "blank_bankrupt": 0,
+    "present_rate": 0.05924170616113744
+   }
+  },
+  "Attr27": {
+   "direction": "up",
+   "name": "operating_profit_to_fin_expenses",
+   "formula": "profit on operating activities / financial expenses",
+   "dictionary_flag": "interest coverage style; undefined when financial expenses are zero",
+   "mean_contribution_when_blank_train": 2.306213928365906,
+   "train": {
+    "blank_firms": 251,
+    "blank_bankrupt": 69,
+    "present_rate": 0.03872679045092838
+   },
+   "val": {
+    "blank_firms": 62,
+    "blank_bankrupt": 20,
+    "present_rate": 0.03731343283582089
+   }
+  }
+ },
  "count_limit": 6,
- "status": "stopped: coverage ceiling crossed, user decides",
+ "status": "applied: coverage ceiling crossed and overridden by the user",
  "expected_false_positives_under_null": 0.002
 }

@@ -386,3 +386,37 @@ protects against trusting a score driven by a blank, it is not a claim that the 
   does not show whether a blank means zero expenses or missing data, UNVERIFIED), not a statement that the model is wrong on
   those firms.
 - `reports/phase9_blank_rule.json` records the candidates, criteria results and the status "stopped". The app does not read it yet.
+
+## 2026-10-17 (Phase 9, user decision after the report, written before the app change and regeneration)
+
+- **User decision:** refuse scoring when Attr27 or Attr24 is blank, and the user overrides the coverage ceiling for this. The
+  ceiling stays recorded as crossed in the report. The rule is the set of attributes that met the pre-registered criteria, taken
+  from the code's output, not typed by hand. The count limit stays at 6. The model, calibrator and cuts do not change.
+- **How it is applied.** `scripts/run_phase9_blanks.py --override-ceiling` writes `reports/phase9_blank_rule.json` with the
+  blocked set, the override noted, and per-attribute detail used in the refusal text. The app reads the blocked set from that
+  file and fails closed: a missing or unreadable rule file stops scoring. Without the flag the script behaves as before and the
+  rule stays empty.
+- **Refusal text** comes from the rule file and the feature dictionary. It gives the train history and the model's contribution
+  for the blank. Where the dictionary says the ratio is undefined when the denominator is zero (Attr27, financial expenses), the
+  text says so and says the data does not show whether a blank means zero or missing (UNVERIFIED).
+- **Demo firms.** The demo rule is re-run restricted to validation firms the app would score under all rules (Attr21 present, no
+  refused blank, at most 6 other blanks). A demo firm that would be refused is swapped, not exempted. This replaces the earlier
+  restriction to Attr21-present firms only, because the earlier rule would now pick a firm the app refuses.
+- **Validation page.** Adds, report only, the performance on the firms the app now scores (same metrics, bootstrap CIs, seed 42),
+  beside the existing Attr21-present and all-firms numbers, with the counts refused. Cuts are not re-set, so the High band's
+  precision on this subset is reported against the 0.60 floor without any change.
+- **Cannot show.** The test split is spent, so the effect of the refusal on untouched data is unknown. The subset numbers use a
+  rule chosen after seeing train and validation, so they are descriptive, not an independent check.
+
+## 2026-10-17 (Phase 9, after the app change)
+
+- Applied as decided: Attr27 blank and Attr24 blank are refused, ceiling overridden by the user and recorded in the rule file and
+  report. The count limit is unchanged. Model, calibrator and cuts unchanged. Test split untouched.
+- The app reads the blocked set and the refusal text ingredients from `reports/phase9_blank_rule.json` and fails closed if it is
+  missing. Tests pin the file to the criteria results, the refusal text, the unchanged limit, and the demo swap.
+- Demo firms re-picked with the refusal rules included: the highest-scoring true positive changed (the earlier pick had Attr27
+  blank and is now refused). Nothing was exempted.
+- **Finding, shown on the validation page.** On the firms the app now scores, the metrics are lower than on Attr21-present firms
+  (see `reports/phase9_blanks.md` section 7), because the refused firms were among the easiest bankrupt firms to flag. The
+  all-firms headline and the Attr21-present numbers therefore overstate what the app does on the firms it scores. The cuts were
+  not moved. Report only.

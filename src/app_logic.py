@@ -2,6 +2,7 @@
 
 Policy (docs/decisions.md, Phase 8 protocol):
 - A firm whose Attr21 is blank is not scored (policy A).
+- A firm with a refused blank (the attributes in reports/phase9_blank_rule.json, read at run time, fail closed) is not scored.
 - Other blank attributes are scored with LightGBM's native missing-value handling, with a warning that
   lists them and says their effect is untested. More than MAX_OTHER_BLANKS of the other 63 attributes
   blank blocks scoring.
@@ -35,8 +36,59 @@ TEXT_FROZEN = {"artifacts/calibration/calibrators.json", "artifacts/calibration/
 TOP_K = 6
 
 
+RULE_PATH = "reports/phase9_blank_rule.json"
+
+
 class FrozenArtifactError(RuntimeError):
     pass
+
+
+class BlankRuleError(RuntimeError):
+    """The blank rule file is missing or unreadable. Scoring fails closed."""
+
+
+# ------------------------------------------------------------------------------- blank rule
+def block_reason(attr: str, d: dict) -> str:
+    """Refusal text for a blank attribute whose blank is refused, from the rule file's detail and the feature dictionary."""
+    t, v = d["train"], d["val"]
+    up = d["direction"] == "up"
+    word = "higher" if up else "lower"
+    flag = d.get("dictionary_flag") or ""
+    parts = [f"{attr} ({d['formula']}) is blank. In the training data a blank {attr} came with a much {word} bankrupt rate "
+             f"({t['blank_bankrupt']} of {t['blank_firms']} train firms against {t['present_rate']:.3f} when present; "
+             f"{v['blank_bankrupt']} of {v['blank_firms']} validation firms against {v['present_rate']:.3f}), and the model "
+             f"{'adds' if up else 'removes'} {abs(d['mean_contribution_when_blank_train']):.2f} calibrated log-odds for it on average. "
+             "A score would reflect the blank, not the firm's finances, so the app does not score it."]
+    if flag:
+        parts.append(f"Dictionary note: {flag}.")
+    if "undefined" in flag:
+        parts.append("The data does not show whether a blank here means a zero denominator or missing data (UNVERIFIED).")
+    return " ".join(parts)
+
+
+def load_rule(root: Path = ROOT) -> dict:
+    """Read the blank rule written by scripts/run_phase9_blanks.py. Missing or malformed raises BlankRuleError."""
+    try:
+        rule = json.loads((Path(root) / RULE_PATH).read_text(encoding="utf-8"))
+        blocked = list(rule["blocked"]) if rule["applied"] else []
+        detail = rule.get("blocked_detail", {})
+        missing = [a for a in blocked if a not in detail or a not in ATTRS]
+        if missing:
+            raise KeyError(f"no detail for {missing}")
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise BlankRuleError(f"the blank rule file {RULE_PATH} is missing or unreadable, scoring is disabled: {exc}") from exc
+    return {"blocked": {a: block_reason(a, detail[a]) for a in blocked}, "rule": rule}
+
+
+_RULE_CACHE: dict = {}
+
+
+def blocked_blanks(root: Path = ROOT) -> dict:
+    """{attribute: refusal reason}. Read once per root, fails closed."""
+    key = str(Path(root).resolve())
+    if key not in _RULE_CACHE:
+        _RULE_CACHE[key] = load_rule(root)["blocked"]
+    return _RULE_CACHE[key]
 
 
 # --------------------------------------------------------------------------- frozen artifacts
@@ -140,15 +192,20 @@ def parse_upload(data) -> dict:
 
 
 # --------------------------------------------------------------------------------- scoring
-def assess(row: pd.Series, problem: str = "") -> dict:
-    """Policy for one firm: status, reason, blank attributes."""
+def assess(row: pd.Series, problem: str = "", blocked: dict = None) -> dict:
+    """Policy for one firm: status, reason, blank attributes. blocked is {attribute: reason} for refused blanks
+    (default: the Phase 9 rule file, which fails closed)."""
+    blocked = blocked_blanks() if blocked is None else blocked
     blanks = [a for a in ATTRS if pd.isna(row[a])]
     other = [a for a in blanks if a != KEY_ATTR]
+    refused_blank = [a for a in other if a in blocked]
     out = {"blank_attrs": blanks, "n_other_blank": len(other), "status": "scored", "reason": "", "warning": ""}
     if problem:
         out.update(status="refused", reason=problem)
     elif KEY_ATTR in blanks:
         out.update(status="refused", reason="Attr21 (sales growth) is blank. It needs last year's sales, and the model is not scored without it.")
+    elif refused_blank:
+        out.update(status="refused", reason=" ".join(blocked[a] for a in refused_blank))
     elif len(other) > MAX_OTHER_BLANKS:
         out.update(status="refused", reason=f"{len(other)} of the other 63 attributes are blank, above the limit of {MAX_OTHER_BLANKS}.")
     elif other:
@@ -157,12 +214,13 @@ def assess(row: pd.Series, problem: str = "") -> dict:
     return out
 
 
-def score_frame(frozen: dict, frame: pd.DataFrame, problems: dict = None) -> pd.DataFrame:
+def score_frame(frozen: dict, frame: pd.DataFrame, problems: dict = None, blocked: dict = None) -> pd.DataFrame:
     """One result row per firm, in input order. Refused firms get no probability and no band."""
     problems = problems or {}
+    blocked = blocked_blanks() if blocked is None else blocked
     rows = []
     for i, (idx, r) in enumerate(frame.iterrows()):
-        rows.append({"row": i + 1, "index": idx, **assess(r, problems.get(idx, ""))})
+        rows.append({"row": i + 1, "index": idx, **assess(r, problems.get(idx, ""), blocked)})
     res = pd.DataFrame(rows)
     res["probability"], res["band"] = np.nan, ""
     ok = res["status"] == "scored"
@@ -259,6 +317,12 @@ def blank_history(numbers: dict, attrs: list) -> list:
                    f"Mean contribution to the score when blank in train: {e['mean_contribution_when_blank_train']:+.2f} "
                    f"calibrated log-odds, against {e['mean_contribution_when_present_train']:+.2f} when present.")
     return out
+
+
+def refused_blank_names(rule_blocked: dict) -> str:
+    """Attribute codes whose blank is refused, as 'Attr24 and Attr27' text."""
+    names = sorted(rule_blocked, key=lambda a: int(a[4:]))
+    return " and ".join(names) if len(names) < 3 else ", ".join(names[:-1]) + " and " + names[-1]
 
 
 def template_csv() -> str:
