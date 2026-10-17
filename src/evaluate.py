@@ -11,7 +11,7 @@ Metrics suited to heavy class imbalance:
 Bootstrap confidence intervals are included because the validation split
 has only 61 bankrupt firms.
 
-Phase 2 scores validation only. The test split stays untouched until the
+Phases 2 and 3 score validation only. The test split stays untouched until the
 final model is chosen.
 
 All randomness uses SEED = 42.
@@ -74,12 +74,33 @@ def bootstrap_ci(y_true, y_score, n: int = 1000, seed: int = SEED, alpha: float 
     return {"pr_auc_ci": np.percentile(pr, q).tolist(), "roc_auc_ci": np.percentile(roc, q).tolist()}
 
 
+def paired_bootstrap(y_true, score_a, score_b, n: int = 2000, seed: int = SEED) -> dict:
+    """Stratified paired bootstrap of metric differences, model A minus model B."""
+    y_true = np.asarray(y_true)
+    a, b = np.asarray(score_a), np.asarray(score_b)
+    rng = np.random.default_rng(seed)
+    pos = np.flatnonzero(y_true == 1)
+    neg = np.flatnonzero(y_true == 0)
+    out = {}
+    for name, fn in (("pr_auc", average_precision_score), ("roc_auc", roc_auc_score)):
+        d = []
+        for _ in range(n):
+            idx = np.concatenate([rng.choice(pos, len(pos)), rng.choice(neg, len(neg))])
+            d.append(fn(y_true[idx], a[idx]) - fn(y_true[idx], b[idx]))
+        d = np.array(d)
+        out[name] = {"diff": float(fn(y_true, a) - fn(y_true, b)),
+                     "ci": np.percentile(d, [2.5, 97.5]).tolist(),
+                     "share_le_zero": float(np.mean(d <= 0))}
+    return out
+
+
 SURFACE, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e6e5e1"
-SERIES = [("lightgbm", "LightGBM", "#2a78d6"), ("logistic_regression", "Logistic regression", "#eb6834")]
+SERIES = [("lightgbm", "LightGBM", "#2a78d6"), ("logistic_regression", "Logistic regression", "#eb6834"),
+          ("neural_net", "Neural network", "#1baf7a")]
 
 
 def plot_val_curves(pred_csv, out_png) -> None:
-    """Precision-recall and ROC curves for the baselines on validation."""
+    """Precision-recall and ROC curves for every model on validation."""
     import matplotlib
 
     matplotlib.use("Agg")
@@ -117,7 +138,7 @@ def plot_val_curves(pred_csv, out_png) -> None:
     ax[1].set_title("ROC", loc="left", fontsize=11)
     ax[0].legend(frameon=False, loc="lower left", bbox_to_anchor=(0.0, 0.13))
     ax[1].legend(frameon=False, loc="lower right")
-    fig.suptitle(f"Baselines on validation ({len(y)} firms, {int(y.sum())} bankrupt), Polish 5year",
+    fig.suptitle(f"Models on validation ({len(y)} firms, {int(y.sum())} bankrupt), Polish 5year",
                  x=0.01, ha="left", fontsize=12)
     fig.tight_layout()
     fig.savefig(out_png, dpi=150, facecolor=SURFACE)
@@ -128,5 +149,5 @@ if __name__ == "__main__":
     from pathlib import Path
 
     root = Path(__file__).resolve().parents[1]
-    plot_val_curves(root / "models" / "baselines_val_predictions.csv",
-                    root / "reports" / "figures" / "baselines_val_curves.png")
+    plot_val_curves(root / "models" / "val_predictions.csv",
+                    root / "reports" / "figures" / "models_val_curves.png")

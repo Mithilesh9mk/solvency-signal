@@ -1,4 +1,4 @@
-"""Tests for src.train baselines: determinism and no test-split access."""
+"""Tests for src.train models: determinism and no test-split access."""
 
 import numpy as np
 import pytest
@@ -11,11 +11,11 @@ pytestmark = pytest.mark.skipif(
 )
 
 
-@pytest.mark.parametrize("name", list(train.BASELINES))
-def test_baseline_is_deterministic(name):
+@pytest.mark.parametrize("name", list(train.FACTORIES))
+def test_model_is_deterministic(name):
     X, y = train.load_split("train")
     X, y = X.iloc[:1500], y.iloc[:1500]
-    make = train.BASELINES[name]
+    make = train.FACTORIES[name]
     a = make().fit(X, y).predict_proba(X)[:, 1]
     b = make().fit(X, y).predict_proba(X)[:, 1]
     assert np.array_equal(a, b)

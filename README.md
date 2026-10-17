@@ -2,7 +2,7 @@
 
 An early-warning neural network for corporate financial distress.
 
-> Status: Phase 2 (baselines). Scored on validation only; the test split is untouched.
+> Status: Phase 3 (neural network). Scored on validation only; the test split is untouched.
 
 ## Problem
 
@@ -33,10 +33,11 @@ Validation split, Polish 5year, 878 firms of which 61 went bankrupt within a yea
 | Model | PR AUC | ROC AUC | Recall at 5% FPR |
 |---|---|---|---|
 | Logistic regression | 0.610 | 0.894 | 0.689 |
+| Neural network (MLP) | 0.723 | 0.930 | 0.689 |
 | LightGBM | 0.783 | 0.957 | 0.787 |
 
-Confidence intervals, ablations and flags: [reports/baselines_val.md](reports/baselines_val.md).
-Neural network results will be added in a later phase.
+The neural network beats logistic regression but trails LightGBM on these tabular ratios.
+Confidence intervals, model selection, ablations and flags: [reports/models_val.md](reports/models_val.md).
 
 ## Limitations
 
@@ -62,14 +63,14 @@ Run the tests:
 python -m pytest tests
 ```
 
-Train the baselines and score them on validation, then draw the curves:
+Train all models (baselines and neural network), score them on validation, then draw the curves:
 
 ```bash
 python -m src.train
 python -m src.evaluate
 ```
 
-TODO: Commands for the neural network and the app.
+TODO: Commands for the app.
 
 ## Live app
 
