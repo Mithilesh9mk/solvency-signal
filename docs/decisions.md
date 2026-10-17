@@ -420,3 +420,42 @@ protects against trusting a score driven by a blank, it is not a claim that the 
   (see `reports/phase9_blanks.md` section 7), because the refused firms were among the easiest bankrupt firms to flag. The
   all-firms headline and the Attr21-present numbers therefore overstate what the app does on the firms it scores. The cuts were
   not moved. Report only.
+
+## 2026-10-17 (Phase 10 protocol: 4-ratio Quick check model, written before any result)
+
+User decision: a separate small model that takes four ratios and returns a 1 to 10 score, a named band and a probability with a
+range, shown as the first tab of the app. The frozen 64-ratio model, calibrator and cuts are not changed.
+
+- **The four ratios, mapped to dataset attributes.** The user's list named current ratio twice; it is treated as one ratio, so
+  there are four. (1) Current ratio = Attr4, current assets / short-term liabilities, exact. (2) Debt-to-equity = total
+  liabilities / book equity, the reciprocal of Attr8 (book equity / total liabilities). The user wrote "total debt"; the data has
+  total liabilities, so total liabilities is used (UNVERIFIED that this is what the user means by debt). (3) Net profit margin =
+  Attr23, net profit / sales, exact. (4) The user asked for operating cash flow ratio. The data has no operating cash flow, so
+  the closest available ratio is used, Attr26 (net profit + depreciation) / total liabilities, labelled "cash earnings ratio,
+  a proxy". It differs from operating cash flow / current liabilities in both numerator and denominator.
+- **Pre-registered signs (risk goes up when the ratio goes up):** current ratio down, debt-to-equity up, net profit margin
+  down, cash earnings ratio down. The model sees Attr8 (equity / liabilities, finite and negative for negative equity), so its
+  expected coefficient sign is the opposite of debt-to-equity. If any fitted coefficient has the wrong sign, the run stops, the
+  report says so, and nothing is added to the app.
+- **Population and split.** Train and validation firms with all four attributes present. Fit on train only, seed 42. The test
+  split is not read. Validation is used for reporting only, not for any choice.
+- **Features.** Each ratio is winsorized at the train 1st and 99th percentiles, then standardized with train mean and standard
+  deviation. These bounds are stored and the app applies them to anything the user types.
+- **Model.** Logistic regression, L2 with C = 1, no class weights, so probabilities are calibrated by construction. Challenger:
+  LightGBM with monotone constraints on the same four inputs, small trees. The challenger replaces logistic regression only if
+  its train 5-fold cross-validated PR AUC is higher by at least 0.02. Otherwise logistic regression is used. No recalibration;
+  ECE and calibration slope are reported on validation.
+- **Range.** Refit logistic regression on 1000 stratified bootstrap resamples of train (seed 42). The range shown with a
+  probability is the 2.5th to 97.5th percentile of the refits for the entered point. It reflects estimation noise only. It does not
+  cover a wrong model, a different country, a different year or a ratio defined differently.
+- **Scale.** Cut points are the 10th to 90th percentiles of train out-of-fold (5-fold) predicted probability. Score = 1 + number
+  of cut points the probability reaches, so 1 to 10. The scale is a rank within the Polish training population, not an absolute
+  risk. Observed bankruptcy rate per score is reported with Wilson 95% intervals on train out-of-fold and validation.
+- **Bands fixed now.** 1 to 3 Low, 4 to 6 Watch, 7 to 8 Elevated, 9 to 10 High.
+- **Report only, no gate beyond the sign check.** On the same validation firms: PR AUC, ROC AUC, Brier, ECE with stratified
+  bootstrap 95% intervals (n = 1000, seed 42), beside the frozen 64-ratio model and the no-skill rate. Expected: the 4-ratio model
+  ranks firms worse than the 64-ratio model. The size of the gap is reported, not hidden.
+- **Cannot show.** Behaviour on non-Polish firms, on untouched data (test is spent), and whether the proxy for operating cash flow
+  behaves like the real ratio.
+- **Artifacts.** `artifacts/quick/quick_model.json` (pure numbers, no pickle), `reports/phase10_quick.{md,json}`. The app fails
+  closed if the file is missing or inconsistent. No outside data, no model download.
