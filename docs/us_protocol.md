@@ -27,6 +27,10 @@ that label would flatter them.
 - Train: 1999 to 2011. Validation: 2012 to 2014. Test: 2015 to 2018.
 - Firms appear in several periods. That is intended, because a forecaster scores firms it has seen before. Firm and period overlap
   counts are reported.
+- The derived label needs each company's last observed year, so the loader reads the company, year and status columns of all
+  years to build labels. It uses no X value and no label from 2015 onward for fitting, scoring or reporting, and it returns no
+  row from those years. A failure in 2015 or later therefore makes the company's earlier rows negative, which is the intended
+  one-year-ahead meaning.
 - The test years are read once, by `scripts/us_final_test.py`, only after the user approves, with a lock file written first.
   `scripts/run_us_model.py` never loads rows from 2015 onward.
 
