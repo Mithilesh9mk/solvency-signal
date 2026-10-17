@@ -2,7 +2,7 @@
 
 An early-warning neural network for corporate financial distress.
 
-> Status: Phase 1 (data preparation). No models have been trained yet.
+> Status: Phase 2 (baselines). Scored on validation only; the test split is untouched.
 
 ## Problem
 
@@ -28,7 +28,15 @@ class imbalance, validation strategy. Fixed random seed 42 throughout.
 
 ## Results
 
-TODO
+Validation split, Polish 5year, 878 firms of which 61 went bankrupt within a year (no-skill PR AUC 0.069).
+
+| Model | PR AUC | ROC AUC | Recall at 5% FPR |
+|---|---|---|---|
+| Logistic regression | 0.610 | 0.894 | 0.689 |
+| LightGBM | 0.783 | 0.957 | 0.787 |
+
+Confidence intervals, ablations and flags: [reports/baselines_val.md](reports/baselines_val.md).
+Neural network results will be added in a later phase.
 
 ## Limitations
 
@@ -54,7 +62,14 @@ Run the tests:
 python -m pytest tests
 ```
 
-TODO: Commands for training, evaluation and the app.
+Train the baselines and score them on validation, then draw the curves:
+
+```bash
+python -m src.train
+python -m src.evaluate
+```
+
+TODO: Commands for the neural network and the app.
 
 ## Live app
 

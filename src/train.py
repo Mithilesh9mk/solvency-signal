@@ -1,10 +1,106 @@
 """Model training for Early Tremor.
 
-Trains baseline models (logistic regression, LightGBM) and the neural
-network early-warning model on the processed data, then saves the trained
-artefacts to models/.
+Phase 2 baselines on the Polish 5year splits:
+- Logistic regression on the shared preprocessor (train-fitted clipping,
+  median imputation with missing indicators, standard scaling).
+- LightGBM on the raw ratios. Trees are insensitive to scale and handle
+  NaN natively, so no clipping or imputation is applied.
+
+Choices kept deliberately plain for a baseline:
+- No class reweighting, so predicted probabilities stay comparable to the
+  true bankruptcy rate (matters for the Brier score). Ranking metrics are
+  largely unaffected.
+- Fixed hyperparameters, no tuning, no early stopping. Using validation for
+  early stopping would leak it into training and bias its scores.
+- 5-fold stratified cross-validation on train only, to show how much the
+  scores move between folds. Validation is scored once. Test is not read.
+
+Run: python -m src.train
 
 All randomness uses SEED = 42.
 """
 
+import json
+
+import joblib
+import lightgbm as lgb
+import numpy as np
+import pandas as pd
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import StratifiedKFold
+from sklearn.pipeline import Pipeline
+
+from src.evaluate import bootstrap_ci, score
+from src.polish_features import FEATURE_NAMES, TARGET
+from src.preprocess import PROCESSED, ROOT, build_preprocessor
+
 SEED = 42
+MODELS = ROOT / "models"
+REPORTS = ROOT / "reports"
+
+
+def make_logreg() -> Pipeline:
+    return Pipeline([
+        ("pre", build_preprocessor()),
+        ("clf", LogisticRegression(C=1.0, max_iter=5000, random_state=SEED)),
+    ])
+
+
+def make_lgbm() -> lgb.LGBMClassifier:
+    return lgb.LGBMClassifier(
+        n_estimators=300,
+        learning_rate=0.05,
+        num_leaves=15,
+        min_child_samples=20,
+        subsample=0.8,
+        subsample_freq=1,
+        colsample_bytree=0.8,
+        random_state=SEED,
+        deterministic=True,
+        force_row_wise=True,
+        n_jobs=1,
+        verbose=-1,
+    )
+
+
+BASELINES = {"logistic_regression": make_logreg, "lightgbm": make_lgbm}
+
+
+def load_split(name: str) -> tuple[pd.DataFrame, pd.Series]:
+    df = pd.read_csv(PROCESSED / f"polish_5year_{name}.csv")
+    return df[FEATURE_NAMES], df[TARGET]
+
+
+def cross_validate(make, X, y, folds: int = 5) -> dict:
+    """Stratified k-fold on train: mean and std of each metric."""
+    skf = StratifiedKFold(n_splits=folds, shuffle=True, random_state=SEED)
+    rows = []
+    for tr, te in skf.split(X, y):
+        model = make().fit(X.iloc[tr], y.iloc[tr])
+        rows.append(score(y.iloc[te], model.predict_proba(X.iloc[te])[:, 1]))
+    df = pd.DataFrame(rows)
+    return {k: {"mean": float(df[k].mean()), "std": float(df[k].std())} for k in df.columns}
+
+
+def main() -> None:
+    X_tr, y_tr = load_split("train")
+    X_va, y_va = load_split("val")
+    MODELS.mkdir(exist_ok=True)
+    results, preds = {}, {"bankrupt": y_va.to_numpy()}
+    for name, make in BASELINES.items():
+        cv = cross_validate(make, X_tr, y_tr)
+        model = make().fit(X_tr, y_tr)
+        p = model.predict_proba(X_va)[:, 1]
+        joblib.dump(model, MODELS / f"{name}.joblib")
+        preds[name] = p
+        results[name] = {"val": score(y_va, p), "val_ci": bootstrap_ci(y_va, p), "train_cv": cv}
+        v = results[name]["val"]
+        print(f"{name}: val PR AUC {v['pr_auc']:.3f}  ROC AUC {v['roc_auc']:.3f}  "
+              f"Brier {v['brier']:.4f}  recall@5%FPR {v['recall_at_fpr5']:.3f}")
+    (REPORTS / "baselines_val.json").write_text(json.dumps(results, indent=2))
+    pd.DataFrame(preds).to_csv(MODELS / "baselines_val_predictions.csv", index=False)
+
+
+if __name__ == "__main__":
+    np.random.seed(SEED)
+    main()
