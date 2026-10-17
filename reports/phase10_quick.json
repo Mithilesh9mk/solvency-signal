@@ -1,0 +1,53 @@
+{
+ "seed": 42,
+ "protocol_margin": 0.02,
+ "signs_ok": true,
+ "coef": [
+  -0.0005453645432180391,
+  -0.2973335219927712,
+  -0.5473442227585956,
+  -0.6509845978768959
+ ],
+ "intercept": -3.011686507044353,
+ "population": {
+  "train_firms": 4094,
+  "train_used": 4082,
+  "train_bankrupt": 285,
+  "train_blank_by_ratio": {
+   "current_ratio": 12,
+   "book_equity_to_liabilities": 10,
+   "net_profit_to_sales": 0,
+   "net_profit_plus_dep_to_liabilities": 10
+  },
+  "val_firms": 878,
+  "val_used": 872,
+  "val_bankrupt": 60,
+  "val_blank_by_ratio": {
+   "current_ratio": 6,
+   "book_equity_to_liabilities": 5,
+   "net_profit_to_sales": 0,
+   "net_profit_plus_dep_to_liabilities": 5
+  }
+ },
+ "cv": {
+  "pr_auc_lr": 0.2988410406198959,
+  "pr_auc_challenger": 0.3505588363231523,
+  "pr_auc_lr_folds": [
+   0.23969705415820752,
+   0.32068578923708757,
+   0.3536598398813715,
+   0.27293600779910004,
+   0.30722651202371265
+  ],
+  "pr_auc_challenger_folds": [
+   0.32712142270500255,
+   0.3890467684190366,
+   0.30378924570336063,
+   0.36256096006815147,
+   0.3702757847202103
+  ],
+  "difference": 0.05171779570325641,
+  "challenger_wins": true
+ },
+ "stopped": "The monotone challenger beat logistic regression by the pre-registered margin. The user decides."
+}

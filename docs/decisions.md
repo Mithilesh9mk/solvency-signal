@@ -459,3 +459,24 @@ range, shown as the first tab of the app. The frozen 64-ratio model, calibrator 
   behaves like the real ratio.
 - **Artifacts.** `artifacts/quick/quick_model.json` (pure numbers, no pickle), `reports/phase10_quick.{md,json}`. The app fails
   closed if the file is missing or inconsistent. No outside data, no model download.
+
+## 2026-10-17 (Phase 10 amendment, written before any challenger result beyond the train cross-validation PR AUC)
+
+The first run stopped on the pre-registered rule: train 5-fold PR AUC was 0.299 for logistic regression and 0.351 for the
+monotone LightGBM challenger, a difference of +0.052 against the +0.02 margin. All four logistic signs were as expected, but the
+current ratio coefficient was -0.001 (no weight once the other three are in). Under the protocol the challenger replaces
+logistic regression. The protocol did not say how to finish that case, so before generating any further result:
+
+- **Model.** Monotone LightGBM on the four ratios as registered (150 trees, 4 leaves, min 30 per leaf, monotone constraints
+  all negative on the model-space features, seed 42), fitted on all train firms with the four ratios present. No winsorizing or
+  standardizing is needed; inputs are clipped to the train minimum and maximum so zero debt-to-equity stays finite.
+- **Calibration.** Platt scaling (a logistic fit of the label on the log-odds of the raw score), fitted on the train 5-fold
+  out-of-fold raw scores, because boosted scores are not calibrated by construction. Validation is reported only.
+- **Scale.** Cut points are the 10th to 90th percentiles of the train out-of-fold calibrated probability, as registered.
+- **Range (replaces the bootstrap-refit range).** Storing 1000 boosted refits is too large. The range shown with a score is the
+  Wilson 95% interval of the observed bankruptcy rate among the train out-of-fold firms that got the same score. This is an
+  empirical range and says how often firms with that score failed in the Polish data. It does not cover another country, year or
+  ratio definition. The point probability is the calibrated model output.
+- **Contributions.** LightGBM native contributions times the Platt slope, in calibrated log-odds, as in the main app.
+- **Artifact.** `artifacts/quick/quick_model.json` holds the LightGBM model as its text dump plus numbers. No pickle.
+- The stopped first-run report is kept as `reports/phase10_quick_stopped_lr_vs_challenger.md`.
