@@ -206,7 +206,8 @@ def test_generated_sentences_use_the_generated_numbers():
     s = A.flattered_sentence(n)
     assert str(n["numbers"]["train_oof"]["attr21_missing_firms"]) in s and "flattered" in s
     f = A.floor_statement(n)
-    assert f"{n['numbers']['val']['present']['high']['precision']:.3f}" in f and f"{n['numbers']['train_oof']['present']['high']['precision']:.3f}" in f and "0.60" in f and "not changed" in f
+    assert (f"{n['numbers']['val']['present']['high']['precision'] * 100:.1f}%" in f
+            and f"{n['numbers']['train_oof']['present']['high']['precision'] * 100:.1f}%" in f and "60% floor" in f and "not changed" in f)
     assert len(A.band_history(n, "High")) == 2
     eff = n["blank_effects"]
     assert "Attr27" in eff and "Attr37" in eff and "Attr21" not in eff

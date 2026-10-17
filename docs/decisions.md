@@ -492,3 +492,23 @@ logistic regression. The protocol did not say how to finish that case, so before
   read from the report. The frozen 64-ratio model, calibrator and cuts are unchanged. The test split was not read.
 - If `artifacts/quick/quick_model.json` is missing or inconsistent, only the Quick check tab is switched off, with an error; the
   other tabs keep working. Tests pin the file to the report, the protocol margin, monotone direction and fail-closed loading.
+
+## 2026-10-17 (App redesign, presentation only)
+
+- Scope: `app/streamlit_app.py` rebuilt around a result-first layout. New `src/app_ui.py` (design tokens, CSS, HTML pieces) and
+  `.streamlit/config.toml` (fixed light theme, toolbar hidden). Model, calibration, cuts, rules and every generated figure are
+  unchanged. The test split was not read.
+- Information architecture: five equal tabs became four, named by task and scope (Quick check: 4 ratios, Full model: 64 ratios,
+  Evidence, Limits and data). An intro line says which tab fits which input. How it was checked and What drives the model now sit
+  under Evidence behind one switch.
+- Result first: each result leads with a coloured score or band block and one plain sentence (how many firms with this score or
+  band went bankrupt in the Polish data). The raw probability is a receding detail line. Quick check shows inputs beside the result.
+- States: the Quick check says when it is showing the example values, offers a reset, shows plain-language meaning and the usual range
+  under each input, and flags an outside-range entry on that field. Full model upload has an empty state, a file-error state with a
+  fix, and a batch summary before the table. Not scored results say what to do next. Fatal stops still use `st.error`.
+- Formats: proportions (rates, precision, recall, probabilities, cuts) are shown as percentages everywhere. AUCs stay decimals.
+  `floor_statement` in `src/app_logic.py` and its test were changed to match. Driver charts are HTML bars with the direction written
+  out, so colour is never the only cue.
+- Tests: `tests/test_app_ui.py` now reads result cards through data attributes instead of `st.metric`; new tests cover the reset,
+  example-value and outside-range states. `tests/test_app_ui_helpers.py` covers the HTML helpers.
+- Not changed: the reliability and SHAP figures are PNGs from `src/plotting` and keep their own style.

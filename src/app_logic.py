@@ -289,8 +289,8 @@ def floor_statement(numbers: dict) -> str:
     floor = C.BAND_RULE["high_min_precision"]
     v, o = n["val"]["present"]["high"]["precision"], n["train_oof"]["present"]["high"]["precision"]
     rel = "under" if max(v, o) < floor else ("at or above" if min(v, o) >= floor else "on both sides of")
-    return (f"The band cuts were set on all firms, not on this subset. For firms with Attr21 present, High precision is {v:.3f} on validation and "
-            f"{o:.3f} on train out-of-fold, {rel} the {floor:.2f} floor the High cut was built to reach. The cuts were not changed.")
+    return (f"The band cuts were set on all firms, not on this subset. For firms with Attr21 present, High precision is {v * 100:.1f}% on validation and "
+            f"{o * 100:.1f}% on train out-of-fold, {rel} the {floor * 100:.0f}% floor the High cut was built to reach. The cuts were not changed.")
 
 
 def band_history(numbers: dict, band: str) -> list:
