@@ -299,3 +299,73 @@ Phase numbering: Phase 7 was the Attr21 probe, Phase 8 is the Streamlit app. Gra
 - `models/lightgbm.joblib` is committed through a gitignore exception and marked binary. The hash check tolerates LF or CRLF
   line endings for the two calibration JSON files only, because they were hashed on Windows with CRLF.
 - Not done: deployment (the repo owner's action), manual entry of attributes, any model change. The live-app link stays a TODO.
+
+## 2026-10-17 (Phase 9 protocol: how blank attributes change the score, written before any result is generated)
+
+Scope: train and validation only, test split locked. The frozen model, calibrator and cuts do not change. Only the app's
+blank policy layer can change. Nothing in this protocol was run before it was written. User approved the plan with a coverage
+ceiling and four amendments, all included below.
+
+**Population.** Firms with Attr21 present (the ones the app would score). Candidate attributes: every attribute other than
+Attr21 that is blank in at least 20 Attr21-present train firms (the gate Phase 8 used). Attr27 gets no special treatment.
+
+**Criteria for "block scoring when attribute X is blank".** All three must hold, applied mechanically by code.
+1. Train history: bankrupt rate when X is blank is at least 3 times the rate when X is present, and the 95% Wilson lower bound
+   of the blank rate is above the present rate. Mirror case: at most one third, and the Wilson upper bound is below the
+   present rate.
+2. Model effect, same direction as (1): the mean contribution of X to the score when X is blank (train, calibrated log-odds,
+   native contributions times the Platt slope) is at least +1.0 for the "up" case, at most -1.0 for the "down" case.
+3. Validation agreement: the validation rate ratio (blank over present) is at least 2 for the "up" case, at most 0.5 for the
+   "down" case. Minimum evidence: at least 10 blank firms in validation (Attr21 present). Below that, criterion 3 is "not
+   evaluable" and the attribute is not blocked.
+An attribute that meets all three is blocked when blank, like Attr21. Blanks that fail a criterion keep the warning only.
+
+**Multiple-testing exposure.** The number of candidates m is logged by code. Expected false positives under the null (no link
+between a blank and the label) is estimated by code: labels permuted within train and within validation (Attr21-present
+firms, 1000 permutations, seed 42), the same criteria applied to each candidate, criterion 2 taken from the frozen model's
+contributions (it does not depend on the labels). Validation was already used for model choice, band cuts and the Phase 8
+flag, so criterion 3 is not independent evidence. A blocked attribute is described as "meets the pre-registered criteria",
+never as validated.
+
+**Coverage ceiling.** New refusals are Attr21-present firms with at most 6 other blanks and at least one blocked attribute
+blank. The ceiling is crossed if, in train or in validation, new refusals exceed 10% of Attr21-present firms or contain more
+than 30% of the Attr21-present bankrupt firms. If crossed, the phase stops after the report: no app change, and the user
+decides. The cumulative share including the count-limit refusals is reported for information only.
+
+**Count limit of 6.** Groups by number of other blanks: 0, 1 to 2, 3 to 6, more than 6. PR AUC and High precision with 95%
+bootstrap CIs (1000 stratified resamples, seed 42) on train out-of-fold and on validation. The limit is a candidate for change
+only if, for the 3 to 6 group, both CIs lie entirely below the 0-blank group's CIs on train out-of-fold, and both validation
+point estimates are lower. Otherwise it stays at 6. If the condition holds, the report proposes a value and the phase stops
+for the user, like the ceiling.
+
+**Single-blank stress test (descriptive, does not feed the rule).** For each of the 64 attributes, blank it for the
+Attr21-present firms that have it, with the frozen model. Report the share of firms that change band and the mean change in
+calibrated log-odds, on train and validation. Train uses the model's in-sample scores here because this is a model-sensitivity
+check, not a performance claim. It covers attributes with too few blanks for a history test.
+
+**Attr27 deep dive (descriptive, does not feed the rule).**
+- Profile of Attr27-blank firms: counts, bankrupt rates, mean predicted probability (train out-of-fold, validation) against the
+  observed rate, and which other attributes are blank with it most often.
+- Stratification: Attr22 (operating profit / assets) sign, with "<= 0", "> 0" and "blank" as strata, and Attr2 (total
+  liabilities / total assets) as the leverage ratio, cut at the train median among Attr21-present firms, with "blank" its own
+  stratum. Bankrupt rate blank vs present within each stratum, with Wilson intervals.
+- One ridge logistic regression on train (C = 1.0, lbfgs, seed 42): an Attr27-blank indicator plus every other attribute with a
+  blank rate below 1% among Attr21-present train firms. No imputation. The other ratios are signed-log transformed
+  (sign(x) * log1p(|x|)) and standardised on train. Rows with a blank in any covariate are dropped, and the count is reported.
+  If more than 5% of rows would be dropped, the regression is reported as not evaluable. Interval for the indicator
+  coefficient: 1000 stratified bootstrap resamples, percentile. An association only, not a cause.
+
+**Cost of a block, in counts.** For each blocked attribute: firms and bankrupt firms refused in train and validation, and the
+union across blocked attributes.
+
+**If the rule is applied.** The app reads the blocked set from `reports/phase9_blank_rule.json`, not from a typed list. Refusal
+text per attribute comes from the dictionary and the table. For Attr27 it says the ratio is undefined when financial expenses
+are zero (dictionary note), that the data does not show whether a blank means zero expenses or missing data (UNVERIFIED), and
+that a blank was linked to a much higher bankrupt rate in the training data so the score would reflect the blank, not
+distress. No banner path: refuse, per the user's decision. Demo firms: if a demo firm would be refused, the demo rule is
+re-run with the refusal rule included and the firm is swapped. It is not exempted.
+
+**Cannot show.** The test split is spent, so no rule change can be checked on untouched data. Real users' blanks are probably not
+random in the way the dataset's are. Multiple blanks together are tested only through the count check. Attributes with fewer
+than 20 blank firms cannot be judged by history. Train out-of-fold scores use a calibrator fitted on those same scores. A block
+protects against trusting a score driven by a blank, it is not a claim that the model is wrong on those firms.
