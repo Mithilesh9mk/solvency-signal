@@ -1,0 +1,558 @@
+{
+ "counts": {
+  "train": {
+   "missing": {
+    "firms": 73,
+    "bankrupt": 71,
+    "rate": 0.9726027397260274,
+    "wilson_95": [
+     0.905498517506993,
+     0.9924542413883135
+    ]
+   },
+   "present": {
+    "firms": 4021,
+    "bankrupt": 215,
+    "rate": 0.05346928624720219,
+    "wilson_95": [
+     0.04693228191128414,
+     0.06085866173544578
+    ]
+   },
+   "missing_share_of_all_bankrupt": 0.24825174825174826,
+   "missing_share_of_firms": 0.01783097215437225
+  },
+  "val": {
+   "missing": {
+    "firms": 12,
+    "bankrupt": 11,
+    "rate": 0.9166666666666666,
+    "wilson_95": [
+     0.6461200862787544,
+     0.9851349057603305
+    ]
+   },
+   "present": {
+    "firms": 866,
+    "bankrupt": 50,
+    "rate": 0.057736720554272515,
+    "wilson_95": [
+     0.04406700049838813,
+     0.0753127529279967
+    ]
+   },
+   "missing_share_of_all_bankrupt": 0.18032786885245902,
+   "missing_share_of_firms": 0.01366742596810934
+  }
+ },
+ "comissing": {
+  "train": {
+   "mean_missing_attributes": {
+    "missing": 3.0,
+    "present": 0.7311614026361601
+   },
+   "median_missing_attributes": {
+    "missing": 2.0,
+    "present": 0.0
+   },
+   "count_distribution_missing_group": {
+    "1": 20,
+    "2": 33,
+    "3": 4,
+    "4": 7,
+    "6": 3,
+    "7": 1,
+    "8": 3,
+    "16": 1,
+    "28": 1
+   },
+   "top_attributes": [
+    {
+     "attr": "Attr37",
+     "name": "quick_assets_to_long_term_liabilities",
+     "rate_when_attr21_missing": 0.6438356164383562,
+     "rate_when_attr21_present": 0.4225317085302164,
+     "difference": 0.2213039079081398
+    },
+    {
+     "attr": "Attr45",
+     "name": "net_profit_to_inventory",
+     "rate_when_attr21_missing": 0.1643835616438356,
+     "rate_when_attr21_present": 0.041780651579209155,
+     "difference": 0.12260291006462645
+    },
+    {
+     "attr": "Attr60",
+     "name": "inventory_turnover",
+     "rate_when_attr21_missing": 0.1643835616438356,
+     "rate_when_attr21_present": 0.041780651579209155,
+     "difference": 0.12260291006462645
+    },
+    {
+     "attr": "Attr54",
+     "name": "constant_capital_to_fixed_assets",
+     "rate_when_attr21_missing": 0.1095890410958904,
+     "rate_when_attr21_present": 0.01641382740611788,
+     "difference": 0.09317521368977252
+    },
+    {
+     "attr": "Attr28",
+     "name": "working_capital_to_fixed_assets",
+     "rate_when_attr21_missing": 0.1095890410958904,
+     "rate_when_attr21_present": 0.01641382740611788,
+     "difference": 0.09317521368977252
+    },
+    {
+     "attr": "Attr64",
+     "name": "sales_to_fixed_assets",
+     "rate_when_attr21_missing": 0.1095890410958904,
+     "rate_when_attr21_present": 0.01641382740611788,
+     "difference": 0.09317521368977252
+    },
+    {
+     "attr": "Attr53",
+     "name": "equity_to_fixed_assets",
+     "rate_when_attr21_missing": 0.1095890410958904,
+     "rate_when_attr21_present": 0.01641382740611788,
+     "difference": 0.09317521368977252
+    },
+    {
+     "attr": "Attr27",
+     "name": "operating_profit_to_fin_expenses",
+     "rate_when_attr21_missing": 0.1232876712328767,
+     "rate_when_attr21_present": 0.06242228301417558,
+     "difference": 0.060865388218701126
+    },
+    {
+     "attr": "Attr61",
+     "name": "receivables_turnover",
+     "rate_when_attr21_missing": 0.0273972602739726,
+     "rate_when_attr21_present": 0.001740860482467048,
+     "difference": 0.025656399791505552
+    },
+    {
+     "attr": "Attr14",
+     "name": "gp_plus_interest_to_assets",
+     "rate_when_attr21_missing": 0.0136986301369863,
+     "rate_when_attr21_present": 0.0002486943546381497,
+     "difference": 0.013449935782348151
+    }
+   ]
+  },
+  "val": {
+   "mean_missing_attributes": {
+    "missing": 2.0833333333333335,
+    "present": 0.8175519630484989
+   },
+   "median_missing_attributes": {
+    "missing": 2.0,
+    "present": 1.0
+   },
+   "count_distribution_missing_group": {
+    "1": 4,
+    "2": 6,
+    "3": 1,
+    "6": 1
+   },
+   "top_attributes": [
+    {
+     "attr": "Attr37",
+     "name": "quick_assets_to_long_term_liabilities",
+     "rate_when_attr21_missing": 0.6666666666666666,
+     "rate_when_attr21_present": 0.4445727482678984,
+     "difference": 0.22209391839876824
+    },
+    {
+     "attr": "Attr64",
+     "name": "sales_to_fixed_assets",
+     "rate_when_attr21_missing": 0.08333333333333333,
+     "rate_when_attr21_present": 0.013856812933025405,
+     "difference": 0.06947652040030793
+    },
+    {
+     "attr": "Attr28",
+     "name": "working_capital_to_fixed_assets",
+     "rate_when_attr21_missing": 0.08333333333333333,
+     "rate_when_attr21_present": 0.013856812933025405,
+     "difference": 0.06947652040030793
+    },
+    {
+     "attr": "Attr54",
+     "name": "constant_capital_to_fixed_assets",
+     "rate_when_attr21_missing": 0.08333333333333333,
+     "rate_when_attr21_present": 0.013856812933025405,
+     "difference": 0.06947652040030793
+    },
+    {
+     "attr": "Attr53",
+     "name": "equity_to_fixed_assets",
+     "rate_when_attr21_missing": 0.08333333333333333,
+     "rate_when_attr21_present": 0.013856812933025405,
+     "difference": 0.06947652040030793
+    },
+    {
+     "attr": "Attr27",
+     "name": "operating_profit_to_fin_expenses",
+     "rate_when_attr21_missing": 0.08333333333333333,
+     "rate_when_attr21_present": 0.07159353348729793,
+     "difference": 0.011739799846035404
+    },
+    {
+     "attr": "Attr1",
+     "name": "net_profit_to_assets",
+     "rate_when_attr21_missing": 0.0,
+     "rate_when_attr21_present": 0.0,
+     "difference": 0.0
+    },
+    {
+     "attr": "Attr14",
+     "name": "gp_plus_interest_to_assets",
+     "rate_when_attr21_missing": 0.0,
+     "rate_when_attr21_present": 0.0,
+     "difference": 0.0
+    },
+    {
+     "attr": "Attr13",
+     "name": "gp_plus_dep_to_sales",
+     "rate_when_attr21_missing": 0.0,
+     "rate_when_attr21_present": 0.0,
+     "difference": 0.0
+    },
+    {
+     "attr": "Attr11",
+     "name": "gp_extra_finexp_to_assets",
+     "rate_when_attr21_missing": 0.0,
+     "rate_when_attr21_present": 0.0,
+     "difference": 0.0
+    }
+   ]
+  }
+ },
+ "sales_check": {
+  "train": {
+   "firms_missing": 73,
+   "sales_to_assets": {
+    "equal_to_zero": 0,
+    "missing": 0
+   },
+   "total_sales_to_assets": {
+    "equal_to_zero": 0,
+    "missing": 1
+   }
+  },
+  "val": {
+   "firms_missing": 12,
+   "sales_to_assets": {
+    "equal_to_zero": 0,
+    "missing": 0
+   },
+   "total_sales_to_assets": {
+    "equal_to_zero": 0,
+    "missing": 0
+   }
+  }
+ },
+ "profile_train": {
+  "bankrupt, Attr21 missing": {
+   "firms": 71,
+   "Attr27": -1.5581,
+   "Attr21": NaN,
+   "Attr34": 2.1387,
+   "Attr46": 0.38611,
+   "Attr25": -0.0735615,
+   "Attr58": 1.0263
+  },
+  "bankrupt, Attr21 present": {
+   "firms": 215,
+   "Attr27": -1.56145,
+   "Attr21": 0.9156,
+   "Attr34": 1.6036,
+   "Attr46": 0.49615,
+   "Attr25": 0.12153,
+   "Attr58": 0.99908
+  },
+  "healthy, Attr21 present": {
+   "firms": 3806,
+   "Attr27": 1.02115,
+   "Attr21": 1.1246,
+   "Attr34": 1.7054,
+   "Attr46": 1.1132,
+   "Attr25": 0.44178,
+   "Attr58": 0.947905
+  },
+  "healthy, Attr21 missing": {
+   "firms": 2,
+   "Attr27": 0.15225,
+   "Attr21": NaN,
+   "Attr34": 12.607700000000001,
+   "Attr46": 292.9303,
+   "Attr25": 0.5472325,
+   "Attr58": 1.040295
+  }
+ },
+ "profile_attrs": [
+  "Attr27",
+  "Attr21",
+  "Attr34",
+  "Attr46",
+  "Attr25",
+  "Attr58"
+ ],
+ "performance": {
+  "val": {
+   "all": {
+    "firms": 878,
+    "bankrupt": 61,
+    "prevalence": 0.06947608200455581,
+    "pr_auc": 0.7830833183831574,
+    "roc_auc": 0.956698838212573,
+    "pr_auc_ci": [
+     0.6972750076089075,
+     0.8627928537330898
+    ],
+    "roc_auc_ci": [
+     0.9313436803980978,
+     0.978029877400325
+    ],
+    "bands": {
+     "high": {
+      "flagged": 75,
+      "bankrupt": 45,
+      "precision": 0.6,
+      "recall": 0.7377049180327869
+     },
+     "watch_plus_high": {
+      "flagged": 91,
+      "bankrupt": 49,
+      "precision": 0.5384615384615384,
+      "recall": 0.8032786885245902
+     }
+    }
+   },
+   "present": {
+    "firms": 866,
+    "bankrupt": 50,
+    "prevalence": 0.057736720554272515,
+    "pr_auc": 0.7129122076003869,
+    "roc_auc": 0.9480392156862746,
+    "pr_auc_ci": [
+     0.6002786220062614,
+     0.8145897730638075
+    ],
+    "roc_auc_ci": [
+     0.9167248774509804,
+     0.9718645833333334
+    ],
+    "bands": {
+     "high": {
+      "flagged": 63,
+      "bankrupt": 34,
+      "precision": 0.5396825396825397,
+      "recall": 0.68
+     },
+     "watch_plus_high": {
+      "flagged": 79,
+      "bankrupt": 38,
+      "precision": 0.4810126582278481,
+      "recall": 0.76
+     }
+    }
+   },
+   "missing": {
+    "firms": 12,
+    "bankrupt": 11,
+    "prevalence": 0.9166666666666666,
+    "pr_auc": null,
+    "roc_auc": null,
+    "note": "fewer than 5 firms in one class, AUC not reported",
+    "bands": {
+     "high": {
+      "flagged": 12,
+      "bankrupt": 11,
+      "precision": 0.9166666666666666,
+      "recall": 1.0
+     },
+     "watch_plus_high": {
+      "flagged": 12,
+      "bankrupt": 11,
+      "precision": 0.9166666666666666,
+      "recall": 1.0
+     }
+    }
+   },
+   "high_band_composition": {
+    "high_firms": 75,
+    "high_with_attr21_missing": 12,
+    "bankrupt_in_high_with_missing": 11,
+    "high_with_attr21_present": 63,
+    "bankrupt_in_high_with_present": 34
+   }
+  },
+  "train_oof": {
+   "all": {
+    "firms": 4094,
+    "bankrupt": 286,
+    "prevalence": 0.06985832926233512,
+    "pr_auc": 0.7999215568131193,
+    "roc_auc": 0.9591272697890345,
+    "pr_auc_ci": [
+     0.76024541709771,
+     0.8388127010567686
+    ],
+    "roc_auc_ci": [
+     0.9468819783158019,
+     0.9701642566991832
+    ],
+    "bands": {
+     "high": {
+      "flagged": 307,
+      "bankrupt": 208,
+      "precision": 0.6775244299674267,
+      "recall": 0.7272727272727273
+     },
+     "watch_plus_high": {
+      "flagged": 359,
+      "bankrupt": 220,
+      "precision": 0.6128133704735376,
+      "recall": 0.7692307692307693
+     }
+    }
+   },
+   "present": {
+    "firms": 4021,
+    "bankrupt": 215,
+    "prevalence": 0.05346928624720219,
+    "pr_auc": 0.6940812252253816,
+    "roc_auc": 0.9462904349313813,
+    "pr_auc_ci": [
+     0.642425814921803,
+     0.7480040578086458
+    ],
+    "roc_auc_ci": [
+     0.929960191374696,
+     0.9609149568001564
+    ],
+    "bands": {
+     "high": {
+      "flagged": 234,
+      "bankrupt": 137,
+      "precision": 0.5854700854700855,
+      "recall": 0.6372093023255814
+     },
+     "watch_plus_high": {
+      "flagged": 286,
+      "bankrupt": 149,
+      "precision": 0.5209790209790209,
+      "recall": 0.6930232558139535
+     }
+    }
+   },
+   "missing": {
+    "firms": 73,
+    "bankrupt": 71,
+    "prevalence": 0.9726027397260274,
+    "pr_auc": null,
+    "roc_auc": null,
+    "note": "fewer than 5 firms in one class, AUC not reported",
+    "bands": {
+     "high": {
+      "flagged": 73,
+      "bankrupt": 71,
+      "precision": 0.9726027397260274,
+      "recall": 1.0
+     },
+     "watch_plus_high": {
+      "flagged": 73,
+      "bankrupt": 71,
+      "precision": 0.9726027397260274,
+      "recall": 1.0
+     }
+    }
+   },
+   "high_band_composition": {
+    "high_firms": 307,
+    "high_with_attr21_missing": 73,
+    "bankrupt_in_high_with_missing": 71,
+    "high_with_attr21_present": 234,
+    "bankrupt_in_high_with_present": 137
+   }
+  }
+ },
+ "what_if_val": {
+  "train_median_attr21": 1.116,
+  "present_then_blanked": {
+   "firms": 866,
+   "transitions": {
+    "Low->Low": 3,
+    "Low->Watch": 1,
+    "Low->High": 783,
+    "Watch->Low": 0,
+    "Watch->Watch": 0,
+    "Watch->High": 16,
+    "High->Low": 0,
+    "High->Watch": 0,
+    "High->High": 63
+   },
+   "band_counts_before": {
+    "Low": 787,
+    "Watch": 16,
+    "High": 63
+   },
+   "band_counts_after": {
+    "Low": 3,
+    "Watch": 1,
+    "High": 862
+   },
+   "mean_change_calibrated_log_odds": 5.766211209224699,
+   "slope_a": 0.6475164988326704
+  },
+  "missing_then_filled_with_train_median": {
+   "firms": 12,
+   "transitions": {
+    "Low->Low": 0,
+    "Low->Watch": 0,
+    "Low->High": 0,
+    "Watch->Low": 0,
+    "Watch->Watch": 0,
+    "Watch->High": 0,
+    "High->Low": 5,
+    "High->Watch": 2,
+    "High->High": 5
+   },
+   "band_counts_before": {
+    "Low": 0,
+    "Watch": 0,
+    "High": 12
+   },
+   "band_counts_after": {
+    "Low": 5,
+    "Watch": 2,
+    "High": 5
+   },
+   "mean_change_calibrated_log_odds": -5.010416288862471,
+   "slope_a": 0.6475164988326704
+  }
+ },
+ "phase2_ablation": {
+  "pr_auc_all_features": 0.783,
+  "pr_auc_attr21_dropped": 0.687,
+  "source": "reports/models_val.md (Phase 2, not rerun)"
+ },
+ "bands": {
+  "t_watch": 0.17360288352005987,
+  "t_high": 0.2403358325465458
+ },
+ "flags": [
+  "Attr21 is missing for 73 train and 12 validation firms, and 71 and 11 of them are bankrupt. Those firms are 24.8% (train) and 18.0% (validation) of all bankrupt firms. In this data, a missing Attr21 almost always goes with a bankrupt label. The cause is not known.",
+  "The validation group is only 12 firms (1 healthy), so anything measured on it is very noisy. Train has the larger group but the model was fit on it, so out-of-fold scores are used for the train performance numbers.",
+  "High band composition on validation: 12 of 75 High firms have Attr21 missing; on train out-of-fold: 73 of 307.",
+  "On firms with Attr21 present, validation PR AUC is 0.713 (0.600 to 0.815) against 0.783 (0.697 to 0.863) for all firms, and train out-of-fold PR AUC is 0.694 against 0.800. The Phase 2 retrain without Attr21 scored 0.687 against 0.783 with it.",
+  "What-if on the frozen model (validation): blanking Attr21 for the 866 firms that have it moves 800 firms to a different band (mean change +5.77 calibrated log-odds). Filling the 12 missing firms with the train median moves 7 firms (mean change -5.01). A user who leaves Attr21 blank gets the model's missing-value behaviour, not a neutral score.",
+  "Co-missingness (train): Attr21-missing firms have a median of 2 attributes missing (mean 3.00, pulled up by a few firms with many missing), against a median of 0 (mean 0.73) for the others. The distribution is in the table.",
+  "For firms with Attr21 present, High-band precision is 0.540 on validation and 0.585 on train out-of-fold, against 0.600 and 0.678 for all firms. The headline numbers are flattered by the small group where a missing value goes with the bankrupt label.",
+  "The dataset has no company id and no year, and no field says why a value is missing. This report states counts and patterns only.",
+  "The test split cannot be broken down by Attr21 status without reading it again, so no such breakdown exists. The Phase 5 test results are unchanged and already include whatever reliance on Attr21 the model has.",
+  "Out-of-fold scores use the saved Platt calibrator that was fitted on those same out-of-fold scores, so the calibrated train numbers are mildly optimistic.",
+  "Test split untouched in this phase. No model, calibrator or cut was changed."
+ ]
+}

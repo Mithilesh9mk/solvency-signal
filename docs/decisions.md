@@ -190,3 +190,46 @@ Frozen commit: `fdef552`. Git HEAD when frozen: `14b5dd3`. Headline cuts read fr
   check. Additivity against the model output is the independent one. This is stated in the report flags.
 - Attr21 missingness is reported as a pattern only, as required. Its flags were generated from the numbers.
 - `src/explain.py` replaced the Phase 0 stub. `shap` is pinned to the installed version in `requirements.txt`.
+
+## 2026-10-17 (Phase 7 protocol: Attr21 missingness, written BEFORE the analysis runs)
+
+Question: Attr21 (sales growth) missing is almost always a bankrupt firm in train and validation, and the model gives
+those firms a very large score on that signal alone. What is in the data, and what would that mean for a user of the app?
+
+- **Data and rules.** Train and validation only. The test split stays locked, so nothing here can be re-measured on it.
+  The frozen model, calibrator and cuts are not changed, and no new model is trained or selected. Descriptive analysis,
+  no tuning. Findings may feed the app design, which is decided separately.
+- **Analyses fixed in advance.**
+  1. Counts: how many firms, and what share of all bankrupt firms, have Attr21 missing (train, validation).
+  2. Co-missingness: how many other attributes are missing in the missing group vs the present group, and the ten
+     attributes whose missing rate differs most between the two groups.
+  3. Sales-based check: among Attr21-missing firms, how many have Attr9 or Attr36 (sales / assets) equal to zero or
+     missing. Attr21 is sales(n) / sales(n-1) by its definition, so this shows whether current sales exist.
+  4. Profile: median of the six most important ratios for bankrupt firms with Attr21 missing, bankrupt firms with it
+     present, and healthy firms (train).
+  5. Performance split: PR AUC and ROC AUC with bootstrap CIs, and High-band precision and Watch+High recall, for firms
+     with Attr21 present vs missing, on validation and on train out-of-fold scores (the Phase 4 five-fold procedure with
+     the saved Platt calibrator). Also the share of the High band that has Attr21 missing.
+  6. What-if on the frozen model, validation: set Attr21 to missing for firms that have it, and set it to the train
+     median for firms that lack it. Report how many firms change band and the mean change in calibrated log-odds.
+     This is a description of the frozen model's behaviour, not a recommendation to impute.
+  7. The existing Phase 2 ablation (model retrained without Attr21) is quoted from reports/models_val.md, not rerun.
+- **Wording rule.** Patterns and counts only. Candidate explanations are not asserted, because the dataset has no company id,
+  no year and no field saying why a value is missing. Where the formula itself determines something (Attr21 cannot be
+  computed without last year's sales), that is stated as a property of the definition, not as a story about bankruptcy.
+- **Phase 5 numbers are unchanged.** Test results already include whatever reliance on Attr21 the model has. The test
+  split cannot be broken down by Attr21 status without reading it again, so that breakdown will not be produced.
+
+## 2026-10-17 (Phase 7, after the analysis)
+
+- Analysis ran on train and validation only, per the protocol above. The frozen model, calibrator and cuts were not
+  changed, and no model was trained or selected. The test split was not read. Report: `reports/phase7_attr21.md`.
+- Result in one line: a missing Attr21 goes with a bankrupt label in nearly every train and validation case, the frozen
+  model scores such firms High, and for firms with Attr21 present the model's precision and PR AUC are lower than the
+  headline numbers. The numbers are in the report and are not repeated here.
+- The headline model decision (LightGBM + Platt, user decision) is not reopened by this phase. What the finding changes is
+  how the model may be presented and used, which is a design question for the app and is for the user to decide.
+- Flags added after seeing results, as observations only: the headline numbers are flattered by a small group, and a user
+  who leaves Attr21 blank gets the model's missing-value behaviour, not a neutral score.
+- Not done on purpose: no imputation or retraining, because the test split is spent and any model change could not be
+  evaluated on untouched data.

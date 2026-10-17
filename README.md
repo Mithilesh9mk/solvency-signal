@@ -2,7 +2,7 @@
 
 An early-warning neural network for corporate financial distress.
 
-> Status: Phase 6 done (SHAP explanations of the frozen LightGBM + Platt model). The test split was read once, in Phase 5, and is locked.
+> Status: Phase 7 done (Attr21 missingness analysis, descriptive). Phase 6 gave SHAP explanations of the frozen LightGBM + Platt model. The test split was read once, in Phase 5, and is locked.
 
 ## Problem
 
@@ -102,6 +102,26 @@ SHAP for the frozen LightGBM + Platt model on validation, in calibrated log odds
 | missing | val | 12 | 11 | 0.917 |
 | present | val | 866 | 50 | 0.058 |
 
+Attr21 missingness (Phase 7):
+
+Attr21 (sales growth) missingness, train and validation only, frozen model unchanged. Full report: reports/phase7_attr21.md.
+
+| Split | Attr21 | Firms | Bankrupt | Rate |
+|---|---|---|---|---|
+| train | missing | 73 | 71 | 0.973 |
+| train | present | 4021 | 215 | 0.053 |
+| val | missing | 12 | 11 | 0.917 |
+| val | present | 866 | 50 | 0.058 |
+
+| Scores | Subset | PR AUC | High precision |
+|---|---|---|---|
+| validation | Attr21 all | 0.783 | 0.600 |
+| validation | Attr21 present | 0.713 | 0.540 |
+| train out-of-fold | Attr21 all | 0.800 | 0.678 |
+| train out-of-fold | Attr21 present | 0.694 | 0.585 |
+
+What-if on the frozen model (validation): blanking Attr21 moves 803 Low or Watch firms to High-heavy bands (862 of 866 firms High after blanking, 63 before).
+
 Details, reliability diagrams, band tables, cost framing and the model decision: [reports/phase4_calibration.md](reports/phase4_calibration.md). Earlier phases: [reports/models_val.md](reports/models_val.md).
 
 ### Flags
@@ -146,6 +166,17 @@ Details, reliability diagrams, band tables, cost framing and the model decision:
 38. Phase 6: Attr21 missing vs present SHAP: mean abs SHAP is 5.190 when missing vs 0.322 when present (validation; 12 firms have it missing). Pattern only.
 39. Phase 6: Attr21 train: bankruptcy rate 0.973 when missing (73 firms) vs 0.053 when present (4021 firms); the 95% Wilson intervals do not overlap. Pattern only.
 40. Phase 6: Attr21 val: bankruptcy rate 0.917 when missing (12 firms) vs 0.058 when present (866 firms); the 95% Wilson intervals do not overlap. Pattern only.
+41. Phase 7: Attr21 is missing for 73 train and 12 validation firms, and 71 and 11 of them are bankrupt. Those firms are 24.8% (train) and 18.0% (validation) of all bankrupt firms. In this data, a missing Attr21 almost always goes with a bankrupt label. The cause is not known.
+42. Phase 7: The validation group is only 12 firms (1 healthy), so anything measured on it is very noisy. Train has the larger group but the model was fit on it, so out-of-fold scores are used for the train performance numbers.
+43. Phase 7: High band composition on validation: 12 of 75 High firms have Attr21 missing; on train out-of-fold: 73 of 307.
+44. Phase 7: On firms with Attr21 present, validation PR AUC is 0.713 (0.600 to 0.815) against 0.783 (0.697 to 0.863) for all firms, and train out-of-fold PR AUC is 0.694 against 0.800. The Phase 2 retrain without Attr21 scored 0.687 against 0.783 with it.
+45. Phase 7: What-if on the frozen model (validation): blanking Attr21 for the 866 firms that have it moves 800 firms to a different band (mean change +5.77 calibrated log-odds). Filling the 12 missing firms with the train median moves 7 firms (mean change -5.01). A user who leaves Attr21 blank gets the model's missing-value behaviour, not a neutral score.
+46. Phase 7: Co-missingness (train): Attr21-missing firms have a median of 2 attributes missing (mean 3.00, pulled up by a few firms with many missing), against a median of 0 (mean 0.73) for the others. The distribution is in the table.
+47. Phase 7: For firms with Attr21 present, High-band precision is 0.540 on validation and 0.585 on train out-of-fold, against 0.600 and 0.678 for all firms. The headline numbers are flattered by the small group where a missing value goes with the bankrupt label.
+48. Phase 7: The dataset has no company id and no year, and no field says why a value is missing. This report states counts and patterns only.
+49. Phase 7: The test split cannot be broken down by Attr21 status without reading it again, so no such breakdown exists. The Phase 5 test results are unchanged and already include whatever reliance on Attr21 the model has.
+50. Phase 7: Out-of-fold scores use the saved Platt calibrator that was fitted on those same out-of-fold scores, so the calibrated train numbers are mildly optimistic.
+51. Phase 7: Test split untouched in this phase. No model, calibrator or cut was changed.
 
 <!-- RESULTS:END -->
 
@@ -200,6 +231,13 @@ SHAP explanations (train and validation only), then refresh the generated state 
 ```bash
 python -m scripts.run_phase6
 python -m scripts.update_state --phase "Phase 6: SHAP explanations"
+```
+
+Attr21 missingness analysis (train and validation only), then refresh the generated state files:
+
+```bash
+python -m scripts.run_phase7_attr21
+python -m scripts.update_state --phase "Phase 7: Attr21 missingness"
 ```
 
 TODO: Commands for the app.
