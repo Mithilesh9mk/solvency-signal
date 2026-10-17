@@ -10,3 +10,4 @@ matplotlib
 streamlit
 scipy
 liac-arff
+pytest

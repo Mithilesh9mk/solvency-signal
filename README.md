@@ -2,7 +2,7 @@
 
 An early-warning neural network for corporate financial distress.
 
-> Status: Phase 0 (project setup). No models have been trained yet.
+> Status: Phase 1 (data preparation). No models have been trained yet.
 
 ## Problem
 
@@ -11,12 +11,15 @@ distress in the following period, early enough for the warning to be useful.
 
 ## Data
 
-TODO: Describe the datasets in `data/raw`, their sources, licences and
-citations.
+| Role | Dataset | Notes |
+|---|---|---|
+| Primary | Polish companies bankruptcy, `5year.arff` (UCI 365, CC BY 4.0) | 5,910 firms, 64 financial ratios, label is bankruptcy within 1 year |
+| Candidate | American companies, NYSE and NASDAQ 1999 to 2018 (CC BY 4.0) | 18 raw accounting variables, no operating cash flow; labels need checking |
+| Optional benchmark | Taiwanese bankruptcy prediction (UCI) | Most features pre-scaled to 0 to 1, some contain values near 1e10 |
 
-- American companies bankruptcy dataset (NYSE and NASDAQ, 1999 to 2018), CC BY 4.0
-- Polish companies bankruptcy dataset (UCI)
-- Taiwanese bankruptcy prediction dataset (UCI)
+Feature names, formulas, data quality flags and split sizes: [reports/data_report.md](reports/data_report.md).
+
+Citation: Tomczak, S. (2016). Polish Companies Bankruptcy. UCI Machine Learning Repository. https://doi.org/10.24432/C5F600
 
 ## Method
 
@@ -39,7 +42,19 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-TODO: Commands for preprocessing, training, evaluation and the app.
+Prepare the data (reads the raw zip, writes splits to `data/processed`):
+
+```bash
+python -m src.preprocess
+```
+
+Run the tests:
+
+```bash
+python -m pytest tests
+```
+
+TODO: Commands for training, evaluation and the app.
 
 ## Live app
 
