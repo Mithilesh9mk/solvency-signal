@@ -51,93 +51,49 @@ Platt fit on OOF train: Logistic regression slope 0.779, intercept -0.469; Light
 
 ## Risk bands
 
-**Rule, stated before results.** On the calibrated probability of the chosen method, fitted on OOF train only: High starts at the lowest threshold whose OOF precision is at least 0.25. Watch starts at the highest threshold whose OOF recall is still at least 0.80. Low is everything below. Nothing was tuned afterwards.
+**Rule, fixed before this run (docs/decisions.md).** The first rule (OOF precision 0.25, OOF recall 0.80) degenerated, with an empty Watch band, and the user replaced it. On the calibrated probability of the chosen method, **fitted on validation**: Watch is the highest threshold at which recall is still at least 0.80. High is the lowest threshold at which precision is at least 0.60. If the Watch cut is not below the High cut there are only two bands, Low and High, and no Watch band is forced.
 
-**Result: the approved rule degenerates on this data.** Precision of 0.25 is already reached at a recall above the 0.80 Watch target, so the Watch cut lands above the High cut and the Watch band is empty. High becomes a broad band. The tables below report this honestly. Nothing was changed to make it look better.
+Caveats: the cuts are fitted on the same validation split they are reported on, so the validation columns below are in-sample and optimistic (61 positives). The train OOF columns apply the same cuts to firms that played no part in setting them, so they are the independent check. The 0.60 floor was chosen after an earlier diagnostic had been seen, so it is not a blind choice.
 
-| Model | Method | Watch cut (p >=) | High cut (p >=) |
-|---|---|---|---|
-| Logistic regression | none | 0.0353 | 0.0353 |
-| LightGBM | platt | 0.0226 | 0.0226 |
-| Neural network | none | 0.0285 | 0.0285 |
+| Model | Method | Bands | Watch cut (p >=) | High cut (p >=) |
+|---|---|---|---|---|
+| Logistic regression | none | three | 0.0614 | 0.3629 |
+| LightGBM | platt | three | 0.1736 | 0.2403 |
+| Neural network | none | three | 0.0399 | 0.1877 |
 
-### Bands under the approved rule
+### LightGBM (headline), platt
 
-**Logistic regression** (none)
-
-| Band | OOF train firms | OOF bankrupt rate | OOF share of all bankrupt | Val firms | Val bankrupt | Val bankrupt rate | Val share of all bankrupt |
+| Band | Val firms (in-sample) | Val bankrupt | Val bankrupt rate | Val share of all bankrupt | Train OOF firms (independent) | OOF bankrupt rate | OOF share of all bankrupt |
 |---|---|---|---|---|---|---|---|
-| Low | 3106 (75.9%) | 0.013 | 13.6% | 646 (73.6%) | 8 | 0.012 | 13.1% |
-| Watch | 0 (0.0%) | n/a | 0.0% | 0 (0.0%) | 0 | n/a | 0.0% |
-| High | 988 (24.1%) | 0.250 | 86.4% | 232 (26.4%) | 53 | 0.228 | 86.9% |
+| Low | 787 (89.6%) | 12 | 0.015 | 19.7% | 3735 (91.2%) | 0.018 | 23.1% |
+| Watch | 16 (1.8%) | 4 | 0.250 | 6.6% | 52 (1.3%) | 0.231 | 4.2% |
+| High | 75 (8.5%) | 45 | 0.600 | 73.8% | 307 (7.5%) | 0.678 | 72.7% |
 
-> Note: recall floor is reached only above the High cut; Watch band is empty.
+### Logistic regression (comparison, not deployed), none
 
-**LightGBM** (platt)
-
-| Band | OOF train firms | OOF bankrupt rate | OOF share of all bankrupt | Val firms | Val bankrupt | Val bankrupt rate | Val share of all bankrupt |
+| Band | Val firms (in-sample) | Val bankrupt | Val bankrupt rate | Val share of all bankrupt | Train OOF firms (independent) | OOF bankrupt rate | OOF share of all bankrupt |
 |---|---|---|---|---|---|---|---|
-| Low | 3022 (73.8%) | 0.006 | 6.3% | 606 (69.0%) | 4 | 0.007 | 6.6% |
-| Watch | 0 (0.0%) | n/a | 0.0% | 0 (0.0%) | 0 | n/a | 0.0% |
-| High | 1072 (26.2%) | 0.250 | 93.7% | 272 (31.0%) | 57 | 0.210 | 93.4% |
+| Low | 734 (83.6%) | 12 | 0.016 | 19.7% | 3444 (84.1%) | 0.017 | 20.3% |
+| Watch | 89 (10.1%) | 16 | 0.180 | 26.2% | 415 (10.1%) | 0.152 | 22.0% |
+| High | 55 (6.3%) | 33 | 0.600 | 54.1% | 235 (5.7%) | 0.702 | 57.7% |
 
-> Note: recall floor is reached only above the High cut; Watch band is empty.
+### Neural network (comparison, not deployed), none
 
-**Neural network** (none)
-
-| Band | OOF train firms | OOF bankrupt rate | OOF share of all bankrupt | Val firms | Val bankrupt | Val bankrupt rate | Val share of all bankrupt |
+| Band | Val firms (in-sample) | Val bankrupt | Val bankrupt rate | Val share of all bankrupt | Train OOF firms (independent) | OOF bankrupt rate | OOF share of all bankrupt |
 |---|---|---|---|---|---|---|---|
-| Low | 3050 (74.5%) | 0.008 | 8.7% | 694 (79.0%) | 8 | 0.012 | 13.1% |
-| Watch | 0 (0.0%) | n/a | 0.0% | 0 (0.0%) | 0 | n/a | 0.0% |
-| High | 1044 (25.5%) | 0.250 | 91.3% | 184 (21.0%) | 53 | 0.288 | 86.9% |
+| Low | 729 (83.0%) | 12 | 0.016 | 19.7% | 3217 (78.6%) | 0.010 | 11.5% |
+| Watch | 81 (9.2%) | 8 | 0.099 | 13.1% | 515 (12.6%) | 0.087 | 15.7% |
+| High | 68 (7.7%) | 41 | 0.603 | 67.2% | 362 (8.8%) | 0.575 | 72.7% |
 
-> Note: recall floor is reached only above the High cut; Watch band is empty.
+### What each precision floor implies (validation, chosen method)
 
-### What each precision floor implies (OOF train, chosen method)
-
-For the lowest threshold meeting each precision floor: the share of OOF recall and of firms flagged. This shows why the 0.25 floor is too low to separate High from Watch.
+For the lowest threshold meeting each precision floor: the recall reached and the share of firms flagged. This shows how sensitive the High cut is to the floor.
 
 | Model | Floor 0.25: recall / firms flagged | Floor 0.35: recall / firms flagged | Floor 0.50: recall / firms flagged | Floor 0.60: recall / firms flagged | Floor 0.70: recall / firms flagged |
 |---|---|---|---|---|---|
-| Logistic regression | 0.864 / 24.1% | 0.797 / 15.9% | 0.710 / 9.9% | 0.650 / 7.6% | 0.577 / 5.7% |
-| LightGBM | 0.937 / 26.2% | 0.909 / 18.1% | 0.846 / 11.8% | 0.787 / 9.2% | 0.703 / 7.0% |
-| Neural network | 0.913 / 25.5% | 0.864 / 17.2% | 0.776 / 10.8% | 0.696 / 8.1% | 0.654 / 6.5% |
-
-### Alternative rule (post-hoc, NOT approved, needs your decision)
-
-Proposed only after seeing that the approved rule degenerates on train OOF. High: lowest threshold with OOF precision at least 0.50. Watch: unchanged (OOF recall at least 0.80). The 0.50 floor is one round number chosen once; no other floor was scanned for the result and validation played no part in the choice. If you approve it, it replaces the rule above.
-
-| Model | Watch cut (p >=) | High cut (p >=) |
-|---|---|---|
-| Logistic regression | 0.0599 | 0.1408 |
-| LightGBM | 0.0890 | 0.0890 |
-| Neural network | 0.1100 | 0.1357 |
-
-**Logistic regression** (none, alternative rule)
-
-| Band | OOF train firms | OOF bankrupt rate | OOF share of all bankrupt | Val firms | Val bankrupt | Val bankrupt rate | Val share of all bankrupt |
-|---|---|---|---|---|---|---|---|
-| Low | 3436 (83.9%) | 0.017 | 19.9% | 729 (83.0%) | 11 | 0.015 | 18.0% |
-| Watch | 252 (6.2%) | 0.103 | 9.1% | 60 (6.8%) | 7 | 0.117 | 11.5% |
-| High | 406 (9.9%) | 0.500 | 71.0% | 89 (10.1%) | 43 | 0.483 | 70.5% |
-
-**LightGBM** (platt, alternative rule)
-
-| Band | OOF train firms | OOF bankrupt rate | OOF share of all bankrupt | Val firms | Val bankrupt | Val bankrupt rate | Val share of all bankrupt |
-|---|---|---|---|---|---|---|---|
-| Low | 3610 (88.2%) | 0.012 | 15.4% | 754 (85.9%) | 8 | 0.011 | 13.1% |
-| Watch | 0 (0.0%) | n/a | 0.0% | 0 (0.0%) | 0 | n/a | 0.0% |
-| High | 484 (11.8%) | 0.500 | 84.6% | 124 (14.1%) | 53 | 0.427 | 86.9% |
-
-> Note: recall floor is reached only above the High cut; Watch band is empty.
-
-**Neural network** (none, alternative rule)
-
-| Band | OOF train firms | OOF bankrupt rate | OOF share of all bankrupt | Val firms | Val bankrupt | Val bankrupt rate | Val share of all bankrupt |
-|---|---|---|---|---|---|---|---|
-| Low | 3598 (87.9%) | 0.016 | 19.9% | 786 (89.5%) | 17 | 0.022 | 27.9% |
-| Watch | 52 (1.3%) | 0.135 | 2.4% | 10 (1.1%) | 2 | 0.200 | 3.3% |
-| High | 444 (10.8%) | 0.500 | 77.6% | 82 (9.3%) | 42 | 0.512 | 68.9% |
+| Logistic regression | 0.869 / 24.1% | 0.787 / 15.6% | 0.689 / 9.6% | 0.541 / 6.3% | 0.475 / 4.7% |
+| LightGBM | 0.934 / 26.0% | 0.885 / 17.5% | 0.836 / 11.6% | 0.738 / 8.5% | 0.689 / 6.8% |
+| Neural network | 0.918 / 25.5% | 0.787 / 15.6% | 0.721 / 10.0% | 0.672 / 7.7% | 0.590 / 5.8% |
 
 ![Validation precision and recall at the band cuts](figures/phase4_pr_bands.png)
 
@@ -236,45 +192,39 @@ Cost = ratio x missed distress + 1 x false alarm. The ratios 5:1, 10:1 and 20:1 
 | 10:1 | 0.091 | 100 / 0.738 / 0.450 / 245 | 0.0790 | 102 / 0.738 / 0.441 / 247 | 695 | 931 |
 | 20:1 | 0.048 | 134 / 0.770 / 0.351 / 418 | 0.0545 | 121 / 0.738 / 0.372 / 451 | 1390 | 931 |
 
-## Model decision (for the user)
+## Model decision (recorded)
 
-Validation comparison with the chosen calibration per model:
+Validation comparison with the chosen calibration per model (bands as defined above):
 
 | Model | Method | PR AUC (95% CI) | Brier | Log loss | ECE | Watch+High recall | High precision |
 |---|---|---|---|---|---|---|---|
-| Logistic regression | none | 0.610 (0.499 to 0.734) | 0.0411 | 0.1733 | 0.0235 | 0.869 | 0.228 |
-| LightGBM | platt | 0.783 (0.697 to 0.863) | 0.0300 | 0.1088 | 0.0132 | 0.934 | 0.210 |
-| Neural network | none | 0.723 (0.621 to 0.821) | 0.0321 | 0.1320 | 0.0168 | 0.869 | 0.288 |
+| Logistic regression | none | 0.610 (0.499 to 0.734) | 0.0411 | 0.1733 | 0.0235 | 0.803 | 0.600 |
+| LightGBM | platt | 0.783 (0.697 to 0.863) | 0.0300 | 0.1088 | 0.0132 | 0.803 | 0.600 |
+| Neural network | none | 0.723 (0.621 to 0.821) | 0.0321 | 0.1320 | 0.0168 | 0.803 | 0.603 |
 
-**Recommendation (Claude's, the decision is yours): LightGBM with platt calibration as the headline model, and the neural network kept as the documented neural benchmark.**
+**Decision (user, 2026-10-17): headline model is LightGBM with platt calibration. The neural network stays in the repo as the deep learning comparison and is not deployed.**
 
-- On validation it has the best PR AUC (0.783 vs 0.723 for the neural network), Brier (0.0300 vs 0.0321) and log loss (0.1088 vs 0.1320) of the calibrated models, and the same order on train CV (Phase 3).
-- Calibration helps it most: Platt changes its validation log loss by -0.0170 (95% CI -0.0344 to -0.0015), a change whose interval excludes zero. Raw LightGBM scores are not probabilities.
+- On validation LightGBM has PR AUC 0.783 vs 0.723 for the neural network, Brier 0.0300 vs 0.0321 and log loss 0.1088 vs 0.1320.
+- Platt changes its validation log loss by -0.0170 (95% CI -0.0344 to -0.0015). Raw LightGBM scores are not probabilities.
 
-**Risks of choosing it:**
-1. The PR AUC lead over the neural network is borderline at this sample size (61 validation positives; the Phase 3 paired CI upper bound was just below zero). It is a lean, not a proof.
-2. It relies heavily on `sales_growth` (Attr21, needs last year's sales) and `Attr27` (undefined when financial expenses are zero), see the Phase 2 flags. A product needs a plan for firms missing them.
-3. Its Platt calibration is a real correction (slope 0.65); the calibrator was fitted on fold models, not on the saved model, so some mismatch is possible.
-4. Under the approved band rule its Watch band is empty and High is broad (see Risk bands). That is a property of the rule on this data, not specific to LightGBM, but the user still needs to settle the band rule.
-5. Random split, no time ordering, so all of this may overstate performance on future years.
-
-**Why you might pick the neural network instead:** it is the project's stated concept, it is well calibrated without any calibrator (validation ECE 0.0168), and under the approved rule its High band had validation precision 0.288 against 0.210 for LightGBM. The price is a lower PR AUC (0.723).
-
-**Decision needed:** (a) headline model, (b) band rule: keep the approved one, adopt the post-hoc 0.50 alternative, or define another.
+**Risks that stay open:**
+1. The PR AUC lead over the neural network is borderline at this sample size (61 validation positives; the Phase 3 paired CI upper bound was just below zero).
+2. It relies heavily on `sales_growth` (Attr21, needs last year's sales) and `Attr27` (undefined when financial expenses are zero), see the Phase 2 flags.
+3. Its Platt calibration is a real correction (slope 0.65), fitted on fold models, not on the saved model, so some mismatch is possible.
+4. The band cuts are fitted on the same validation split they are reported on (see Risk bands).
+5. Random split, no time ordering, so performance on future years may be lower.
 
 ## Flags
 
 1. Validation has only 61 bankrupt firms and ECE uses 10 equal-frequency bins of about 87 firms (about 6 positives each), so ECE and the reliability points are noisy. Read them with the CIs.
 2. Calibrators and bands were fitted on 5-fold out-of-fold scores of the train split (286 bankrupt). The saved models are refit on all of train, so they are slightly stronger than the fold models the calibrators saw. Direction of the bias is not verified.
 3. Cost ratios 5:1, 10:1 and 20:1 are assumptions, not estimates from any lender or data.
-4. Band rule wording: the approved text said 'lowest threshold' for Watch recall, which taken literally flags every firm. It was applied as the highest threshold that still reaches the recall floor.
-5. logistic_regression: recall floor is reached only above the High cut; Watch band is empty.
-6. logistic_regression: validation High-band precision (0.228) is below the 0.25 target met on OOF train (0.250).
+4. Band cuts are fitted on validation by user instruction, so validation precision and recall at the cuts are in-sample and optimistic. The independent check is the same cuts applied to train out-of-fold scores.
+5. The High precision floor 0.60 was set after an earlier precision-floor diagnostic and the validation tradeoff table had been seen, so it is not a blind choice.
+6. logistic_regression: recall of the flagged bands on train OOF (0.797) is below the 0.80 target the cut reached on validation.
 7. logistic_regression: isotonic gives exactly 0 or 1 to 19 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.
-8. lightgbm: recall floor is reached only above the High cut; Watch band is empty.
-9. lightgbm: validation High-band precision (0.210) is below the 0.25 target met on OOF train (0.250).
-10. lightgbm (alternative rule): recall floor is reached only above the High cut; Watch band is empty.
-11. lightgbm (alternative rule): validation High-band precision (0.427) is more than 0.05 below OOF train (0.500).
-12. lightgbm: isotonic gives exactly 0 or 1 to 151 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.
-13. neural_net: recall floor is reached only above the High cut; Watch band is empty.
-14. neural_net: isotonic gives exactly 0 or 1 to 33 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.
+8. lightgbm: recall of the flagged bands on train OOF (0.769) is below the 0.80 target the cut reached on validation.
+9. lightgbm: the Watch band is thin (16 validation firms with 4 bankrupt, 52 train OOF firms), because the 80% recall cut (0.1736) and the precision cut (0.2403) are close. Its rate rests on very few positives.
+10. lightgbm: isotonic gives exactly 0 or 1 to 151 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.
+11. neural_net: High-band precision on train OOF (0.575) is below the 0.60 floor the cut reached on validation.
+12. neural_net: isotonic gives exactly 0 or 1 to 33 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.

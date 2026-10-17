@@ -46,11 +46,13 @@ Validation split, Polish 5year: 878 firms, 61 went bankrupt within a year (no-sk
 
 Calibration and risk bands (fitted on train out-of-fold scores, reported on validation):
 
-| Model | Calibration chosen | Brier | Log loss | ECE | PR AUC | High band cut | Watch band cut |
-|---|---|---|---|---|---|---|---|
-| logistic_regression | none | 0.0411 | 0.1733 | 0.0235 | 0.610 | 0.0353 | 0.0353 |
-| lightgbm | platt | 0.0300 | 0.1088 | 0.0132 | 0.783 | 0.0226 | 0.0226 |
-| neural_net | none | 0.0321 | 0.1320 | 0.0168 | 0.723 | 0.0285 | 0.0285 |
+Headline model: lightgbm (user decision). Other models are comparisons, not deployed.
+
+| Model | Calibration chosen | Brier | Log loss | ECE | PR AUC | Bands | Watch cut | High cut |
+|---|---|---|---|---|---|---|---|---|
+| logistic_regression | none | 0.0411 | 0.1733 | 0.0235 | 0.610 | three | 0.0614 | 0.3629 |
+| lightgbm | platt | 0.0300 | 0.1088 | 0.0132 | 0.783 | three | 0.1736 | 0.2403 |
+| neural_net | none | 0.0321 | 0.1320 | 0.0168 | 0.723 | three | 0.0399 | 0.1877 |
 
 Details, reliability diagrams, band tables, cost framing and the model decision: [reports/phase4_calibration.md](reports/phase4_calibration.md). Earlier phases: [reports/models_val.md](reports/models_val.md).
 
@@ -63,17 +65,15 @@ Details, reliability diagrams, band tables, cost framing and the model decision:
 5. Validation has only 61 bankrupt firms and ECE uses 10 equal-frequency bins of about 87 firms (about 6 positives each), so ECE and the reliability points are noisy. Read them with the CIs.
 6. Calibrators and bands were fitted on 5-fold out-of-fold scores of the train split (286 bankrupt). The saved models are refit on all of train, so they are slightly stronger than the fold models the calibrators saw. Direction of the bias is not verified.
 7. Cost ratios 5:1, 10:1 and 20:1 are assumptions, not estimates from any lender or data.
-8. Band rule wording: the approved text said 'lowest threshold' for Watch recall, which taken literally flags every firm. It was applied as the highest threshold that still reaches the recall floor.
-9. logistic_regression: recall floor is reached only above the High cut; Watch band is empty.
-10. logistic_regression: validation High-band precision (0.228) is below the 0.25 target met on OOF train (0.250).
+8. Band cuts are fitted on validation by user instruction, so validation precision and recall at the cuts are in-sample and optimistic. The independent check is the same cuts applied to train out-of-fold scores.
+9. The High precision floor 0.60 was set after an earlier precision-floor diagnostic and the validation tradeoff table had been seen, so it is not a blind choice.
+10. logistic_regression: recall of the flagged bands on train OOF (0.797) is below the 0.80 target the cut reached on validation.
 11. logistic_regression: isotonic gives exactly 0 or 1 to 19 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.
-12. lightgbm: recall floor is reached only above the High cut; Watch band is empty.
-13. lightgbm: validation High-band precision (0.210) is below the 0.25 target met on OOF train (0.250).
-14. lightgbm (alternative rule): recall floor is reached only above the High cut; Watch band is empty.
-15. lightgbm (alternative rule): validation High-band precision (0.427) is more than 0.05 below OOF train (0.500).
-16. lightgbm: isotonic gives exactly 0 or 1 to 151 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.
-17. neural_net: recall floor is reached only above the High cut; Watch band is empty.
-18. neural_net: isotonic gives exactly 0 or 1 to 33 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.
+12. lightgbm: recall of the flagged bands on train OOF (0.769) is below the 0.80 target the cut reached on validation.
+13. lightgbm: the Watch band is thin (16 validation firms with 4 bankrupt, 52 train OOF firms), because the 80% recall cut (0.1736) and the precision cut (0.2403) are close. Its rate rests on very few positives.
+14. lightgbm: isotonic gives exactly 0 or 1 to 151 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.
+15. neural_net: High-band precision on train OOF (0.575) is below the 0.60 floor the cut reached on validation.
+16. neural_net: isotonic gives exactly 0 or 1 to 33 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.
 
 <!-- RESULTS:END -->
 

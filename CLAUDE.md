@@ -30,8 +30,9 @@ A Streamlit app and an Indian case study come in later phases.
 - End of every phase: `python -m scripts.update_state --phase "<phase>"`, then commit
 
 ## Status
-Current phase: Phase 4: calibration, thresholds and risk bands (complete, awaiting user decisions)
-Last phase commit: 7d9c24f
+Headline model: LightGBM + Platt (user decision). The neural network is the deep learning comparison, not deployed.
+Current phase: Phase 4: calibration, thresholds and risk bands (complete)
+Last phase commit: 5635f55
 
 ## Pointers
 For details read docs/STATE.md, docs/decisions.md, docs/data_card.md only when needed.

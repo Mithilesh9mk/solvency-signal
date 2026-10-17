@@ -28,49 +28,40 @@ ARTIFACTS = ROOT / "artifacts" / "calibration"
 MODELS = ROOT / "models"
 N_BOOT = 1000
 
-RECOMMENDED = "lightgbm"  # written after reading the validation comparison; the user makes the final call
+HEADLINE = "lightgbm"  # user decision, 2026-10-17; the neural network is the deep learning comparison, not deployed
+
+
+NL = "\n"
 
 
 def build_recommendation(res: dict) -> str:
-    """Recommendation text. The choice is Claude's judgement, every number in it comes from `res`."""
+    """Recorded decision text. The choice is the user's (2026-10-17); every number in it comes from `res`."""
     M = res["models"]
-    if not {RECOMMENDED, "neural_net"} <= set(M):
-        return "(No recommendation: this run did not include every candidate model.)"
+    if not {HEADLINE, "neural_net"} <= set(M):
+        return "(Decision text needs every candidate model in the run.)"
     nm = {n: MODEL_STYLE[n][0] for n in M}
-    r, o = M[RECOMMENDED], M["neural_net"]
+    r, o = M[HEADLINE], M["neural_net"]
     rv, ov = r["val"][r["selected_method"]], o["val"][o["selected_method"]]
     lg = r["val"]["platt"]["delta_vs_none"]["log_loss"]
     n_pos = res["n_val_pos"]
-    hp_r, hp_o = (next(x for x in m["bands"]["val_table"] if x["band"] == "High")["bankrupt_rate"] for m in (r, o))
-    return "\n".join([
-        f"**Recommendation (Claude's, the decision is yours): {nm[RECOMMENDED]} with {r['selected_method']} calibration "
-        f"as the headline model, and the neural network kept as the documented neural benchmark.**",
+    return NL.join([
+        f"**Decision (user, 2026-10-17): headline model is {nm[HEADLINE]} with {r['selected_method']} calibration. "
+        "The neural network stays in the repo as the deep learning comparison and is not deployed.**",
         "",
-        f"- On validation it has the best PR AUC ({rv['pr_auc']:.3f} vs {ov['pr_auc']:.3f} for the neural network), "
-        f"Brier ({rv['brier']:.4f} vs {ov['brier']:.4f}) and log loss ({rv['log_loss']:.4f} vs {ov['log_loss']:.4f}) "
-        "of the calibrated models, and the same order on train CV (Phase 3).",
-        f"- Calibration helps it most: Platt changes its validation log loss by "
-        f"{r['val']['platt']['log_loss'] - r['val']['none']['log_loss']:+.4f} (95% CI {lg['ci'][0]:+.4f} to "
-        f"{lg['ci'][1]:+.4f}), a change whose interval excludes zero. Raw LightGBM scores are not probabilities.",
+        f"- On validation {nm[HEADLINE]} has PR AUC {rv['pr_auc']:.3f} vs {ov['pr_auc']:.3f} for the neural network, "
+        f"Brier {rv['brier']:.4f} vs {ov['brier']:.4f} and log loss {rv['log_loss']:.4f} vs {ov['log_loss']:.4f}.",
+        f"- Platt changes its validation log loss by {r['val']['platt']['log_loss'] - r['val']['none']['log_loss']:+.4f} "
+        f"(95% CI {lg['ci'][0]:+.4f} to {lg['ci'][1]:+.4f}). Raw LightGBM scores are not probabilities.",
         "",
-        "**Risks of choosing it:**",
-        f"1. The PR AUC lead over the neural network is borderline at this sample size ({n_pos} "
-        "validation positives; the Phase 3 paired CI upper bound was just below zero). It is a lean, not a proof.",
+        "**Risks that stay open:**",
+        f"1. The PR AUC lead over the neural network is borderline at this sample size ({n_pos} validation positives; "
+        "the Phase 3 paired CI upper bound was just below zero).",
         "2. It relies heavily on `sales_growth` (Attr21, needs last year's sales) and `Attr27` (undefined when "
-        "financial expenses are zero), see the Phase 2 flags. A product needs a plan for firms missing them.",
-        f"3. Its Platt calibration is a real correction (slope {r['platt']['a']:.2f}); the calibrator was fitted on fold "
-        "models, not on the saved model, so some mismatch is possible.",
-        "4. Under the approved band rule its Watch band is empty and High is broad (see Risk bands). That is a property of "
-        "the rule on this data, not specific to LightGBM, but the user still needs to settle the band rule.",
-        "5. Random split, no time ordering, so all of this may overstate performance on future years.",
-        "",
-        "**Why you might pick the neural network instead:** it is the project's stated concept, it is well calibrated "
-        f"without any calibrator (validation ECE {ov['ece']:.4f}), and under the approved rule its High band had "
-        f"validation precision {hp_o:.3f} against {hp_r:.3f} for {nm[RECOMMENDED]}. The price is a lower PR AUC "
-        f"({ov['pr_auc']:.3f}).",
-        "",
-        "**Decision needed:** (a) headline model, (b) band rule: keep the approved one, adopt the post-hoc 0.50 "
-        "alternative, or define another.",
+        "financial expenses are zero), see the Phase 2 flags.",
+        f"3. Its Platt calibration is a real correction (slope {r['platt']['a']:.2f}), fitted on fold models, not on the "
+        "saved model, so some mismatch is possible.",
+        "4. The band cuts are fitted on the same validation split they are reported on (see Risk bands).",
+        "5. Random split, no time ordering, so performance on future years may be lower.",
     ])
 
 
@@ -94,17 +85,13 @@ def compute(X_tr, y_tr, X_va, y_va, final_models: dict, names: list, n_boot: int
             val[m] = {**C.metrics(y_va, va_cal[m]), **boot[m]}
             val[m]["n_exact_zero_or_one"] = int(((va_cal[m] <= 0) | (va_cal[m] >= 1)).sum())
         chosen = sel["selected"]
-        bands = C.band_thresholds(y_tr, oof_cal[chosen])
-        bands.update({"selected_method": chosen})
-        bands["oof_table"] = C.band_table(y_tr, oof_cal[chosen], bands["t_watch"], bands["t_high"])
-        bands["val_table"] = C.band_table(y_va, va_cal[chosen], bands["t_watch"], bands["t_high"])
-        alt = C.band_thresholds(y_tr, oof_cal[chosen], **C.ALT_BAND_RULE)
-        alt["oof_table"] = C.band_table(y_tr, oof_cal[chosen], alt["t_watch"], alt["t_high"])
-        alt["val_table"] = C.band_table(y_va, va_cal[chosen], alt["t_watch"], alt["t_high"])
-        bands["alt"] = alt
+        bands = C.band_thresholds(y_va, va_cal[chosen])  # fitted on validation by user instruction
+        bands.update({"selected_method": chosen, "fit_on": "validation"})
+        bands["val_table"] = C.band_table(y_va, va_cal[chosen], bands["t_watch"], bands["t_high"])  # in-sample
+        bands["oof_table"] = C.band_table(y_tr, oof_cal[chosen], bands["t_watch"], bands["t_high"])  # independent check
         cost = {str(r): C.cost_thresholds(y_tr, oof_cal[chosen], y_va, va_cal[chosen], r) for r in C.COST_RATIOS}
         res["models"][name] = {
-            "precision_floor_diagnostic": C.precision_floor_diagnostic(y_tr, oof_cal[chosen]),
+            "precision_floor_diagnostic": C.precision_floor_diagnostic(y_va, va_cal[chosen]),
             "selection": sel, "selected_method": chosen, "val": val, "bands": bands, "cost": cost,
             "oof_metrics": {m: C.metrics(y_tr, oof_cal[m]) for m in C.METHODS},
             "tradeoff_oof": C.tradeoff_rows(y_tr, oof_cal[chosen]),
@@ -125,8 +112,10 @@ def make_flags(res: dict, y_tr, y_va) -> list:
              f"({int(np.sum(y_tr))} bankrupt). The saved models are refit on all of train, so they are slightly "
              "stronger than the fold models the calibrators saw. Direction of the bias is not verified.",
              "Cost ratios 5:1, 10:1 and 20:1 are assumptions, not estimates from any lender or data.",
-             "Band rule wording: the approved text said 'lowest threshold' for Watch recall, which taken literally "
-             "flags every firm. It was applied as the highest threshold that still reaches the recall floor."]
+             "Band cuts are fitted on validation by user instruction, so validation precision and recall at the cuts are "
+             "in-sample and optimistic. The independent check is the same cuts applied to train out-of-fold scores.",
+             f"The High precision floor {C.BAND_RULE['high_min_precision']:.2f} was set after an earlier precision-floor "
+             "diagnostic and the validation tradeoff table had been seen, so it is not a blind choice."]
     outside = sum(1 for m in res["models"].values() for meth, v in m["val"].items()
                   if not v["ci"]["ece"][0] <= v["ece"] <= v["ci"]["ece"][1])
     total = sum(len(m["val"]) for m in res["models"].values())
@@ -139,24 +128,19 @@ def make_flags(res: dict, y_tr, y_va) -> list:
         for note in b["notes"]:
             flags.append(f"{name}: {note}.")
         hi_o = next(r for r in b["oof_table"] if r["band"] == "High")
-        hi_v = next(r for r in b["val_table"] if r["band"] == "High")
-        if hi_v["bankrupt_rate"] is not None and hi_o["bankrupt_rate"] is not None \
-                and hi_v["bankrupt_rate"] < C.BAND_RULE["high_min_precision"]:
-            flags.append(f"{name}: validation High-band precision ({hi_v['bankrupt_rate']:.3f}) is below the "
-                         f"{C.BAND_RULE['high_min_precision']:.2f} target met on OOF train ({hi_o['bankrupt_rate']:.3f}).")
         wa_o = sum(r["share_of_all_bankrupt"] for r in b["oof_table"] if r["band"] != "Low")
-        wa_v = sum(r["share_of_all_bankrupt"] for r in b["val_table"] if r["band"] != "Low")
-        if wa_v < C.BAND_RULE["watch_min_recall"]:
-            flags.append(f"{name}: Watch+High recall on validation ({wa_v:.3f}) is below the "
-                         f"{C.BAND_RULE['watch_min_recall']:.2f} target met on OOF train ({wa_o:.3f}).")
-        alt = b["alt"]
-        alt_v = {r["band"]: r for r in alt["val_table"]}
-        alt_o = {r["band"]: r for r in alt["oof_table"]}
-        for note in alt["notes"]:
-            flags.append(f"{name} (alternative rule): {note}.")
-        if alt_v["High"]["bankrupt_rate"] is not None and alt_o["High"]["bankrupt_rate"] is not None                 and alt_v["High"]["bankrupt_rate"] < alt_o["High"]["bankrupt_rate"] - 0.05:
-            flags.append(f"{name} (alternative rule): validation High-band precision ({alt_v['High']['bankrupt_rate']:.3f}) "
-                         f"is more than 0.05 below OOF train ({alt_o['High']['bankrupt_rate']:.3f}).")
+        if hi_o["bankrupt_rate"] is not None and hi_o["bankrupt_rate"] < C.BAND_RULE["high_min_precision"]:
+            flags.append(f"{name}: High-band precision on train OOF ({hi_o['bankrupt_rate']:.3f}) is below the "
+                         f"{C.BAND_RULE['high_min_precision']:.2f} floor the cut reached on validation.")
+        if wa_o < C.BAND_RULE["watch_min_recall"]:
+            flags.append(f"{name}: recall of the flagged bands on train OOF ({wa_o:.3f}) is below the "
+                         f"{C.BAND_RULE['watch_min_recall']:.2f} target the cut reached on validation.")
+        wv = next(r for r in b["val_table"] if r["band"] == "Watch")
+        wo = next(r for r in b["oof_table"] if r["band"] == "Watch")
+        if 0 < wv["firms"] <= 20:
+            flags.append(f"{name}: the Watch band is thin ({wv['firms']} validation firms with {wv['bankrupt']} bankrupt, "
+                         f"{wo['firms']} train OOF firms), because the 80% recall cut ({b['t_watch']:.4f}) and the "
+                         f"precision cut ({b['t_high']:.4f}) are close. Its rate rests on very few positives.")
         iso = m["val"]["isotonic"]
         if iso["n_exact_zero_or_one"]:
             flags.append(f"{name}: isotonic gives exactly 0 or 1 to {iso['n_exact_zero_or_one']} validation firms "
@@ -219,11 +203,11 @@ def plot_pr_bands(res, y_va, out_png) -> None:
             tp = int((f & (np.asarray(y_va) == 1)).sum())
             if f.sum():
                 ax.plot(tp / np.sum(y_va), tp / f.sum(), marker=mk, color=color, ms=11, mec="black", mew=1.0, ls="")
-    ax.plot([], [], marker="X", color="white", mec="black", ls="", ms=10, label="Watch cut (fixed on train OOF)")
-    ax.plot([], [], marker="P", color="white", mec="black", ls="", ms=10, label="High cut (fixed on train OOF)")
+    ax.plot([], [], marker="X", color="white", mec="black", ls="", ms=10, label="Watch cut (fit on validation)")
+    ax.plot([], [], marker="P", color="white", mec="black", ls="", ms=10, label="High cut (fit on validation)")
     ax.axhline(np.mean(y_va), color=INK2, lw=1, ls=(0, (1, 3)))
     ax.set(xlabel="Recall", ylabel="Precision", xlim=(0, 1), ylim=(0, 1.02))
-    ax.set_title("Validation precision and recall at the saved band cuts", loc="left", fontsize=11)
+    ax.set_title("Validation precision and recall at the band cuts (cuts fit on validation)", loc="left", fontsize=11)
     ax.legend(frameon=False, loc="lower left")
     fig.tight_layout()
     fig.savefig(out_png, dpi=150, facecolor=SURFACE)
@@ -311,49 +295,58 @@ def render_report(res: dict, y_tr, y_va, config: dict) -> str:
     a("")
     a("## Risk bands")
     a("")
-    a("**Rule, stated before results.** On the calibrated probability of the chosen method, fitted on OOF train only: "
-      f"High starts at the lowest threshold whose OOF precision is at least {C.BAND_RULE['high_min_precision']:.2f}. "
-      f"Watch starts at the highest threshold whose OOF recall is still at least {C.BAND_RULE['watch_min_recall']:.2f}. "
-      "Low is everything below. Nothing was tuned afterwards.")
+    a("**Rule, fixed before this run (docs/decisions.md).** The first rule (OOF precision 0.25, OOF recall 0.80) "
+      "degenerated, with an empty Watch band, and the user replaced it. On the calibrated probability of the chosen "
+      "method, **fitted on validation**: Watch is the highest threshold at which recall is still at least "
+      f"{C.BAND_RULE['watch_min_recall']:.2f}. High is the lowest threshold at which precision is at least "
+      f"{C.BAND_RULE['high_min_precision']:.2f}. If the Watch cut is not below the High cut there are only two bands, "
+      "Low and High, and no Watch band is forced.")
     a("")
-    a("**Result: the approved rule degenerates on this data.** Precision of "
-      f"{C.BAND_RULE['high_min_precision']:.2f} is already reached at a recall above the "
-      f"{C.BAND_RULE['watch_min_recall']:.2f} Watch target, so the Watch cut lands above the High cut and the "
-      "Watch band is empty. High becomes a broad band. The tables below report this honestly. "
-      "Nothing was changed to make it look better.")
+    a("Caveats: the cuts are fitted on the same validation split they are reported on, so the validation columns below "
+      "are in-sample and optimistic (61 positives). The train OOF columns apply the same cuts to firms that played no "
+      f"part in setting them, so they are the independent check. The {C.BAND_RULE['high_min_precision']:.2f} floor was "
+      "chosen after an earlier diagnostic had been seen, so it is not a blind choice.")
     a("")
-    a("| Model | Method | Watch cut (p >=) | High cut (p >=) |")
-    a("|---|---|---|---|")
+    a("| Model | Method | Bands | Watch cut (p >=) | High cut (p >=) |")
+    a("|---|---|---|---|---|")
     for n in names:
         b = res["models"][n]["bands"]
-        a(f"| {nm[n]} | {b['selected_method']} | {b['t_watch']:.4f} | {b['t_high']:.4f} |")
+        mode = "two (Low, High)" if b["t_watch"] >= b["t_high"] else "three"
+        a(f"| {nm[n]} | {b['selected_method']} | {mode} | {b['t_watch']:.4f} | {b['t_high']:.4f} |")
     a("")
+    two = [nm[n] for n in names if res["models"][n]["bands"]["t_watch"] >= res["models"][n]["bands"]["t_high"]]
+    if two:
+        a(f"**Two bands only for: {', '.join(two)}.** For these the 80% recall cut is not below the precision cut, "
+          "so the rule falls back to Low and High, with the single cut at the 80% recall cut. No Watch band is forced.")
+        a("")
 
     def rate(r):
         return "n/a" if r["bankrupt_rate"] is None else f"{r['bankrupt_rate']:.3f}"
 
-    def band_block(b):
-        a("| Band | OOF train firms | OOF bankrupt rate | OOF share of all bankrupt | Val firms | Val bankrupt | Val bankrupt rate | Val share of all bankrupt |")
+    for n in [HEADLINE] + [x for x in names if x != HEADLINE]:
+        if n not in res["models"]:
+            continue
+        b = res["models"][n]["bands"]
+        tag = " (headline)" if n == HEADLINE else " (comparison, not deployed)"
+        a(f"### {nm[n]}{tag}, {b['selected_method']}")
+        a("")
+        a("| Band | Val firms (in-sample) | Val bankrupt | Val bankrupt rate | Val share of all bankrupt | "
+          "Train OOF firms (independent) | OOF bankrupt rate | OOF share of all bankrupt |")
         a("|---|---|---|---|---|---|---|---|")
         for ro, rv in zip(b["oof_table"], b["val_table"]):
-            a(f"| {ro['band']} | {ro['firms']} ({ro['share_of_firms']:.1%}) | {rate(ro)} | {ro['share_of_all_bankrupt']:.1%} | "
-              f"{rv['firms']} ({rv['share_of_firms']:.1%}) | {rv['bankrupt']} | {rate(rv)} | {rv['share_of_all_bankrupt']:.1%} |")
+            if b["t_watch"] >= b["t_high"] and rv["band"] == "Watch":
+                continue
+            a(f"| {rv['band']} | {rv['firms']} ({rv['share_of_firms']:.1%}) | {rv['bankrupt']} | {rate(rv)} | "
+              f"{rv['share_of_all_bankrupt']:.1%} | {ro['firms']} ({ro['share_of_firms']:.1%}) | {rate(ro)} | "
+              f"{ro['share_of_all_bankrupt']:.1%} |")
         a("")
-
-    a("### Bands under the approved rule")
-    a("")
-    for n in names:
-        b = res["models"][n]["bands"]
-        a(f"**{nm[n]}** ({b['selected_method']})")
-        a("")
-        band_block(b)
         for note in b["notes"]:
             a(f"> Note: {note}.")
             a("")
-    a("### What each precision floor implies (OOF train, chosen method)")
+    a("### What each precision floor implies (validation, chosen method)")
     a("")
-    a("For the lowest threshold meeting each precision floor: the share of OOF recall and of firms flagged. "
-      "This shows why the 0.25 floor is too low to separate High from Watch.")
+    a("For the lowest threshold meeting each precision floor: the recall reached and the share of firms flagged. "
+      "This shows how sensitive the High cut is to the floor.")
     a("")
     a("| Model | " + " | ".join(f"Floor {f:.2f}: recall / firms flagged" for f in C.PRECISION_FLOORS) + " |")
     a("|---|" + "---|" * len(C.PRECISION_FLOORS))
@@ -363,27 +356,6 @@ def render_report(res: dict, y_tr, y_va, config: dict) -> str:
             cells.append("not reached" if r["recall"] is None else f"{r['recall']:.3f} / {r['share_flagged']:.1%}")
         a(f"| {nm[n]} | " + " | ".join(cells) + " |")
     a("")
-    a(f"### Alternative rule (post-hoc, NOT approved, needs your decision)")
-    a("")
-    a(f"Proposed only after seeing that the approved rule degenerates on train OOF. High: lowest threshold with OOF "
-      f"precision at least {C.ALT_BAND_RULE['high_min_precision']:.2f}. Watch: unchanged (OOF recall at least "
-      f"{C.ALT_BAND_RULE['watch_min_recall']:.2f}). The 0.50 floor is one round number chosen once; no other floor was "
-      "scanned for the result and validation played no part in the choice. If you approve it, it replaces the rule above.")
-    a("")
-    a("| Model | Watch cut (p >=) | High cut (p >=) |")
-    a("|---|---|---|")
-    for n in names:
-        b = res["models"][n]["bands"]["alt"]
-        a(f"| {nm[n]} | {b['t_watch']:.4f} | {b['t_high']:.4f} |")
-    a("")
-    for n in names:
-        b = res["models"][n]["bands"]["alt"]
-        a(f"**{nm[n]}** ({res['models'][n]['selected_method']}, alternative rule)")
-        a("")
-        band_block(b)
-        for note in b["notes"]:
-            a(f"> Note: {note}.")
-            a("")
     a("![Validation precision and recall at the band cuts](figures/phase4_pr_bands.png)")
     a("")
     a("### Precision-recall tradeoff (calibrated probability cutoffs, chosen method)")
@@ -420,9 +392,9 @@ def render_report(res: dict, y_tr, y_va, config: dict) -> str:
             a(f"| {r}:1 | {c['t_theory']:.3f} | {cell(c['theory'])} | {c['t_empirical']:.4f} | {cell(c['empirical'])} | "
               f"{c['flag_nobody_cost_per_1000']:.0f} | {c['flag_everybody_cost_per_1000']:.0f} |")
         a("")
-    a("## Model decision (for the user)")
+    a("## Model decision (recorded)")
     a("")
-    a("Validation comparison with the chosen calibration per model:")
+    a("Validation comparison with the chosen calibration per model (bands as defined above):")
     a("")
     a("| Model | Method | PR AUC (95% CI) | Brier | Log loss | ECE | Watch+High recall | High precision |")
     a("|---|---|---|---|---|---|---|---|")
@@ -453,7 +425,7 @@ def run(X_tr, y_tr, X_va, y_va, final_models: dict, names: list, reports=REPORTS
     res["flags"] = make_flags(res, y_tr, y_va)
     config = {"seed": SEED, "folds": C.FOLDS, "ece_bins": C.ECE_BINS, "log_loss_eps": C.LL_EPS,
               "methods": list(C.METHODS), "band_rule": C.BAND_RULE, "cost_ratios_assumed": list(C.COST_RATIOS),
-              "alt_band_rule_post_hoc": C.ALT_BAND_RULE, "bootstrap_n": n_boot, "selection_rule": "lowest CV log loss on train OOF, simplest within 1 SE",
+              "headline_model": HEADLINE, "bootstrap_n": n_boot, "selection_rule": "lowest CV log loss on train OOF, simplest within 1 SE",
               "fit_data": "train OOF only; validation reports only", "test_split_read": False,
               "train_rows": int(len(y_tr)), "val_rows": int(len(y_va)),
               "versions": {"python": platform.python_version(), "sklearn": sklearn.__version__,

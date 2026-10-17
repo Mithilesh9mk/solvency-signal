@@ -49,13 +49,20 @@ def test_band_thresholds_are_ordered_and_follow_the_rule():
     b = C.band_thresholds(y, s)
     assert 0 <= b["t_watch"] <= b["t_high"] <= 1.0 + 1e-9
     pts = C.pr_points(y, s)
-    # High: lowest threshold meeting the precision floor
-    ok = pts["precision"] >= C.BAND_RULE["high_min_precision"]
-    assert b["t_high"] == pytest.approx(pts["threshold"][ok].min())
-    # recall at the Watch cut meets the floor unless the bands collapsed
-    if not b["notes"]:
-        rec = pts["recall"][pts["threshold"] == b["t_watch"]][0]
-        assert rec >= C.BAND_RULE["watch_min_recall"]
+    if b["notes"]:
+        assert b["t_high"] == b["t_watch"]  # two-band fallback, single cut at the recall cut
+    else:
+        ok = pts["precision"] >= C.BAND_RULE["high_min_precision"]
+        assert b["t_high"] == pytest.approx(pts["threshold"][ok].min())  # lowest threshold meeting the floor
+    # the Watch cut is the highest threshold still reaching the recall target
+    rec = pts["recall"][pts["threshold"] == b["t_watch"]][0]
+    assert rec >= C.BAND_RULE["watch_min_recall"]
+    higher = pts["threshold"] > b["t_watch"]
+    assert np.all(pts["recall"][higher] < C.BAND_RULE["watch_min_recall"])
+
+
+def test_band_rule_constants_match_decisions_log():
+    assert C.BAND_RULE == {"high_min_precision": 0.60, "watch_min_recall": 0.80}
 
 
 def test_bands_partition_all_firms_and_are_ordered_by_risk():
@@ -68,12 +75,15 @@ def test_bands_partition_all_firms_and_are_ordered_by_risk():
     assert rates == sorted(rates)
 
 
-def test_degenerate_rule_collapses_watch_instead_of_crossing():
-    # a model so good that precision 0.25 is reached at recall well above 0.8
+def test_collision_falls_back_to_two_bands_without_forcing_watch():
+    # precision floor reached at a recall well above the 0.8 target
     y = np.array([1] * 20 + [0] * 380)
     s = np.concatenate([np.linspace(0.9, 0.5, 20), np.linspace(0.45, 0.0, 380)])
     b = C.band_thresholds(y, s, high_min_precision=0.01, watch_min_recall=0.8)
-    assert b["t_watch"] <= b["t_high"]
+    assert b["t_high"] == b["t_watch"]
+    assert any("two bands" in n for n in b["notes"])
+    rows = {r["band"]: r for r in C.band_table(y, s, b["t_watch"], b["t_high"])}
+    assert rows["Watch"]["firms"] == 0 and rows["High"]["firms"] > 0
 
 
 def test_select_method_prefers_simpler_method_on_ties():
@@ -117,5 +127,5 @@ def test_saved_phase4_artifacts_are_consistent():
     assert art["config"]["seed"] == 42 and art["config"]["test_split_read"] is False
     for model, b in art["bands"].items():
         assert 0 <= b["t_watch"] <= b["t_high"] <= 1.0 + 1e-9
-        assert 0 <= b["alt"]["t_watch"] <= b["alt"]["t_high"] <= 1.0 + 1e-9
+        assert b["fit_on"] == "validation"
         assert set(art["calibrators"][model]) == set(C.METHODS)

@@ -8,8 +8,10 @@ Design (rules fixed before looking at results, see docs/decisions.md):
 - Methods: none, Platt (sigmoid on the logit of the score), isotonic.
 - Method per model: lowest cross-validated log loss on the OOF scores, ties
   within one standard error resolved toward the simpler method.
-- Bands on the calibrated probability: High is the lowest threshold with OOF
-  precision >= 0.25, Watch is the highest threshold with OOF recall >= 0.80.
+- Bands on the calibrated probability, rule fixed in docs/decisions.md and
+  fitted on validation by user instruction: Watch is the highest threshold with
+  recall >= 0.80, High is the lowest threshold with precision >= 0.60. If the
+  cuts collide there are two bands, Low and High.
 - ECE uses 10 equal-frequency bins.
 
 Calibrators are plain parameter sets (JSON), so they load without refitting.
@@ -30,9 +32,7 @@ ECE_BINS = 10
 LL_EPS = 1e-4  # log loss clips probabilities to [LL_EPS, 1 - LL_EPS]
 SCORE_EPS = 1e-6  # clip before the logit in Platt
 METHODS = ("none", "platt", "isotonic")  # ordered simplest first
-BAND_RULE = {"high_min_precision": 0.25, "watch_min_recall": 0.80}
-# Post-hoc alternative, proposed only after the approved rule degenerated on train OOF. Needs user approval.
-ALT_BAND_RULE = {"high_min_precision": 0.50, "watch_min_recall": 0.80}
+BAND_RULE = {"high_min_precision": 0.60, "watch_min_recall": 0.80}  # fitted on validation, see docs/decisions.md
 PRECISION_FLOORS = (0.25, 0.35, 0.50, 0.60, 0.70)
 COST_RATIOS = (5, 10, 20)  # assumptions: missed distress cost : false alarm cost
 BANDS = ("Low", "Watch", "High")
@@ -233,7 +233,7 @@ def pr_points(y, s) -> dict:
 
 def band_thresholds(y, s, high_min_precision: float = BAND_RULE["high_min_precision"],
                     watch_min_recall: float = BAND_RULE["watch_min_recall"]) -> dict:
-    """Apply the pre-stated band rule to (OOF, calibrated) scores."""
+    """Apply the pre-stated band rule to (y, calibrated scores), here the validation split."""
     pts = pr_points(y, s)
     notes = []
     ok_high = pts["precision"] >= high_min_precision
@@ -244,9 +244,10 @@ def band_thresholds(y, s, high_min_precision: float = BAND_RULE["high_min_precis
         notes.append("no threshold reaches the precision floor; High band is empty")
     ok_watch = pts["recall"] >= watch_min_recall
     t_watch = float(pts["threshold"][ok_watch].max())  # highest threshold still reaching the recall floor
-    if t_watch > t_high:
-        notes.append("recall floor is reached only above the High cut; Watch band is empty")
-        t_watch = t_high
+    if t_watch >= t_high:
+        notes.append("the 80% recall cut is not below the precision cut, so there are only two bands, Low and High; "
+                     "the single cut is the 80% recall cut and no Watch band is forced")
+        t_high = t_watch
     return {"t_watch": t_watch, "t_high": t_high, "rule": dict(BAND_RULE), "notes": notes}
 
 

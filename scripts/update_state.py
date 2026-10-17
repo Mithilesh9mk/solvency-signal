@@ -93,14 +93,16 @@ def calibration_table() -> tuple:
     if not path.exists():
         return ["(Phase 4 not run yet)"], []
     res = json.loads(path.read_text())
-    lines = ["| Model | Calibration chosen | Brier | Log loss | ECE | PR AUC | High band cut | Watch band cut |",
-             "|---|---|---|---|---|---|---|---|"]
+    lines = [f"Headline model: {res['config'].get('headline_model')} (user decision). Other models are comparisons, not deployed.",
+             "", "| Model | Calibration chosen | Brier | Log loss | ECE | PR AUC | Bands | Watch cut | High cut |",
+             "|---|---|---|---|---|---|---|---|---|"]
     for name, m in res["models"].items():
         sel = m["selected_method"]
         v = m["val"][sel]
         b = m["bands"]
         lines.append(f"| {name} | {sel} | {v['brier']:.4f} | {v['log_loss']:.4f} | {v['ece']:.4f} | "
-                     f"{v['pr_auc']:.3f} | {b['t_high']:.4f} | {b['t_watch']:.4f} |")
+                     f"{v['pr_auc']:.3f} | {'two' if b['t_watch'] >= b['t_high'] else 'three'} | "
+                     f"{b['t_watch']:.4f} | {b['t_high']:.4f} |")
     return lines, res.get("flags", [])
 
 

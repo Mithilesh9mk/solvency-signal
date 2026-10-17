@@ -10,7 +10,7 @@
    "isotonic"
   ],
   "band_rule": {
-   "high_min_precision": 0.25,
+   "high_min_precision": 0.6,
    "watch_min_recall": 0.8
   },
   "cost_ratios_assumed": [
@@ -18,10 +18,7 @@
    10,
    20
   ],
-  "alt_band_rule_post_hoc": {
-   "high_min_precision": 0.5,
-   "watch_min_recall": 0.8
-  },
+  "headline_model": "lightgbm",
   "bootstrap_n": 1000,
   "selection_rule": "lowest CV log loss on train OOF, simplest within 1 SE",
   "fit_data": "train OOF only; validation reports only",
@@ -42,16 +39,14 @@
   "Validation has only 61 bankrupt firms and ECE uses 10 equal-frequency bins of about 87 firms (about 6 positives each), so ECE and the reliability points are noisy. Read them with the CIs.",
   "Calibrators and bands were fitted on 5-fold out-of-fold scores of the train split (286 bankrupt). The saved models are refit on all of train, so they are slightly stronger than the fold models the calibrators saw. Direction of the bias is not verified.",
   "Cost ratios 5:1, 10:1 and 20:1 are assumptions, not estimates from any lender or data.",
-  "Band rule wording: the approved text said 'lowest threshold' for Watch recall, which taken literally flags every firm. It was applied as the highest threshold that still reaches the recall floor.",
-  "logistic_regression: recall floor is reached only above the High cut; Watch band is empty.",
-  "logistic_regression: validation High-band precision (0.228) is below the 0.25 target met on OOF train (0.250).",
+  "Band cuts are fitted on validation by user instruction, so validation precision and recall at the cuts are in-sample and optimistic. The independent check is the same cuts applied to train out-of-fold scores.",
+  "The High precision floor 0.60 was set after an earlier precision-floor diagnostic and the validation tradeoff table had been seen, so it is not a blind choice.",
+  "logistic_regression: recall of the flagged bands on train OOF (0.797) is below the 0.80 target the cut reached on validation.",
   "logistic_regression: isotonic gives exactly 0 or 1 to 19 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.",
-  "lightgbm: recall floor is reached only above the High cut; Watch band is empty.",
-  "lightgbm: validation High-band precision (0.210) is below the 0.25 target met on OOF train (0.250).",
-  "lightgbm (alternative rule): recall floor is reached only above the High cut; Watch band is empty.",
-  "lightgbm (alternative rule): validation High-band precision (0.427) is more than 0.05 below OOF train (0.500).",
+  "lightgbm: recall of the flagged bands on train OOF (0.769) is below the 0.80 target the cut reached on validation.",
+  "lightgbm: the Watch band is thin (16 validation firms with 4 bankrupt, 52 train OOF firms), because the 80% recall cut (0.1736) and the precision cut (0.2403) are close. Its rate rests on very few positives.",
   "lightgbm: isotonic gives exactly 0 or 1 to 151 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.",
-  "neural_net: recall floor is reached only above the High cut; Watch band is empty.",
+  "neural_net: High-band precision on train OOF (0.575) is below the 0.60 floor the cut reached on validation.",
   "neural_net: isotonic gives exactly 0 or 1 to 33 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss."
  ],
  "models": {
@@ -59,33 +54,33 @@
    "precision_floor_diagnostic": [
     {
      "precision_floor": 0.25,
-     "threshold": 0.03525573091150453,
-     "recall": 0.8636363636363636,
-     "share_flagged": 0.24132877381533951
+     "threshold": 0.03820844810040335,
+     "recall": 0.8688524590163934,
+     "share_flagged": 0.24145785876993167
     },
     {
      "precision_floor": 0.35,
-     "threshold": 0.061229101881496946,
-     "recall": 0.7972027972027972,
-     "share_flagged": 0.1590131900341964
+     "threshold": 0.06657882668895625,
+     "recall": 0.7868852459016393,
+     "share_flagged": 0.1560364464692483
     },
     {
      "precision_floor": 0.5,
-     "threshold": 0.14075896979645763,
-     "recall": 0.7097902097902098,
-     "share_flagged": 0.0991695163654128
+     "threshold": 0.17493626424448908,
+     "recall": 0.6885245901639344,
+     "share_flagged": 0.09567198177676538
     },
     {
      "precision_floor": 0.6,
-     "threshold": 0.22920907200552706,
-     "recall": 0.6503496503496503,
-     "share_flagged": 0.07572056668295066
+     "threshold": 0.3629132697033924,
+     "recall": 0.5409836065573771,
+     "share_flagged": 0.06264236902050115
     },
     {
      "precision_floor": 0.7,
-     "threshold": 0.36664501733091287,
-     "recall": 0.5769230769230769,
-     "share_flagged": 0.05740107474352711
+     "threshold": 0.609188727755872,
+     "recall": 0.47540983606557374,
+     "share_flagged": 0.04669703872437358
     }
    ],
    "selection": {
@@ -247,129 +242,67 @@
     }
    },
    "bands": {
-    "t_watch": 0.03525573091150453,
-    "t_high": 0.03525573091150453,
+    "t_watch": 0.061378453721803755,
+    "t_high": 0.3629132697033924,
     "rule": {
-     "high_min_precision": 0.25,
+     "high_min_precision": 0.6,
      "watch_min_recall": 0.8
     },
-    "notes": [
-     "recall floor is reached only above the High cut; Watch band is empty"
-    ],
+    "notes": [],
     "selected_method": "none",
-    "oof_table": [
-     {
-      "band": "Low",
-      "firms": 3106,
-      "share_of_firms": 0.7586712261846604,
-      "bankrupt": 39,
-      "bankrupt_rate": 0.012556342562781713,
-      "share_of_all_bankrupt": 0.13636363636363635
-     },
-     {
-      "band": "Watch",
-      "firms": 0,
-      "share_of_firms": 0.0,
-      "bankrupt": 0,
-      "bankrupt_rate": null,
-      "share_of_all_bankrupt": 0.0
-     },
-     {
-      "band": "High",
-      "firms": 988,
-      "share_of_firms": 0.24132877381533951,
-      "bankrupt": 247,
-      "bankrupt_rate": 0.25,
-      "share_of_all_bankrupt": 0.8636363636363636
-     }
-    ],
+    "fit_on": "validation",
     "val_table": [
      {
       "band": "Low",
-      "firms": 646,
-      "share_of_firms": 0.7357630979498861,
-      "bankrupt": 8,
-      "bankrupt_rate": 0.01238390092879257,
-      "share_of_all_bankrupt": 0.13114754098360656
+      "firms": 734,
+      "share_of_firms": 0.835990888382688,
+      "bankrupt": 12,
+      "bankrupt_rate": 0.01634877384196185,
+      "share_of_all_bankrupt": 0.19672131147540983
      },
      {
       "band": "Watch",
-      "firms": 0,
-      "share_of_firms": 0.0,
-      "bankrupt": 0,
-      "bankrupt_rate": null,
-      "share_of_all_bankrupt": 0.0
+      "firms": 89,
+      "share_of_firms": 0.10136674259681093,
+      "bankrupt": 16,
+      "bankrupt_rate": 0.1797752808988764,
+      "share_of_all_bankrupt": 0.26229508196721313
      },
      {
       "band": "High",
-      "firms": 232,
-      "share_of_firms": 0.2642369020501139,
-      "bankrupt": 53,
-      "bankrupt_rate": 0.22844827586206898,
-      "share_of_all_bankrupt": 0.8688524590163934
+      "firms": 55,
+      "share_of_firms": 0.06264236902050115,
+      "bankrupt": 33,
+      "bankrupt_rate": 0.6,
+      "share_of_all_bankrupt": 0.5409836065573771
      }
     ],
-    "alt": {
-     "t_watch": 0.059850391858492065,
-     "t_high": 0.14075896979645763,
-     "rule": {
-      "high_min_precision": 0.25,
-      "watch_min_recall": 0.8
+    "oof_table": [
+     {
+      "band": "Low",
+      "firms": 3444,
+      "share_of_firms": 0.8412310698583293,
+      "bankrupt": 58,
+      "bankrupt_rate": 0.01684088269454123,
+      "share_of_all_bankrupt": 0.20279720279720279
      },
-     "notes": [],
-     "oof_table": [
-      {
-       "band": "Low",
-       "firms": 3436,
-       "share_of_firms": 0.8392769907181241,
-       "bankrupt": 57,
-       "bankrupt_rate": 0.01658905704307334,
-       "share_of_all_bankrupt": 0.1993006993006993
-      },
-      {
-       "band": "Watch",
-       "firms": 252,
-       "share_of_firms": 0.061553492916463115,
-       "bankrupt": 26,
-       "bankrupt_rate": 0.10317460317460317,
-       "share_of_all_bankrupt": 0.09090909090909091
-      },
-      {
-       "band": "High",
-       "firms": 406,
-       "share_of_firms": 0.0991695163654128,
-       "bankrupt": 203,
-       "bankrupt_rate": 0.5,
-       "share_of_all_bankrupt": 0.7097902097902098
-      }
-     ],
-     "val_table": [
-      {
-       "band": "Low",
-       "firms": 729,
-       "share_of_firms": 0.8302961275626424,
-       "bankrupt": 11,
-       "bankrupt_rate": 0.015089163237311385,
-       "share_of_all_bankrupt": 0.18032786885245902
-      },
-      {
-       "band": "Watch",
-       "firms": 60,
-       "share_of_firms": 0.0683371298405467,
-       "bankrupt": 7,
-       "bankrupt_rate": 0.11666666666666667,
-       "share_of_all_bankrupt": 0.11475409836065574
-      },
-      {
-       "band": "High",
-       "firms": 89,
-       "share_of_firms": 0.10136674259681093,
-       "bankrupt": 43,
-       "bankrupt_rate": 0.48314606741573035,
-       "share_of_all_bankrupt": 0.7049180327868853
-      }
-     ]
-    }
+     {
+      "band": "Watch",
+      "firms": 415,
+      "share_of_firms": 0.10136785539814362,
+      "bankrupt": 63,
+      "bankrupt_rate": 0.15180722891566265,
+      "share_of_all_bankrupt": 0.2202797202797203
+     },
+     {
+      "band": "High",
+      "firms": 235,
+      "share_of_firms": 0.05740107474352711,
+      "bankrupt": 165,
+      "bankrupt_rate": 0.7021276595744681,
+      "share_of_all_bankrupt": 0.5769230769230769
+     }
+    ]
    },
    "cost": {
     "5": {
@@ -732,33 +665,33 @@
    "precision_floor_diagnostic": [
     {
      "precision_floor": 0.25,
-     "threshold": 0.0226152975933971,
-     "recall": 0.9370629370629371,
-     "share_flagged": 0.2618466047874939
+     "threshold": 0.03246908198593552,
+     "recall": 0.9344262295081968,
+     "share_flagged": 0.25968109339407747
     },
     {
      "precision_floor": 0.35,
-     "threshold": 0.04070019676316154,
-     "recall": 0.9090909090909091,
-     "share_flagged": 0.18124084025403028
+     "threshold": 0.05793580788411241,
+     "recall": 0.8852459016393442,
+     "share_flagged": 0.17539863325740318
     },
     {
      "precision_floor": 0.5,
-     "threshold": 0.08902323614840067,
-     "recall": 0.8461538461538461,
-     "share_flagged": 0.11822178798241328
+     "threshold": 0.1349774226285906,
+     "recall": 0.8360655737704918,
+     "share_flagged": 0.11617312072892938
     },
     {
      "precision_floor": 0.6,
-     "threshold": 0.15330822678034736,
-     "recall": 0.7867132867132867,
-     "share_flagged": 0.09159745969711773
+     "threshold": 0.2403358325465458,
+     "recall": 0.7377049180327869,
+     "share_flagged": 0.08542141230068337
     },
     {
      "precision_floor": 0.7,
-     "threshold": 0.284336733129758,
-     "recall": 0.7027972027972028,
-     "share_flagged": 0.07010258915486077
+     "threshold": 0.4307430151584238,
+     "recall": 0.6885245901639344,
+     "share_flagged": 0.0683371298405467
     }
    ],
    "selection": {
@@ -920,131 +853,67 @@
     }
    },
    "bands": {
-    "t_watch": 0.0226152975933971,
-    "t_high": 0.0226152975933971,
+    "t_watch": 0.17360288352005987,
+    "t_high": 0.2403358325465458,
     "rule": {
-     "high_min_precision": 0.25,
+     "high_min_precision": 0.6,
      "watch_min_recall": 0.8
     },
-    "notes": [
-     "recall floor is reached only above the High cut; Watch band is empty"
-    ],
+    "notes": [],
     "selected_method": "platt",
-    "oof_table": [
-     {
-      "band": "Low",
-      "firms": 3022,
-      "share_of_firms": 0.7381533952125061,
-      "bankrupt": 18,
-      "bankrupt_rate": 0.005956320317670417,
-      "share_of_all_bankrupt": 0.06293706293706294
-     },
-     {
-      "band": "Watch",
-      "firms": 0,
-      "share_of_firms": 0.0,
-      "bankrupt": 0,
-      "bankrupt_rate": null,
-      "share_of_all_bankrupt": 0.0
-     },
-     {
-      "band": "High",
-      "firms": 1072,
-      "share_of_firms": 0.2618466047874939,
-      "bankrupt": 268,
-      "bankrupt_rate": 0.25,
-      "share_of_all_bankrupt": 0.9370629370629371
-     }
-    ],
+    "fit_on": "validation",
     "val_table": [
      {
       "band": "Low",
-      "firms": 606,
-      "share_of_firms": 0.6902050113895216,
-      "bankrupt": 4,
-      "bankrupt_rate": 0.006600660066006601,
-      "share_of_all_bankrupt": 0.06557377049180328
+      "firms": 787,
+      "share_of_firms": 0.8963553530751709,
+      "bankrupt": 12,
+      "bankrupt_rate": 0.015247776365946633,
+      "share_of_all_bankrupt": 0.19672131147540983
      },
      {
       "band": "Watch",
-      "firms": 0,
-      "share_of_firms": 0.0,
-      "bankrupt": 0,
-      "bankrupt_rate": null,
-      "share_of_all_bankrupt": 0.0
+      "firms": 16,
+      "share_of_firms": 0.018223234624145785,
+      "bankrupt": 4,
+      "bankrupt_rate": 0.25,
+      "share_of_all_bankrupt": 0.06557377049180328
      },
      {
       "band": "High",
-      "firms": 272,
-      "share_of_firms": 0.3097949886104784,
-      "bankrupt": 57,
-      "bankrupt_rate": 0.20955882352941177,
-      "share_of_all_bankrupt": 0.9344262295081968
+      "firms": 75,
+      "share_of_firms": 0.08542141230068337,
+      "bankrupt": 45,
+      "bankrupt_rate": 0.6,
+      "share_of_all_bankrupt": 0.7377049180327869
      }
     ],
-    "alt": {
-     "t_watch": 0.08902323614840067,
-     "t_high": 0.08902323614840067,
-     "rule": {
-      "high_min_precision": 0.25,
-      "watch_min_recall": 0.8
+    "oof_table": [
+     {
+      "band": "Low",
+      "firms": 3735,
+      "share_of_firms": 0.9123106985832926,
+      "bankrupt": 66,
+      "bankrupt_rate": 0.017670682730923693,
+      "share_of_all_bankrupt": 0.23076923076923078
      },
-     "notes": [
-      "recall floor is reached only above the High cut; Watch band is empty"
-     ],
-     "oof_table": [
-      {
-       "band": "Low",
-       "firms": 3610,
-       "share_of_firms": 0.8817782120175867,
-       "bankrupt": 44,
-       "bankrupt_rate": 0.01218836565096953,
-       "share_of_all_bankrupt": 0.15384615384615385
-      },
-      {
-       "band": "Watch",
-       "firms": 0,
-       "share_of_firms": 0.0,
-       "bankrupt": 0,
-       "bankrupt_rate": null,
-       "share_of_all_bankrupt": 0.0
-      },
-      {
-       "band": "High",
-       "firms": 484,
-       "share_of_firms": 0.11822178798241328,
-       "bankrupt": 242,
-       "bankrupt_rate": 0.5,
-       "share_of_all_bankrupt": 0.8461538461538461
-      }
-     ],
-     "val_table": [
-      {
-       "band": "Low",
-       "firms": 754,
-       "share_of_firms": 0.8587699316628702,
-       "bankrupt": 8,
-       "bankrupt_rate": 0.010610079575596816,
-       "share_of_all_bankrupt": 0.13114754098360656
-      },
-      {
-       "band": "Watch",
-       "firms": 0,
-       "share_of_firms": 0.0,
-       "bankrupt": 0,
-       "bankrupt_rate": null,
-       "share_of_all_bankrupt": 0.0
-      },
-      {
-       "band": "High",
-       "firms": 124,
-       "share_of_firms": 0.14123006833712984,
-       "bankrupt": 53,
-       "bankrupt_rate": 0.4274193548387097,
-       "share_of_all_bankrupt": 0.8688524590163934
-      }
-     ]
-    }
+     {
+      "band": "Watch",
+      "firms": 52,
+      "share_of_firms": 0.012701514411333659,
+      "bankrupt": 12,
+      "bankrupt_rate": 0.23076923076923078,
+      "share_of_all_bankrupt": 0.04195804195804196
+     },
+     {
+      "band": "High",
+      "firms": 307,
+      "share_of_firms": 0.07498778700537372,
+      "bankrupt": 208,
+      "bankrupt_rate": 0.6775244299674267,
+      "share_of_all_bankrupt": 0.7272727272727273
+     }
+    ]
    },
    "cost": {
     "5": {
@@ -1407,33 +1276,33 @@
    "precision_floor_diagnostic": [
     {
      "precision_floor": 0.25,
-     "threshold": 0.028549810871481895,
-     "recall": 0.9125874125874126,
-     "share_flagged": 0.25500732779677576
+     "threshold": 0.016030380502343178,
+     "recall": 0.9180327868852459,
+     "share_flagged": 0.255125284738041
     },
     {
      "precision_floor": 0.35,
-     "threshold": 0.0577065609395504,
-     "recall": 0.8636363636363636,
-     "share_flagged": 0.17220322423058135
+     "threshold": 0.04676803946495056,
+     "recall": 0.7868852459016393,
+     "share_flagged": 0.1560364464692483
     },
     {
      "precision_floor": 0.5,
-     "threshold": 0.13568079471588135,
-     "recall": 0.7762237762237763,
-     "share_flagged": 0.1084513922813874
+     "threshold": 0.12094192206859589,
+     "recall": 0.7213114754098361,
+     "share_flagged": 0.10022779043280182
     },
     {
      "precision_floor": 0.6,
-     "threshold": 0.2192615121603012,
-     "recall": 0.6958041958041958,
-     "share_flagged": 0.08085002442598925
+     "threshold": 0.18766772747039795,
+     "recall": 0.6721311475409836,
+     "share_flagged": 0.0774487471526196
     },
     {
      "precision_floor": 0.7,
-     "threshold": 0.30933812260627747,
-     "recall": 0.6538461538461539,
-     "share_flagged": 0.06521739130434782
+     "threshold": 0.2640351355075836,
+     "recall": 0.5901639344262295,
+     "share_flagged": 0.05808656036446469
     }
    ],
    "selection": {
@@ -1595,129 +1464,67 @@
     }
    },
    "bands": {
-    "t_watch": 0.028549810871481895,
-    "t_high": 0.028549810871481895,
+    "t_watch": 0.03990473970770836,
+    "t_high": 0.18766772747039795,
     "rule": {
-     "high_min_precision": 0.25,
+     "high_min_precision": 0.6,
      "watch_min_recall": 0.8
     },
-    "notes": [
-     "recall floor is reached only above the High cut; Watch band is empty"
-    ],
+    "notes": [],
     "selected_method": "none",
-    "oof_table": [
-     {
-      "band": "Low",
-      "firms": 3050,
-      "share_of_firms": 0.7449926722032242,
-      "bankrupt": 25,
-      "bankrupt_rate": 0.00819672131147541,
-      "share_of_all_bankrupt": 0.08741258741258741
-     },
-     {
-      "band": "Watch",
-      "firms": 0,
-      "share_of_firms": 0.0,
-      "bankrupt": 0,
-      "bankrupt_rate": null,
-      "share_of_all_bankrupt": 0.0
-     },
-     {
-      "band": "High",
-      "firms": 1044,
-      "share_of_firms": 0.25500732779677576,
-      "bankrupt": 261,
-      "bankrupt_rate": 0.25,
-      "share_of_all_bankrupt": 0.9125874125874126
-     }
-    ],
+    "fit_on": "validation",
     "val_table": [
      {
       "band": "Low",
-      "firms": 694,
-      "share_of_firms": 0.7904328018223234,
-      "bankrupt": 8,
-      "bankrupt_rate": 0.011527377521613832,
-      "share_of_all_bankrupt": 0.13114754098360656
+      "firms": 729,
+      "share_of_firms": 0.8302961275626424,
+      "bankrupt": 12,
+      "bankrupt_rate": 0.01646090534979424,
+      "share_of_all_bankrupt": 0.19672131147540983
      },
      {
       "band": "Watch",
-      "firms": 0,
-      "share_of_firms": 0.0,
-      "bankrupt": 0,
-      "bankrupt_rate": null,
-      "share_of_all_bankrupt": 0.0
+      "firms": 81,
+      "share_of_firms": 0.09225512528473805,
+      "bankrupt": 8,
+      "bankrupt_rate": 0.09876543209876543,
+      "share_of_all_bankrupt": 0.13114754098360656
      },
      {
       "band": "High",
-      "firms": 184,
-      "share_of_firms": 0.20956719817767655,
-      "bankrupt": 53,
-      "bankrupt_rate": 0.28804347826086957,
-      "share_of_all_bankrupt": 0.8688524590163934
+      "firms": 68,
+      "share_of_firms": 0.0774487471526196,
+      "bankrupt": 41,
+      "bankrupt_rate": 0.6029411764705882,
+      "share_of_all_bankrupt": 0.6721311475409836
      }
     ],
-    "alt": {
-     "t_watch": 0.10998386889696121,
-     "t_high": 0.13568079471588135,
-     "rule": {
-      "high_min_precision": 0.25,
-      "watch_min_recall": 0.8
+    "oof_table": [
+     {
+      "band": "Low",
+      "firms": 3217,
+      "share_of_firms": 0.7857840742550073,
+      "bankrupt": 33,
+      "bankrupt_rate": 0.010258004351880633,
+      "share_of_all_bankrupt": 0.11538461538461539
      },
-     "notes": [],
-     "oof_table": [
-      {
-       "band": "Low",
-       "firms": 3598,
-       "share_of_firms": 0.878847093307279,
-       "bankrupt": 57,
-       "bankrupt_rate": 0.01584213451917732,
-       "share_of_all_bankrupt": 0.1993006993006993
-      },
-      {
-       "band": "Watch",
-       "firms": 52,
-       "share_of_firms": 0.012701514411333659,
-       "bankrupt": 7,
-       "bankrupt_rate": 0.1346153846153846,
-       "share_of_all_bankrupt": 0.024475524475524476
-      },
-      {
-       "band": "High",
-       "firms": 444,
-       "share_of_firms": 0.1084513922813874,
-       "bankrupt": 222,
-       "bankrupt_rate": 0.5,
-       "share_of_all_bankrupt": 0.7762237762237763
-      }
-     ],
-     "val_table": [
-      {
-       "band": "Low",
-       "firms": 786,
-       "share_of_firms": 0.8952164009111617,
-       "bankrupt": 17,
-       "bankrupt_rate": 0.021628498727735368,
-       "share_of_all_bankrupt": 0.2786885245901639
-      },
-      {
-       "band": "Watch",
-       "firms": 10,
-       "share_of_firms": 0.011389521640091117,
-       "bankrupt": 2,
-       "bankrupt_rate": 0.2,
-       "share_of_all_bankrupt": 0.03278688524590164
-      },
-      {
-       "band": "High",
-       "firms": 82,
-       "share_of_firms": 0.09339407744874716,
-       "bankrupt": 42,
-       "bankrupt_rate": 0.5121951219512195,
-       "share_of_all_bankrupt": 0.6885245901639344
-      }
-     ]
-    }
+     {
+      "band": "Watch",
+      "firms": 515,
+      "share_of_firms": 0.12579384465070836,
+      "bankrupt": 45,
+      "bankrupt_rate": 0.08737864077669903,
+      "share_of_all_bankrupt": 0.15734265734265734
+     },
+     {
+      "band": "High",
+      "firms": 362,
+      "share_of_firms": 0.08842208109428432,
+      "bankrupt": 208,
+      "bankrupt_rate": 0.574585635359116,
+      "share_of_all_bankrupt": 0.7272727272727273
+     }
+    ]
    },
    "cost": {
     "5": {
