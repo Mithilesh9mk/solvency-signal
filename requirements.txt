@@ -1,0 +1,12 @@
+pandas
+numpy
+scikit-learn
+lightgbm
+torch
+onnx
+onnxruntime
+shap
+matplotlib
+streamlit
+scipy
+liac-arff
