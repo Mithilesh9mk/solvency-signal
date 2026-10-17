@@ -369,3 +369,20 @@ re-run with the refusal rule included and the firm is swapped. It is not exempte
 random in the way the dataset's are. Multiple blanks together are tested only through the count check. Attributes with fewer
 than 20 blank firms cannot be judged by history. Train out-of-fold scores use a calibrator fitted on those same scores. A block
 protects against trusting a score driven by a blank, it is not a claim that the model is wrong on those firms.
+
+## 2026-10-17 (Phase 9, after the run)
+
+- The probe ran as specified, train and validation only, nothing changed in the model, calibrator, cuts or app.
+- **Coverage ceiling crossed, so the phase stopped after the report, as pre-registered.** The pre-registered criteria are met by
+  two attributes (Attr27 as a raised-risk blank, Attr24 as a lowered-risk blank). New refusals would hold more than 30% of the
+  Attr21-present bankrupt firms in train and in validation. The numbers are in `reports/phase9_blanks.md`. The ceiling was not
+  adjusted by the assistant. Applying the rule needs the user's decision.
+- The count limit of 6 stays: the 3 to 6 blank group does not meet the pre-registered condition.
+- Expected false positives under the null were tiny, but validation is reused, so the two attributes are described as meeting
+  the pre-registered criteria, not as validated.
+- Among Attr27-blank firms the model's mean predicted probability is close to the observed bankrupt rate (train out-of-fold and
+  validation), and the blank signal survives the Attr22-sign and leverage splits and the ridge regression. So a refusal is a
+  guard against a score driven by a blank (Attr27 is undefined when financial expenses are zero, per the dictionary, and the data
+  does not show whether a blank means zero expenses or missing data, UNVERIFIED), not a statement that the model is wrong on
+  those firms.
+- `reports/phase9_blank_rule.json` records the candidates, criteria results and the status "stopped". The app does not read it yet.

@@ -1,0 +1,116 @@
+{
+ "phase": 9,
+ "criteria": {
+  "ratio_up": 3.0,
+  "ratio_down": 0.3333333333333333,
+  "min_abs_contribution": 1.0,
+  "validation_ratio_up": 2.0,
+  "validation_ratio_down": 0.5,
+  "min_train_blank_firms": 20,
+  "min_validation_blank_firms": 10
+ },
+ "candidates": {
+  "Attr24": {
+   "direction": "down",
+   "c1": true,
+   "c2": true,
+   "c3": true,
+   "meets_all": true
+  },
+  "Attr27": {
+   "direction": "up",
+   "c1": true,
+   "c2": true,
+   "c3": true,
+   "meets_all": true
+  },
+  "Attr28": {
+   "direction": null,
+   "c1": false,
+   "c2": false,
+   "c3": null,
+   "meets_all": false
+  },
+  "Attr32": {
+   "direction": null,
+   "c1": false,
+   "c2": false,
+   "c3": null,
+   "meets_all": false
+  },
+  "Attr37": {
+   "direction": null,
+   "c1": false,
+   "c2": false,
+   "c3": null,
+   "meets_all": false
+  },
+  "Attr41": {
+   "direction": null,
+   "c1": false,
+   "c2": false,
+   "c3": null,
+   "meets_all": false
+  },
+  "Attr45": {
+   "direction": null,
+   "c1": false,
+   "c2": false,
+   "c3": null,
+   "meets_all": false
+  },
+  "Attr47": {
+   "direction": null,
+   "c1": false,
+   "c2": false,
+   "c3": null,
+   "meets_all": false
+  },
+  "Attr52": {
+   "direction": null,
+   "c1": false,
+   "c2": false,
+   "c3": null,
+   "meets_all": false
+  },
+  "Attr53": {
+   "direction": null,
+   "c1": false,
+   "c2": false,
+   "c3": null,
+   "meets_all": false
+  },
+  "Attr54": {
+   "direction": null,
+   "c1": false,
+   "c2": false,
+   "c3": null,
+   "meets_all": false
+  },
+  "Attr60": {
+   "direction": null,
+   "c1": false,
+   "c2": false,
+   "c3": null,
+   "meets_all": false
+  },
+  "Attr64": {
+   "direction": null,
+   "c1": false,
+   "c2": false,
+   "c3": null,
+   "meets_all": false
+  }
+ },
+ "meets_criteria": [
+  "Attr24",
+  "Attr27"
+ ],
+ "ceiling_crossed": true,
+ "count_limit_condition_met": false,
+ "applied": false,
+ "blocked": [],
+ "count_limit": 6,
+ "status": "stopped: coverage ceiling crossed, user decides",
+ "expected_false_positives_under_null": 0.002
+}

@@ -133,6 +133,10 @@ Streamlit app (app/streamlit_app.py) scoring firms with the frozen LightGBM + Pl
 | validation | 0.713 | 0.540 | 0.680 |
 | train out-of-fold | 0.694 | 0.585 | 0.637 |
 
+Blank attributes (Phase 9):
+
+Probe of how blank attributes change the score (train and validation only, frozen model). Criteria were fixed before the run. Attributes meeting all three: Attr24, Attr27. Decision: stopped: coverage ceiling crossed, user decides. Details: reports/phase9_blanks.md.
+
 Details, reliability diagrams, band tables, cost framing and the model decision: [reports/phase4_calibration.md](reports/phase4_calibration.md). Earlier phases: [reports/models_val.md](reports/models_val.md).
 
 ### Flags
@@ -197,6 +201,13 @@ Details, reliability diagrams, band tables, cost framing and the model decision:
 58. Phase 8: The validation cuts were fitted on validation, so validation precision and recall at the cuts are in-sample. Train out-of-fold is the independent check.
 59. Phase 8: Sector composition of the Polish data is not stated on the UCI page, so the sector is UNVERIFIED. The data is a random split, with no company id or year.
 60. Phase 8: Test split untouched in this phase. No model, calibrator or cut was changed.
+61. Phase 9: 13 attributes are blank in at least 20 Attr21-present train firms. 2 meet all three pre-registered criteria: Attr24, Attr27. Under the null, 0.00 would be expected by chance (1000 label permutations). Validation is reused, so these are not described as validated.
+62. Phase 9: Coverage ceiling CROSSED (train: new refusals hold 31.6% of Attr21-present bankrupt firms (ceiling 30%); val: new refusals hold 38.0% of Attr21-present bankrupt firms (ceiling 30%)). The phase stops after this report and the app is unchanged. Decision: stopped: coverage ceiling crossed, user decides.
+63. Phase 9: Count limit of 6: the 3 to 6 group does not meet the pre-registered condition, the limit stays at 6.
+64. Phase 9: Attr27 blank, ridge regression with 53 low-blank covariates: odds ratio 20.35 (14.59 to 36.21), 52 rows dropped. An association only, it does not feed the rule.
+65. Phase 9: A blocked blank is a guard against trusting a score driven by a blank. It is not a claim that the model is wrong on those firms: see the observed rate against the mean predicted probability among blank firms in the table.
+66. Phase 9: The test split is spent, so no rule change can be checked on untouched data. Blanks in real use are probably not random like these.
+67. Phase 9: Test split untouched in this phase. No model, calibrator or cut was changed.
 
 <!-- RESULTS:END -->
 

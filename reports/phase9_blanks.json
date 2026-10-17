@@ -1,0 +1,2385 @@
+{
+ "history": {
+  "Attr24": {
+   "name": "gp_3y_to_assets",
+   "formula": "gross profit (in 3 years) / total assets",
+   "train": {
+    "blank": {
+     "firms": 90,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.04093562618368095
+     ],
+     "mean_predicted": 0.015416656152313522
+    },
+    "present": {
+     "firms": 3931,
+     "bankrupt": 215,
+     "rate": 0.054693462223352834,
+     "wilson_95": [
+      0.0480103302529923,
+      0.062246071031505756
+     ],
+     "mean_predicted": 0.05517553764975939
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 22,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.14865487660514556
+     ],
+     "mean_predicted": 0.013733931959622254
+    },
+    "present": {
+     "firms": 844,
+     "bankrupt": 50,
+     "rate": 0.05924170616113744,
+     "wilson_95": [
+      0.045223011329812754,
+      0.0772544374827424
+     ],
+     "mean_predicted": 0.06944184695124433
+    }
+   },
+   "mean_contribution_when_blank_train": -1.014098687178441,
+   "mean_contribution_when_present_train": 0.02768534474897552,
+   "criteria": {
+    "direction": "down",
+    "c1": true,
+    "c2": true,
+    "c3": true,
+    "blocked": true
+   }
+  },
+  "Attr27": {
+   "name": "operating_profit_to_fin_expenses",
+   "formula": "profit on operating activities / financial expenses",
+   "train": {
+    "blank": {
+     "firms": 251,
+     "bankrupt": 69,
+     "rate": 0.2749003984063745,
+     "wilson_95": [
+      0.22337359214653796,
+      0.3332134698799948
+     ],
+     "mean_predicted": 0.26846937046720787
+    },
+    "present": {
+     "firms": 3770,
+     "bankrupt": 146,
+     "rate": 0.03872679045092838,
+     "wilson_95": [
+      0.033022633992397694,
+      0.045370022960656765
+     ],
+     "mean_predicted": 0.04002565664924223
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 62,
+     "bankrupt": 20,
+     "rate": 0.3225806451612903,
+     "wilson_95": [
+      0.21954490581739158,
+      0.44631912007451213
+     ],
+     "mean_predicted": 0.3260162640660356
+    },
+    "present": {
+     "firms": 804,
+     "bankrupt": 30,
+     "rate": 0.03731343283582089,
+     "wilson_95": [
+      0.026260174080131034,
+      0.05276703872187599
+     ],
+     "mean_predicted": 0.048131911639138936
+    }
+   },
+   "mean_contribution_when_blank_train": 2.306213928365906,
+   "mean_contribution_when_present_train": -0.2151404501796966,
+   "criteria": {
+    "direction": "up",
+    "c1": true,
+    "c2": true,
+    "c3": true,
+    "blocked": true
+   }
+  },
+  "Attr28": {
+   "name": "working_capital_to_fixed_assets",
+   "formula": "working capital / fixed assets",
+   "train": {
+    "blank": {
+     "firms": 66,
+     "bankrupt": 4,
+     "rate": 0.06060606060606061,
+     "wilson_95": [
+      0.02381861466682568,
+      0.14572908767172355
+     ],
+     "mean_predicted": 0.07406917187084944
+    },
+    "present": {
+     "firms": 3955,
+     "bankrupt": 211,
+     "rate": 0.053350189633375476,
+     "wilson_95": [
+      0.04676973049662462,
+      0.06079746139633687
+     ],
+     "mean_predicted": 0.05395549234170324
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 12,
+     "bankrupt": 3,
+     "rate": 0.25,
+     "wilson_95": [
+      0.08894166769488562,
+      0.5323053370816633
+     ],
+     "mean_predicted": 0.12071823949122017
+    },
+    "present": {
+     "firms": 854,
+     "bankrupt": 47,
+     "rate": 0.05503512880562061,
+     "wilson_95": [
+      0.041637541525489374,
+      0.07241786797743933
+     ],
+     "mean_predicted": 0.06728623706799446
+    }
+   },
+   "mean_contribution_when_blank_train": -0.1668114631147542,
+   "mean_contribution_when_present_train": 0.004346453154288114,
+   "criteria": {
+    "direction": null,
+    "c1": false,
+    "c2": false,
+    "c3": null,
+    "blocked": false
+   }
+  },
+  "Attr32": {
+   "name": "current_liabilities_days_of_cogs",
+   "formula": "(current liabilities * 365) / cost of products sold",
+   "train": {
+    "blank": {
+     "firms": 34,
+     "bankrupt": 1,
+     "rate": 0.029411764705882353,
+     "wilson_95": [
+      0.005210906218596753,
+      0.14915573433878604
+     ],
+     "mean_predicted": 0.04182632772700126
+    },
+    "present": {
+     "firms": 3987,
+     "bankrupt": 214,
+     "rate": 0.05367444193629295,
+     "wilson_95": [
+      0.04709857738634982,
+      0.06110954446731782
+     ],
+     "mean_predicted": 0.05439188422678564
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 4,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.4898908403969213
+     ],
+     "mean_predicted": 0.010765126494767036
+    },
+    "present": {
+     "firms": 862,
+     "bankrupt": 50,
+     "rate": 0.058004640371229696,
+     "wilson_95": [
+      0.04427276741042563,
+      0.0756584946193039
+     ],
+     "mean_predicted": 0.0682923489837388
+    }
+   },
+   "mean_contribution_when_blank_train": 0.06129569818547531,
+   "mean_contribution_when_present_train": 0.008909480271486641,
+   "criteria": {
+    "direction": null,
+    "c1": false,
+    "c2": false,
+    "c3": null,
+    "blocked": false
+   }
+  },
+  "Attr37": {
+   "name": "quick_assets_to_long_term_liabilities",
+   "formula": "(current assets - inventories) / long-term liabilities",
+   "train": {
+    "blank": {
+     "firms": 1699,
+     "bankrupt": 95,
+     "rate": 0.055915244261330196,
+     "wilson_95": [
+      0.04595848734913128,
+      0.06787563259803202
+     ],
+     "mean_predicted": 0.0595783835577082
+    },
+    "present": {
+     "firms": 2322,
+     "bankrupt": 120,
+     "rate": 0.05167958656330749,
+     "wilson_95": [
+      0.04339268644638431,
+      0.06144741688489822
+     ],
+     "mean_predicted": 0.05041294741187174
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 385,
+     "bankrupt": 25,
+     "rate": 0.06493506493506493,
+     "wilson_95": [
+      0.0443670040339043,
+      0.0940993494156452
+     ],
+     "mean_predicted": 0.06369982448823712
+    },
+    "present": {
+     "firms": 481,
+     "bankrupt": 25,
+     "rate": 0.05197505197505198,
+     "wilson_95": [
+      0.035449900109878175,
+      0.07559971805917787
+     ],
+     "mean_predicted": 0.0714898812931198
+    }
+   },
+   "mean_contribution_when_blank_train": -0.04128319498851703,
+   "mean_contribution_when_present_train": 0.03005295219530515,
+   "criteria": {
+    "direction": null,
+    "c1": false,
+    "c2": false,
+    "c3": null,
+    "blocked": false
+   }
+  },
+  "Attr41": {
+   "name": "liabilities_to_annualised_op_profit_dep",
+   "formula": "total liabilities / ((profit on operating activities + depreciation) * (12/365))",
+   "train": {
+    "blank": {
+     "firms": 57,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.0631388357861509
+     ],
+     "mean_predicted": 0.015130342815945684
+    },
+    "present": {
+     "firms": 3964,
+     "bankrupt": 215,
+     "rate": 0.05423814328960646,
+     "wilson_95": [
+      0.04760934308691085,
+      0.061730070641483045
+     ],
+     "mean_predicted": 0.05484866498849736
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 17,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      -1.3877787807814457e-17,
+      0.18431813738065556
+     ],
+     "mean_predicted": 0.015246200288968855
+    },
+    "present": {
+     "firms": 849,
+     "bankrupt": 50,
+     "rate": 0.05889281507656066,
+     "wilson_95": [
+      0.04495498686238044,
+      0.07680440675048253
+     ],
+     "mean_predicted": 0.06908348636637154
+    }
+   },
+   "mean_contribution_when_blank_train": -0.8782804486752527,
+   "mean_contribution_when_present_train": 0.009841777694740077,
+   "criteria": {
+    "direction": null,
+    "c1": false,
+    "c2": false,
+    "c3": null,
+    "blocked": false
+   }
+  },
+  "Attr45": {
+   "name": "net_profit_to_inventory",
+   "formula": "net profit / inventory",
+   "train": {
+    "blank": {
+     "firms": 168,
+     "bankrupt": 15,
+     "rate": 0.08928571428571429,
+     "wilson_95": [
+      0.05485470926028358,
+      0.14207948288174704
+     ],
+     "mean_predicted": 0.07837691397475768
+    },
+    "present": {
+     "firms": 3853,
+     "bankrupt": 200,
+     "rate": 0.051907604464053986,
+     "wilson_95": [
+      0.045338490098304075,
+      0.0593693292888151
+     ],
+     "mean_predicted": 0.05323519751029149
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 44,
+     "bankrupt": 3,
+     "rate": 0.06818181818181818,
+     "wilson_95": [
+      0.02345939572462935,
+      0.18225044489111314
+     ],
+     "mean_predicted": 0.12548146555821843
+    },
+    "present": {
+     "firms": 822,
+     "bankrupt": 47,
+     "rate": 0.057177615571776155,
+     "wilson_95": [
+      0.043268676968808886,
+      0.07520619230432533
+     ],
+     "mean_predicted": 0.06495119324257943
+    }
+   },
+   "mean_contribution_when_blank_train": 0.1309860174769742,
+   "mean_contribution_when_present_train": -0.007681929246828805,
+   "criteria": {
+    "direction": null,
+    "c1": false,
+    "c2": false,
+    "c3": null,
+    "blocked": false
+   }
+  },
+  "Attr47": {
+   "name": "inventory_days_of_cogs",
+   "formula": "(inventory * 365) / cost of products sold",
+   "train": {
+    "blank": {
+     "firms": 25,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.13319225276039096
+     ],
+     "mean_predicted": 0.021904806964774953
+    },
+    "present": {
+     "firms": 3996,
+     "bankrupt": 215,
+     "rate": 0.053803803803803806,
+     "wilson_95": [
+      0.04722685272895084,
+      0.06123781101865577
+     ],
+     "mean_predicted": 0.05448821756276102
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 4,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.4898908403969213
+     ],
+     "mean_predicted": 0.010765126494767036
+    },
+    "present": {
+     "firms": 862,
+     "bankrupt": 50,
+     "rate": 0.058004640371229696,
+     "wilson_95": [
+      0.04427276741042563,
+      0.0756584946193039
+     ],
+     "mean_predicted": 0.0682923489837388
+    }
+   },
+   "mean_contribution_when_blank_train": -0.2502928742448417,
+   "mean_contribution_when_present_train": -0.002842456367610983,
+   "criteria": {
+    "direction": null,
+    "c1": false,
+    "c2": false,
+    "c3": null,
+    "blocked": false
+   }
+  },
+  "Attr52": {
+   "name": "short_term_liabilities_days_of_cogs",
+   "formula": "(short-term liabilities * 365) / cost of products sold",
+   "train": {
+    "blank": {
+     "firms": 26,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.12872892362858793
+     ],
+     "mean_predicted": 0.021284869606146402
+    },
+    "present": {
+     "firms": 3995,
+     "bankrupt": 215,
+     "rate": 0.05381727158948686,
+     "wilson_95": [
+      0.047238712497713456,
+      0.06125307527190374
+     ],
+     "mean_predicted": 0.05450040824659639
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 4,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.4898908403969213
+     ],
+     "mean_predicted": 0.010765126494767036
+    },
+    "present": {
+     "firms": 862,
+     "bankrupt": 50,
+     "rate": 0.058004640371229696,
+     "wilson_95": [
+      0.04427276741042563,
+      0.0756584946193039
+     ],
+     "mean_predicted": 0.0682923489837388
+    }
+   },
+   "mean_contribution_when_blank_train": -0.07989611997114647,
+   "mean_contribution_when_present_train": 0.0012781774418143346,
+   "criteria": {
+    "direction": null,
+    "c1": false,
+    "c2": false,
+    "c3": null,
+    "blocked": false
+   }
+  },
+  "Attr53": {
+   "name": "equity_to_fixed_assets",
+   "formula": "equity / fixed assets",
+   "train": {
+    "blank": {
+     "firms": 66,
+     "bankrupt": 4,
+     "rate": 0.06060606060606061,
+     "wilson_95": [
+      0.02381861466682568,
+      0.14572908767172355
+     ],
+     "mean_predicted": 0.07406917187084944
+    },
+    "present": {
+     "firms": 3955,
+     "bankrupt": 211,
+     "rate": 0.053350189633375476,
+     "wilson_95": [
+      0.04676973049662462,
+      0.06079746139633687
+     ],
+     "mean_predicted": 0.05395549234170324
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 12,
+     "bankrupt": 3,
+     "rate": 0.25,
+     "wilson_95": [
+      0.08894166769488562,
+      0.5323053370816633
+     ],
+     "mean_predicted": 0.12071823949122017
+    },
+    "present": {
+     "firms": 854,
+     "bankrupt": 47,
+     "rate": 0.05503512880562061,
+     "wilson_95": [
+      0.041637541525489374,
+      0.07241786797743933
+     ],
+     "mean_predicted": 0.06728623706799446
+    }
+   },
+   "mean_contribution_when_blank_train": -0.06939450049207842,
+   "mean_contribution_when_present_train": -0.0031537287711973705,
+   "criteria": {
+    "direction": null,
+    "c1": false,
+    "c2": false,
+    "c3": null,
+    "blocked": false
+   }
+  },
+  "Attr54": {
+   "name": "constant_capital_to_fixed_assets",
+   "formula": "constant capital / fixed assets",
+   "train": {
+    "blank": {
+     "firms": 66,
+     "bankrupt": 4,
+     "rate": 0.06060606060606061,
+     "wilson_95": [
+      0.02381861466682568,
+      0.14572908767172355
+     ],
+     "mean_predicted": 0.07406917187084944
+    },
+    "present": {
+     "firms": 3955,
+     "bankrupt": 211,
+     "rate": 0.053350189633375476,
+     "wilson_95": [
+      0.04676973049662462,
+      0.06079746139633687
+     ],
+     "mean_predicted": 0.05395549234170324
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 12,
+     "bankrupt": 3,
+     "rate": 0.25,
+     "wilson_95": [
+      0.08894166769488562,
+      0.5323053370816633
+     ],
+     "mean_predicted": 0.12071823949122017
+    },
+    "present": {
+     "firms": 854,
+     "bankrupt": 47,
+     "rate": 0.05503512880562061,
+     "wilson_95": [
+      0.041637541525489374,
+      0.07241786797743933
+     ],
+     "mean_predicted": 0.06728623706799446
+    }
+   },
+   "mean_contribution_when_blank_train": -0.10489747521599901,
+   "mean_contribution_when_present_train": 0.005698508238739908,
+   "criteria": {
+    "direction": null,
+    "c1": false,
+    "c2": false,
+    "c3": null,
+    "blocked": false
+   }
+  },
+  "Attr60": {
+   "name": "inventory_turnover",
+   "formula": "sales / inventory",
+   "train": {
+    "blank": {
+     "firms": 168,
+     "bankrupt": 15,
+     "rate": 0.08928571428571429,
+     "wilson_95": [
+      0.05485470926028358,
+      0.14207948288174704
+     ],
+     "mean_predicted": 0.07837691397475768
+    },
+    "present": {
+     "firms": 3853,
+     "bankrupt": 200,
+     "rate": 0.051907604464053986,
+     "wilson_95": [
+      0.045338490098304075,
+      0.0593693292888151
+     ],
+     "mean_predicted": 0.05323519751029149
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 44,
+     "bankrupt": 3,
+     "rate": 0.06818181818181818,
+     "wilson_95": [
+      0.02345939572462935,
+      0.18225044489111314
+     ],
+     "mean_predicted": 0.12548146555821843
+    },
+    "present": {
+     "firms": 822,
+     "bankrupt": 47,
+     "rate": 0.057177615571776155,
+     "wilson_95": [
+      0.043268676968808886,
+      0.07520619230432533
+     ],
+     "mean_predicted": 0.06495119324257943
+    }
+   },
+   "mean_contribution_when_blank_train": 0.11986665844257528,
+   "mean_contribution_when_present_train": -0.005888725584464621,
+   "criteria": {
+    "direction": null,
+    "c1": false,
+    "c2": false,
+    "c3": null,
+    "blocked": false
+   }
+  },
+  "Attr64": {
+   "name": "sales_to_fixed_assets",
+   "formula": "sales / fixed assets",
+   "train": {
+    "blank": {
+     "firms": 66,
+     "bankrupt": 4,
+     "rate": 0.06060606060606061,
+     "wilson_95": [
+      0.02381861466682568,
+      0.14572908767172355
+     ],
+     "mean_predicted": 0.07406917187084944
+    },
+    "present": {
+     "firms": 3955,
+     "bankrupt": 211,
+     "rate": 0.053350189633375476,
+     "wilson_95": [
+      0.04676973049662462,
+      0.06079746139633687
+     ],
+     "mean_predicted": 0.05395549234170324
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 12,
+     "bankrupt": 3,
+     "rate": 0.25,
+     "wilson_95": [
+      0.08894166769488562,
+      0.5323053370816633
+     ],
+     "mean_predicted": 0.12071823949122017
+    },
+    "present": {
+     "firms": 854,
+     "bankrupt": 47,
+     "rate": 0.05503512880562061,
+     "wilson_95": [
+      0.041637541525489374,
+      0.07241786797743933
+     ],
+     "mean_predicted": 0.06728623706799446
+    }
+   },
+   "mean_contribution_when_blank_train": -0.23631587146421423,
+   "mean_contribution_when_present_train": 0.007091921531888079,
+   "criteria": {
+    "direction": null,
+    "c1": false,
+    "c2": false,
+    "c3": null,
+    "blocked": false
+   }
+  }
+ },
+ "null": {
+  "permutations": 1000,
+  "candidates": 13,
+  "expected_false_positives": 0.002,
+  "per_attribute": {
+   "Attr24": 0.002,
+   "Attr27": 0.0,
+   "Attr28": 0.0,
+   "Attr32": 0.0,
+   "Attr37": 0.0,
+   "Attr41": 0.0,
+   "Attr45": 0.0,
+   "Attr47": 0.0,
+   "Attr52": 0.0,
+   "Attr53": 0.0,
+   "Attr54": 0.0,
+   "Attr60": 0.0,
+   "Attr64": 0.0
+  }
+ },
+ "cost": {
+  "blocked": [
+   "Attr24",
+   "Attr27"
+  ],
+  "train": {
+   "attr21_present_firms": 4021,
+   "attr21_present_bankrupt": 215,
+   "per_attribute": {
+    "Attr24": {
+     "firms_new": 88,
+     "bankrupt_new": 0,
+     "firms_any": 90,
+     "bankrupt_any": 0
+    },
+    "Attr27": {
+     "firms_new": 234,
+     "bankrupt_new": 68,
+     "firms_any": 251,
+     "bankrupt_any": 69
+    }
+   },
+   "new_refusals": 315,
+   "new_refusals_bankrupt": 68,
+   "new_refusals_firm_share": 0.07833872171101716,
+   "new_refusals_bankrupt_share": 0.31627906976744186,
+   "count_limit_refusals": 39,
+   "cumulative_firm_share": 0.08803780154190499,
+   "cumulative_bankrupt_share": 0.33488372093023255
+  },
+  "val": {
+   "attr21_present_firms": 866,
+   "attr21_present_bankrupt": 50,
+   "per_attribute": {
+    "Attr24": {
+     "firms_new": 22,
+     "bankrupt_new": 0,
+     "firms_any": 22,
+     "bankrupt_any": 0
+    },
+    "Attr27": {
+     "firms_new": 57,
+     "bankrupt_new": 19,
+     "firms_any": 62,
+     "bankrupt_any": 20
+    }
+   },
+   "new_refusals": 76,
+   "new_refusals_bankrupt": 19,
+   "new_refusals_firm_share": 0.08775981524249422,
+   "new_refusals_bankrupt_share": 0.38,
+   "count_limit_refusals": 10,
+   "cumulative_firm_share": 0.09930715935334873,
+   "cumulative_bankrupt_share": 0.42
+  },
+  "ceiling": {
+   "firm_share": 0.1,
+   "bankrupt_share": 0.3,
+   "crossed": true,
+   "reasons": [
+    "train: new refusals hold 31.6% of Attr21-present bankrupt firms (ceiling 30%)",
+    "val: new refusals hold 38.0% of Attr21-present bankrupt firms (ceiling 30%)"
+   ]
+  }
+ },
+ "count_groups": {
+  "train_oof": {
+   "0 blanks": {
+    "firms": 2132,
+    "bankrupt": 79,
+    "evaluable": true,
+    "pr_auc": 0.5362407639633813,
+    "pr_auc_ci": [
+     0.4358837882190827,
+     0.6377938486772188
+    ],
+    "high_flagged": 70,
+    "high_precision": 0.4857142857142857,
+    "high_precision_ci": [
+     0.3876966411564626,
+     0.5882352941176471
+    ]
+   },
+   "1 to 2 blanks": {
+    "firms": 1669,
+    "bankrupt": 123,
+    "evaluable": true,
+    "pr_auc": 0.824497172547984,
+    "pr_auc_ci": [
+     0.775270119667349,
+     0.8759730519433054
+    ],
+    "high_flagged": 149,
+    "high_precision": 0.6644295302013423,
+    "high_precision_ci": [
+     0.6049122174122175,
+     0.7285714285714285
+    ]
+   },
+   "3 to 6 blanks": {
+    "firms": 181,
+    "bankrupt": 9,
+    "evaluable": true,
+    "pr_auc": 0.24827793980537835,
+    "pr_auc_ci": [
+     0.0671739199423657,
+     0.5387447066713752
+    ],
+    "high_flagged": 13,
+    "high_precision": 0.23076923076923078,
+    "high_precision_ci": [
+     0.0,
+     0.46153846153846156
+    ]
+   },
+   "more than 6 blanks": {
+    "firms": 39,
+    "bankrupt": 4,
+    "evaluable": true,
+    "pr_auc": 0.4458333333333333,
+    "pr_auc_ci": [
+     0.1818124809972636,
+     0.85
+    ],
+    "high_flagged": 2,
+    "high_precision": 0.5,
+    "high_precision_ci": [
+     0.0,
+     1.0
+    ]
+   }
+  },
+  "val": {
+   "0 blanks": {
+    "firms": 426,
+    "bankrupt": 12,
+    "evaluable": true,
+    "pr_auc": 0.3495021447534684,
+    "pr_auc_ci": [
+     0.17797558080282444,
+     0.6442696573483131
+    ],
+    "high_flagged": 21,
+    "high_precision": 0.2857142857142857,
+    "high_precision_ci": [
+     0.14285714285714285,
+     0.4546401515151514
+    ]
+   },
+   "1 to 2 blanks": {
+    "firms": 389,
+    "bankrupt": 34,
+    "evaluable": true,
+    "pr_auc": 0.818553612385925,
+    "pr_auc_ci": [
+     0.7140370802661341,
+     0.9107560133959511
+    ],
+    "high_flagged": 37,
+    "high_precision": 0.6756756756756757,
+    "high_precision_ci": [
+     0.5476190476190477,
+     0.8181818181818182
+    ]
+   },
+   "3 to 6 blanks": {
+    "firms": 41,
+    "bankrupt": 2,
+    "evaluable": true,
+    "pr_auc": 0.75,
+    "pr_auc_ci": [
+     0.3333333333333333,
+     1.0
+    ],
+    "high_flagged": 3,
+    "high_precision": 0.3333333333333333,
+    "high_precision_ci": [
+     0.0,
+     1.0
+    ]
+   },
+   "more than 6 blanks": {
+    "firms": 10,
+    "bankrupt": 2,
+    "evaluable": true,
+    "pr_auc": 1.0,
+    "pr_auc_ci": [
+     1.0,
+     1.0
+    ],
+    "high_flagged": 2,
+    "high_precision": 1.0,
+    "high_precision_ci": [
+     1.0,
+     1.0
+    ]
+   }
+  }
+ },
+ "count_decision": {
+  "evaluable": true,
+  "pr_auc_ci_below": false,
+  "high_precision_ci_below": false,
+  "validation_points_lower": false,
+  "met": false
+ },
+ "decision": {
+  "applied": false,
+  "blocked_set": [],
+  "status": "stopped: coverage ceiling crossed, user decides"
+ },
+ "stress": {
+  "train": [
+   {
+    "attr": "Attr1",
+    "firms_with_value": 4020,
+    "changed_band": 3,
+    "changed_share": 0.0007462686567164179,
+    "mean_logodds_change": 0.004594645602012798,
+    "mean_abs_logodds_change": 0.04086549264189834
+   },
+   {
+    "attr": "Attr2",
+    "firms_with_value": 4020,
+    "changed_band": 3,
+    "changed_share": 0.0007462686567164179,
+    "mean_logodds_change": 0.03789402599039614,
+    "mean_abs_logodds_change": 0.0567388592625563
+   },
+   {
+    "attr": "Attr3",
+    "firms_with_value": 4020,
+    "changed_band": 9,
+    "changed_share": 0.002238805970149254,
+    "mean_logodds_change": 0.11092286416187745,
+    "mean_abs_logodds_change": 0.11785150618884617
+   },
+   {
+    "attr": "Attr4",
+    "firms_with_value": 4010,
+    "changed_band": 4,
+    "changed_share": 0.000997506234413965,
+    "mean_logodds_change": -0.02742621596611857,
+    "mean_abs_logodds_change": 0.056908433654169185
+   },
+   {
+    "attr": "Attr5",
+    "firms_with_value": 4012,
+    "changed_band": 12,
+    "changed_share": 0.0029910269192422734,
+    "mean_logodds_change": -0.8187787539433187,
+    "mean_abs_logodds_change": 0.8188688476031447
+   },
+   {
+    "attr": "Attr6",
+    "firms_with_value": 4020,
+    "changed_band": 9,
+    "changed_share": 0.002238805970149254,
+    "mean_logodds_change": -0.2726856867083432,
+    "mean_abs_logodds_change": 0.2895793244482706
+   },
+   {
+    "attr": "Attr7",
+    "firms_with_value": 4020,
+    "changed_band": 3,
+    "changed_share": 0.0007462686567164179,
+    "mean_logodds_change": 0.03371909505576772,
+    "mean_abs_logodds_change": 0.03900353908480364
+   },
+   {
+    "attr": "Attr8",
+    "firms_with_value": 4012,
+    "changed_band": 4,
+    "changed_share": 0.0009970089730807576,
+    "mean_logodds_change": -0.030015124937365807,
+    "mean_abs_logodds_change": 0.04789561235918582
+   },
+   {
+    "attr": "Attr9",
+    "firms_with_value": 4021,
+    "changed_band": 39,
+    "changed_share": 0.009699079830887839,
+    "mean_logodds_change": 0.261280344869481,
+    "mean_abs_logodds_change": 0.26572299408057076
+   },
+   {
+    "attr": "Attr10",
+    "firms_with_value": 4020,
+    "changed_band": 2,
+    "changed_share": 0.0004975124378109452,
+    "mean_logodds_change": 0.004083086350293622,
+    "mean_abs_logodds_change": 0.054417614090865166
+   },
+   {
+    "attr": "Attr11",
+    "firms_with_value": 4020,
+    "changed_band": 11,
+    "changed_share": 0.002736318407960199,
+    "mean_logodds_change": 0.10881108961849223,
+    "mean_abs_logodds_change": 0.11428797342919172
+   },
+   {
+    "attr": "Attr12",
+    "firms_with_value": 4010,
+    "changed_band": 5,
+    "changed_share": 0.0012468827930174563,
+    "mean_logodds_change": -0.09258916502494885,
+    "mean_abs_logodds_change": 0.10804351623487728
+   },
+   {
+    "attr": "Attr13",
+    "firms_with_value": 4021,
+    "changed_band": 13,
+    "changed_share": 0.003233026610295946,
+    "mean_logodds_change": 0.19669954090213604,
+    "mean_abs_logodds_change": 0.20752315743922614
+   },
+   {
+    "attr": "Attr14",
+    "firms_with_value": 4020,
+    "changed_band": 1,
+    "changed_share": 0.0002487562189054726,
+    "mean_logodds_change": 7.14227707905701e-05,
+    "mean_abs_logodds_change": 0.003410659060006347
+   },
+   {
+    "attr": "Attr15",
+    "firms_with_value": 4018,
+    "changed_band": 29,
+    "changed_share": 0.007217521154803385,
+    "mean_logodds_change": -0.09075520398771451,
+    "mean_abs_logodds_change": 0.1442322837989232
+   },
+   {
+    "attr": "Attr16",
+    "firms_with_value": 4012,
+    "changed_band": 4,
+    "changed_share": 0.0009970089730807576,
+    "mean_logodds_change": -0.007932052357241155,
+    "mean_abs_logodds_change": 0.041785623192344336
+   },
+   {
+    "attr": "Attr17",
+    "firms_with_value": 4012,
+    "changed_band": 3,
+    "changed_share": 0.0007477567298105683,
+    "mean_logodds_change": 0.005781397867423535,
+    "mean_abs_logodds_change": 0.026456795651173416
+   },
+   {
+    "attr": "Attr18",
+    "firms_with_value": 4020,
+    "changed_band": 0,
+    "changed_share": 0.0,
+    "mean_logodds_change": 0.0,
+    "mean_abs_logodds_change": 0.0
+   },
+   {
+    "attr": "Attr19",
+    "firms_with_value": 4021,
+    "changed_band": 5,
+    "changed_share": 0.0012434717731907485,
+    "mean_logodds_change": 0.06183465087836963,
+    "mean_abs_logodds_change": 0.08366143061369422
+   },
+   {
+    "attr": "Attr20",
+    "firms_with_value": 4021,
+    "changed_band": 3,
+    "changed_share": 0.0007460830639144492,
+    "mean_logodds_change": -0.0030304633628052743,
+    "mean_abs_logodds_change": 0.028302910598747975
+   },
+   {
+    "attr": "Attr21",
+    "firms_with_value": 4021,
+    "changed_band": 3794,
+    "changed_share": 0.94354638149714,
+    "mean_logodds_change": 5.82028498161158,
+    "mean_abs_logodds_change": 5.82028498161158
+   },
+   {
+    "attr": "Attr22",
+    "firms_with_value": 4020,
+    "changed_band": 55,
+    "changed_share": 0.013681592039800995,
+    "mean_logodds_change": 0.19947864640910545,
+    "mean_abs_logodds_change": 0.20144360222281207
+   },
+   {
+    "attr": "Attr23",
+    "firms_with_value": 4021,
+    "changed_band": 2,
+    "changed_share": 0.0004973887092762995,
+    "mean_logodds_change": 0.06985756655940342,
+    "mean_abs_logodds_change": 0.07829981210470519
+   },
+   {
+    "attr": "Attr24",
+    "firms_with_value": 3931,
+    "changed_band": 20,
+    "changed_share": 0.005087763927753753,
+    "mean_logodds_change": -1.007469277766441,
+    "mean_abs_logodds_change": 1.007469277766441
+   },
+   {
+    "attr": "Attr25",
+    "firms_with_value": 4020,
+    "changed_band": 15,
+    "changed_share": 0.0037313432835820895,
+    "mean_logodds_change": 0.20616768182244258,
+    "mean_abs_logodds_change": 0.263978953561921
+   },
+   {
+    "attr": "Attr26",
+    "firms_with_value": 4012,
+    "changed_band": 10,
+    "changed_share": 0.0024925224327018943,
+    "mean_logodds_change": 0.02065204482807278,
+    "mean_abs_logodds_change": 0.13370175113383323
+   },
+   {
+    "attr": "Attr27",
+    "firms_with_value": 3770,
+    "changed_band": 2093,
+    "changed_share": 0.5551724137931034,
+    "mean_logodds_change": 3.616297717390179,
+    "mean_abs_logodds_change": 3.646103531322479
+   },
+   {
+    "attr": "Attr28",
+    "firms_with_value": 3955,
+    "changed_band": 11,
+    "changed_share": 0.002781289506953224,
+    "mean_logodds_change": -0.1654927502930072,
+    "mean_abs_logodds_change": 0.18446203305030903
+   },
+   {
+    "attr": "Attr29",
+    "firms_with_value": 4020,
+    "changed_band": 15,
+    "changed_share": 0.0037313432835820895,
+    "mean_logodds_change": -0.05741129194220158,
+    "mean_abs_logodds_change": 0.23194545857699214
+   },
+   {
+    "attr": "Attr30",
+    "firms_with_value": 4021,
+    "changed_band": 22,
+    "changed_share": 0.005471275802039294,
+    "mean_logodds_change": 0.1439099970798934,
+    "mean_abs_logodds_change": 0.1649031151068165
+   },
+   {
+    "attr": "Attr31",
+    "firms_with_value": 4021,
+    "changed_band": 1,
+    "changed_share": 0.0002486943546381497,
+    "mean_logodds_change": 0.04140548504225942,
+    "mean_abs_logodds_change": 0.04901993751614351
+   },
+   {
+    "attr": "Attr32",
+    "firms_with_value": 3987,
+    "changed_band": 12,
+    "changed_share": 0.0030097817908201654,
+    "mean_logodds_change": 0.06354589876800741,
+    "mean_abs_logodds_change": 0.09133856258716828
+   },
+   {
+    "attr": "Attr33",
+    "firms_with_value": 4010,
+    "changed_band": 9,
+    "changed_share": 0.0022443890274314216,
+    "mean_logodds_change": -0.0676489465150439,
+    "mean_abs_logodds_change": 0.10770130035426077
+   },
+   {
+    "attr": "Attr34",
+    "firms_with_value": 4012,
+    "changed_band": 14,
+    "changed_share": 0.003489531405782652,
+    "mean_logodds_change": -0.47581258806757243,
+    "mean_abs_logodds_change": 0.5292666859470917
+   },
+   {
+    "attr": "Attr35",
+    "firms_with_value": 4020,
+    "changed_band": 108,
+    "changed_share": 0.026865671641791045,
+    "mean_logodds_change": 0.7705750286150159,
+    "mean_abs_logodds_change": 0.7742962421575121
+   },
+   {
+    "attr": "Attr36",
+    "firms_with_value": 4020,
+    "changed_band": 5,
+    "changed_share": 0.0012437810945273632,
+    "mean_logodds_change": -0.12931442433329632,
+    "mean_abs_logodds_change": 0.1700052988974596
+   },
+   {
+    "attr": "Attr37",
+    "firms_with_value": 2322,
+    "changed_band": 3,
+    "changed_share": 0.0012919896640826874,
+    "mean_logodds_change": -0.0604070819891826,
+    "mean_abs_logodds_change": 0.11792191649977408
+   },
+   {
+    "attr": "Attr38",
+    "firms_with_value": 4020,
+    "changed_band": 6,
+    "changed_share": 0.0014925373134328358,
+    "mean_logodds_change": -0.03416145658317613,
+    "mean_abs_logodds_change": 0.16516971919401138
+   },
+   {
+    "attr": "Attr39",
+    "firms_with_value": 4021,
+    "changed_band": 12,
+    "changed_share": 0.0029843322556577967,
+    "mean_logodds_change": 0.058462456183963445,
+    "mean_abs_logodds_change": 0.12965479371003713
+   },
+   {
+    "attr": "Attr40",
+    "firms_with_value": 4010,
+    "changed_band": 26,
+    "changed_share": 0.006483790523690773,
+    "mean_logodds_change": -0.00514532940750507,
+    "mean_abs_logodds_change": 0.16941274698163986
+   },
+   {
+    "attr": "Attr41",
+    "firms_with_value": 3964,
+    "changed_band": 12,
+    "changed_share": 0.0030272452068617556,
+    "mean_logodds_change": -0.7618869771187494,
+    "mean_abs_logodds_change": 0.7619313050885707
+   },
+   {
+    "attr": "Attr42",
+    "firms_with_value": 4021,
+    "changed_band": 2,
+    "changed_share": 0.0004973887092762995,
+    "mean_logodds_change": -0.003038911105990174,
+    "mean_abs_logodds_change": 0.044703606766216174
+   },
+   {
+    "attr": "Attr43",
+    "firms_with_value": 4021,
+    "changed_band": 67,
+    "changed_share": 0.01666252176075603,
+    "mean_logodds_change": 0.6768855689089941,
+    "mean_abs_logodds_change": 0.6840494643992941
+   },
+   {
+    "attr": "Attr44",
+    "firms_with_value": 4021,
+    "changed_band": 7,
+    "changed_share": 0.001740860482467048,
+    "mean_logodds_change": -0.02843247179613067,
+    "mean_abs_logodds_change": 0.11423165815035824
+   },
+   {
+    "attr": "Attr45",
+    "firms_with_value": 3853,
+    "changed_band": 17,
+    "changed_share": 0.004412146379444588,
+    "mean_logodds_change": 0.1661644304073421,
+    "mean_abs_logodds_change": 0.1875154165252399
+   },
+   {
+    "attr": "Attr46",
+    "firms_with_value": 4010,
+    "changed_band": 27,
+    "changed_share": 0.006733167082294264,
+    "mean_logodds_change": 0.11566700227596345,
+    "mean_abs_logodds_change": 0.24642954938152073
+   },
+   {
+    "attr": "Attr47",
+    "firms_with_value": 3996,
+    "changed_band": 5,
+    "changed_share": 0.0012512512512512512,
+    "mean_logodds_change": -0.17406855615487074,
+    "mean_abs_logodds_change": 0.1921925658736695
+   },
+   {
+    "attr": "Attr48",
+    "firms_with_value": 4020,
+    "changed_band": 4,
+    "changed_share": 0.0009950248756218905,
+    "mean_logodds_change": -0.1718075345119274,
+    "mean_abs_logodds_change": 0.18741269536286245
+   },
+   {
+    "attr": "Attr49",
+    "firms_with_value": 4021,
+    "changed_band": 9,
+    "changed_share": 0.002238249191743347,
+    "mean_logodds_change": 0.016649294614436774,
+    "mean_abs_logodds_change": 0.0517678261175197
+   },
+   {
+    "attr": "Attr50",
+    "firms_with_value": 4012,
+    "changed_band": 18,
+    "changed_share": 0.00448654037886341,
+    "mean_logodds_change": 0.05450084632880854,
+    "mean_abs_logodds_change": 0.08725401068897813
+   },
+   {
+    "attr": "Attr51",
+    "firms_with_value": 4020,
+    "changed_band": 10,
+    "changed_share": 0.0024875621890547263,
+    "mean_logodds_change": -0.0745294075145027,
+    "mean_abs_logodds_change": 0.09961644669682973
+   },
+   {
+    "attr": "Attr52",
+    "firms_with_value": 3995,
+    "changed_band": 4,
+    "changed_share": 0.0010012515644555694,
+    "mean_logodds_change": -0.09301550809068052,
+    "mean_abs_logodds_change": 0.09639508277026647
+   },
+   {
+    "attr": "Attr53",
+    "firms_with_value": 3955,
+    "changed_band": 10,
+    "changed_share": 0.0025284450063211127,
+    "mean_logodds_change": -0.03947263071290812,
+    "mean_abs_logodds_change": 0.08832008125391838
+   },
+   {
+    "attr": "Attr54",
+    "firms_with_value": 3955,
+    "changed_band": 7,
+    "changed_share": 0.0017699115044247787,
+    "mean_logodds_change": -0.09285709434164242,
+    "mean_abs_logodds_change": 0.13498093246625653
+   },
+   {
+    "attr": "Attr55",
+    "firms_with_value": 4021,
+    "changed_band": 10,
+    "changed_share": 0.002486943546381497,
+    "mean_logodds_change": -0.04051274322003111,
+    "mean_abs_logodds_change": 0.12249610516246602
+   },
+   {
+    "attr": "Attr56",
+    "firms_with_value": 4021,
+    "changed_band": 47,
+    "changed_share": 0.011688634667993036,
+    "mean_logodds_change": 0.08330244472359262,
+    "mean_abs_logodds_change": 0.1451598925192825
+   },
+   {
+    "attr": "Attr57",
+    "firms_with_value": 4020,
+    "changed_band": 7,
+    "changed_share": 0.0017412935323383085,
+    "mean_logodds_change": -0.03306654717542584,
+    "mean_abs_logodds_change": 0.06838468198186316
+   },
+   {
+    "attr": "Attr58",
+    "firms_with_value": 4021,
+    "changed_band": 166,
+    "changed_share": 0.04128326286993285,
+    "mean_logodds_change": 0.4850883941776899,
+    "mean_abs_logodds_change": 0.5020717341131931
+   },
+   {
+    "attr": "Attr59",
+    "firms_with_value": 4020,
+    "changed_band": 6,
+    "changed_share": 0.0014925373134328358,
+    "mean_logodds_change": -0.036118010289670516,
+    "mean_abs_logodds_change": 0.10207499044969656
+   },
+   {
+    "attr": "Attr60",
+    "firms_with_value": 3853,
+    "changed_band": 15,
+    "changed_share": 0.003893070334804049,
+    "mean_logodds_change": 0.1140656004148657,
+    "mean_abs_logodds_change": 0.14073654837665917
+   },
+   {
+    "attr": "Attr61",
+    "firms_with_value": 4014,
+    "changed_band": 4,
+    "changed_share": 0.000996512207274539,
+    "mean_logodds_change": -0.06702418571364492,
+    "mean_abs_logodds_change": 0.13572774815132016
+   },
+   {
+    "attr": "Attr62",
+    "firms_with_value": 4021,
+    "changed_band": 8,
+    "changed_share": 0.001989554837105198,
+    "mean_logodds_change": -0.004017304118837728,
+    "mean_abs_logodds_change": 0.06559908159897707
+   },
+   {
+    "attr": "Attr63",
+    "firms_with_value": 4010,
+    "changed_band": 9,
+    "changed_share": 0.0022443890274314216,
+    "mean_logodds_change": 0.0760774456521791,
+    "mean_abs_logodds_change": 0.08690141673251636
+   },
+   {
+    "attr": "Attr64",
+    "firms_with_value": 3955,
+    "changed_band": 7,
+    "changed_share": 0.0017699115044247787,
+    "mean_logodds_change": -0.2303612743985188,
+    "mean_abs_logodds_change": 0.23687666871825183
+   }
+  ],
+  "val": [
+   {
+    "attr": "Attr1",
+    "firms_with_value": 866,
+    "changed_band": 4,
+    "changed_share": 0.004618937644341801,
+    "mean_logodds_change": 0.001766319872549635,
+    "mean_abs_logodds_change": 0.03976059515128478
+   },
+   {
+    "attr": "Attr2",
+    "firms_with_value": 866,
+    "changed_band": 4,
+    "changed_share": 0.004618937644341801,
+    "mean_logodds_change": 0.03776151669785589,
+    "mean_abs_logodds_change": 0.05586797363567925
+   },
+   {
+    "attr": "Attr3",
+    "firms_with_value": 866,
+    "changed_band": 2,
+    "changed_share": 0.0023094688221709007,
+    "mean_logodds_change": 0.11082607320836473,
+    "mean_abs_logodds_change": 0.11815731991939743
+   },
+   {
+    "attr": "Attr4",
+    "firms_with_value": 860,
+    "changed_band": 5,
+    "changed_share": 0.005813953488372093,
+    "mean_logodds_change": -0.030103016040108274,
+    "mean_abs_logodds_change": 0.05757976153763632
+   },
+   {
+    "attr": "Attr5",
+    "firms_with_value": 864,
+    "changed_band": 34,
+    "changed_share": 0.03935185185185185,
+    "mean_logodds_change": -0.8276876124178227,
+    "mean_abs_logodds_change": 0.8276973363258593
+   },
+   {
+    "attr": "Attr6",
+    "firms_with_value": 866,
+    "changed_band": 17,
+    "changed_share": 0.019630484988452657,
+    "mean_logodds_change": -0.26630002853538626,
+    "mean_abs_logodds_change": 0.2828423490366481
+   },
+   {
+    "attr": "Attr7",
+    "firms_with_value": 866,
+    "changed_band": 4,
+    "changed_share": 0.004618937644341801,
+    "mean_logodds_change": 0.03417374184463576,
+    "mean_abs_logodds_change": 0.03908186267616984
+   },
+   {
+    "attr": "Attr8",
+    "firms_with_value": 861,
+    "changed_band": 5,
+    "changed_share": 0.005807200929152149,
+    "mean_logodds_change": -0.03176511091903131,
+    "mean_abs_logodds_change": 0.048304784305820005
+   },
+   {
+    "attr": "Attr9",
+    "firms_with_value": 866,
+    "changed_band": 15,
+    "changed_share": 0.017321016166281754,
+    "mean_logodds_change": 0.2598454106407191,
+    "mean_abs_logodds_change": 0.26248073025357815
+   },
+   {
+    "attr": "Attr10",
+    "firms_with_value": 866,
+    "changed_band": 6,
+    "changed_share": 0.006928406466512702,
+    "mean_logodds_change": 0.0029278536659214705,
+    "mean_abs_logodds_change": 0.05297452226510727
+   },
+   {
+    "attr": "Attr11",
+    "firms_with_value": 866,
+    "changed_band": 4,
+    "changed_share": 0.004618937644341801,
+    "mean_logodds_change": 0.10375154820312506,
+    "mean_abs_logodds_change": 0.1089717949935871
+   },
+   {
+    "attr": "Attr12",
+    "firms_with_value": 860,
+    "changed_band": 11,
+    "changed_share": 0.012790697674418604,
+    "mean_logodds_change": -0.09548184086271361,
+    "mean_abs_logodds_change": 0.10836162401717109
+   },
+   {
+    "attr": "Attr13",
+    "firms_with_value": 866,
+    "changed_band": 11,
+    "changed_share": 0.012702078521939953,
+    "mean_logodds_change": 0.18621999620432517,
+    "mean_abs_logodds_change": 0.20173936079268787
+   },
+   {
+    "attr": "Attr14",
+    "firms_with_value": 866,
+    "changed_band": 0,
+    "changed_share": 0.0,
+    "mean_logodds_change": 0.00011552920191785694,
+    "mean_abs_logodds_change": 0.0033967274391298995
+   },
+   {
+    "attr": "Attr15",
+    "firms_with_value": 863,
+    "changed_band": 9,
+    "changed_share": 0.010428736964078795,
+    "mean_logodds_change": -0.09437916166761837,
+    "mean_abs_logodds_change": 0.13973853842329734
+   },
+   {
+    "attr": "Attr16",
+    "firms_with_value": 861,
+    "changed_band": 5,
+    "changed_share": 0.005807200929152149,
+    "mean_logodds_change": -0.010687970335542148,
+    "mean_abs_logodds_change": 0.04122739854891553
+   },
+   {
+    "attr": "Attr17",
+    "firms_with_value": 861,
+    "changed_band": 1,
+    "changed_share": 0.0011614401858304297,
+    "mean_logodds_change": 0.00461384573294451,
+    "mean_abs_logodds_change": 0.024446019885486198
+   },
+   {
+    "attr": "Attr18",
+    "firms_with_value": 866,
+    "changed_band": 0,
+    "changed_share": 0.0,
+    "mean_logodds_change": 0.0,
+    "mean_abs_logodds_change": 0.0
+   },
+   {
+    "attr": "Attr19",
+    "firms_with_value": 866,
+    "changed_band": 2,
+    "changed_share": 0.0023094688221709007,
+    "mean_logodds_change": 0.05848932498704959,
+    "mean_abs_logodds_change": 0.08149808655796888
+   },
+   {
+    "attr": "Attr20",
+    "firms_with_value": 866,
+    "changed_band": 1,
+    "changed_share": 0.0011547344110854503,
+    "mean_logodds_change": -0.003942462118438515,
+    "mean_abs_logodds_change": 0.02798170807991306
+   },
+   {
+    "attr": "Attr21",
+    "firms_with_value": 866,
+    "changed_band": 800,
+    "changed_share": 0.9237875288683602,
+    "mean_logodds_change": 5.766211209224699,
+    "mean_abs_logodds_change": 5.766211209224699
+   },
+   {
+    "attr": "Attr22",
+    "firms_with_value": 866,
+    "changed_band": 12,
+    "changed_share": 0.013856812933025405,
+    "mean_logodds_change": 0.20214867456755897,
+    "mean_abs_logodds_change": 0.204048560943377
+   },
+   {
+    "attr": "Attr23",
+    "firms_with_value": 866,
+    "changed_band": 1,
+    "changed_share": 0.0011547344110854503,
+    "mean_logodds_change": 0.07038001900795329,
+    "mean_abs_logodds_change": 0.0809371912111696
+   },
+   {
+    "attr": "Attr24",
+    "firms_with_value": 844,
+    "changed_band": 41,
+    "changed_share": 0.0485781990521327,
+    "mean_logodds_change": -1.0039951446090325,
+    "mean_abs_logodds_change": 1.0039951446090325
+   },
+   {
+    "attr": "Attr25",
+    "firms_with_value": 866,
+    "changed_band": 7,
+    "changed_share": 0.008083140877598153,
+    "mean_logodds_change": 0.2001381126858274,
+    "mean_abs_logodds_change": 0.2559856804140977
+   },
+   {
+    "attr": "Attr26",
+    "firms_with_value": 861,
+    "changed_band": 11,
+    "changed_share": 0.012775842044134728,
+    "mean_logodds_change": 0.023864214462540497,
+    "mean_abs_logodds_change": 0.1320202932068355
+   },
+   {
+    "attr": "Attr27",
+    "firms_with_value": 804,
+    "changed_band": 443,
+    "changed_share": 0.5509950248756219,
+    "mean_logodds_change": 3.6174459672666064,
+    "mean_abs_logodds_change": 3.6303636520131914
+   },
+   {
+    "attr": "Attr28",
+    "firms_with_value": 854,
+    "changed_band": 14,
+    "changed_share": 0.01639344262295082,
+    "mean_logodds_change": -0.16259071191369798,
+    "mean_abs_logodds_change": 0.18266091921208172
+   },
+   {
+    "attr": "Attr29",
+    "firms_with_value": 866,
+    "changed_band": 19,
+    "changed_share": 0.021939953810623556,
+    "mean_logodds_change": -0.06387446996250616,
+    "mean_abs_logodds_change": 0.22102768150858765
+   },
+   {
+    "attr": "Attr30",
+    "firms_with_value": 866,
+    "changed_band": 10,
+    "changed_share": 0.011547344110854504,
+    "mean_logodds_change": 0.1381566686751487,
+    "mean_abs_logodds_change": 0.16010646815364943
+   },
+   {
+    "attr": "Attr31",
+    "firms_with_value": 866,
+    "changed_band": 0,
+    "changed_share": 0.0,
+    "mean_logodds_change": 0.039316421064853065,
+    "mean_abs_logodds_change": 0.047781291700680385
+   },
+   {
+    "attr": "Attr32",
+    "firms_with_value": 862,
+    "changed_band": 6,
+    "changed_share": 0.0069605568445475635,
+    "mean_logodds_change": 0.057938286967918494,
+    "mean_abs_logodds_change": 0.09086995183976124
+   },
+   {
+    "attr": "Attr33",
+    "firms_with_value": 860,
+    "changed_band": 6,
+    "changed_share": 0.0069767441860465115,
+    "mean_logodds_change": -0.07090291144079752,
+    "mean_abs_logodds_change": 0.10677355119921725
+   },
+   {
+    "attr": "Attr34",
+    "firms_with_value": 861,
+    "changed_band": 32,
+    "changed_share": 0.03716608594657375,
+    "mean_logodds_change": -0.47822642102903357,
+    "mean_abs_logodds_change": 0.5295572045240886
+   },
+   {
+    "attr": "Attr35",
+    "firms_with_value": 866,
+    "changed_band": 40,
+    "changed_share": 0.046189376443418015,
+    "mean_logodds_change": 0.7605784146469257,
+    "mean_abs_logodds_change": 0.7617946590794019
+   },
+   {
+    "attr": "Attr36",
+    "firms_with_value": 866,
+    "changed_band": 13,
+    "changed_share": 0.015011547344110854,
+    "mean_logodds_change": -0.13170694217513867,
+    "mean_abs_logodds_change": 0.17436757671018008
+   },
+   {
+    "attr": "Attr37",
+    "firms_with_value": 481,
+    "changed_band": 2,
+    "changed_share": 0.004158004158004158,
+    "mean_logodds_change": -0.06988620672943407,
+    "mean_abs_logodds_change": 0.11634687942165527
+   },
+   {
+    "attr": "Attr38",
+    "firms_with_value": 866,
+    "changed_band": 12,
+    "changed_share": 0.013856812933025405,
+    "mean_logodds_change": -0.038418704839043215,
+    "mean_abs_logodds_change": 0.17040353247059914
+   },
+   {
+    "attr": "Attr39",
+    "firms_with_value": 866,
+    "changed_band": 11,
+    "changed_share": 0.012702078521939953,
+    "mean_logodds_change": 0.06155158762592511,
+    "mean_abs_logodds_change": 0.12868583462079924
+   },
+   {
+    "attr": "Attr40",
+    "firms_with_value": 860,
+    "changed_band": 10,
+    "changed_share": 0.011627906976744186,
+    "mean_logodds_change": -0.025644467412358533,
+    "mean_abs_logodds_change": 0.16489447224462225
+   },
+   {
+    "attr": "Attr41",
+    "firms_with_value": 849,
+    "changed_band": 36,
+    "changed_share": 0.04240282685512368,
+    "mean_logodds_change": -0.7622478043797947,
+    "mean_abs_logodds_change": 0.7622478043797947
+   },
+   {
+    "attr": "Attr42",
+    "firms_with_value": 866,
+    "changed_band": 4,
+    "changed_share": 0.004618937644341801,
+    "mean_logodds_change": -0.004479486594371425,
+    "mean_abs_logodds_change": 0.0458998209286048
+   },
+   {
+    "attr": "Attr43",
+    "firms_with_value": 866,
+    "changed_band": 23,
+    "changed_share": 0.026558891454965358,
+    "mean_logodds_change": 0.6639583330696125,
+    "mean_abs_logodds_change": 0.6666506304110983
+   },
+   {
+    "attr": "Attr44",
+    "firms_with_value": 866,
+    "changed_band": 11,
+    "changed_share": 0.012702078521939953,
+    "mean_logodds_change": -0.027278678165898834,
+    "mean_abs_logodds_change": 0.11638062837580326
+   },
+   {
+    "attr": "Attr45",
+    "firms_with_value": 822,
+    "changed_band": 7,
+    "changed_share": 0.00851581508515815,
+    "mean_logodds_change": 0.16649598671321417,
+    "mean_abs_logodds_change": 0.1890468749013897
+   },
+   {
+    "attr": "Attr46",
+    "firms_with_value": 860,
+    "changed_band": 18,
+    "changed_share": 0.020930232558139535,
+    "mean_logodds_change": 0.11979021173803926,
+    "mean_abs_logodds_change": 0.24388491255197248
+   },
+   {
+    "attr": "Attr47",
+    "firms_with_value": 862,
+    "changed_band": 18,
+    "changed_share": 0.02088167053364269,
+    "mean_logodds_change": -0.1767952292668542,
+    "mean_abs_logodds_change": 0.1921067334124795
+   },
+   {
+    "attr": "Attr48",
+    "firms_with_value": 866,
+    "changed_band": 14,
+    "changed_share": 0.016166281755196306,
+    "mean_logodds_change": -0.17546886958483518,
+    "mean_abs_logodds_change": 0.19114152114826652
+   },
+   {
+    "attr": "Attr49",
+    "firms_with_value": 866,
+    "changed_band": 2,
+    "changed_share": 0.0023094688221709007,
+    "mean_logodds_change": 0.013959031294883614,
+    "mean_abs_logodds_change": 0.05148716355896248
+   },
+   {
+    "attr": "Attr50",
+    "firms_with_value": 861,
+    "changed_band": 6,
+    "changed_share": 0.006968641114982578,
+    "mean_logodds_change": 0.04848928552320981,
+    "mean_abs_logodds_change": 0.08310617276671388
+   },
+   {
+    "attr": "Attr51",
+    "firms_with_value": 866,
+    "changed_band": 6,
+    "changed_share": 0.006928406466512702,
+    "mean_logodds_change": -0.07363070902547707,
+    "mean_abs_logodds_change": 0.09882715978730716
+   },
+   {
+    "attr": "Attr52",
+    "firms_with_value": 862,
+    "changed_band": 10,
+    "changed_share": 0.01160092807424594,
+    "mean_logodds_change": -0.09516611331808669,
+    "mean_abs_logodds_change": 0.09798455343182165
+   },
+   {
+    "attr": "Attr53",
+    "firms_with_value": 854,
+    "changed_band": 4,
+    "changed_share": 0.00468384074941452,
+    "mean_logodds_change": -0.04558423528608494,
+    "mean_abs_logodds_change": 0.09119252212662596
+   },
+   {
+    "attr": "Attr54",
+    "firms_with_value": 854,
+    "changed_band": 13,
+    "changed_share": 0.01522248243559719,
+    "mean_logodds_change": -0.09309901186844477,
+    "mean_abs_logodds_change": 0.13466527081526256
+   },
+   {
+    "attr": "Attr55",
+    "firms_with_value": 866,
+    "changed_band": 5,
+    "changed_share": 0.005773672055427252,
+    "mean_logodds_change": -0.048904669968968896,
+    "mean_abs_logodds_change": 0.1239425912584581
+   },
+   {
+    "attr": "Attr56",
+    "firms_with_value": 866,
+    "changed_band": 12,
+    "changed_share": 0.013856812933025405,
+    "mean_logodds_change": 0.08658257925052631,
+    "mean_abs_logodds_change": 0.1475010893729363
+   },
+   {
+    "attr": "Attr57",
+    "firms_with_value": 866,
+    "changed_band": 12,
+    "changed_share": 0.013856812933025405,
+    "mean_logodds_change": -0.02893677645189559,
+    "mean_abs_logodds_change": 0.06897730947818628
+   },
+   {
+    "attr": "Attr58",
+    "firms_with_value": 866,
+    "changed_band": 43,
+    "changed_share": 0.049653579676674366,
+    "mean_logodds_change": 0.4662695185418065,
+    "mean_abs_logodds_change": 0.48287995928979266
+   },
+   {
+    "attr": "Attr59",
+    "firms_with_value": 866,
+    "changed_band": 10,
+    "changed_share": 0.011547344110854504,
+    "mean_logodds_change": -0.03249432161707306,
+    "mean_abs_logodds_change": 0.09670153578422488
+   },
+   {
+    "attr": "Attr60",
+    "firms_with_value": 822,
+    "changed_band": 7,
+    "changed_share": 0.00851581508515815,
+    "mean_logodds_change": 0.11451221612819355,
+    "mean_abs_logodds_change": 0.14304620393845752
+   },
+   {
+    "attr": "Attr61",
+    "firms_with_value": 863,
+    "changed_band": 12,
+    "changed_share": 0.013904982618771726,
+    "mean_logodds_change": -0.06744336304158939,
+    "mean_abs_logodds_change": 0.14368127725472313
+   },
+   {
+    "attr": "Attr62",
+    "firms_with_value": 866,
+    "changed_band": 9,
+    "changed_share": 0.010392609699769052,
+    "mean_logodds_change": -0.007404680242085588,
+    "mean_abs_logodds_change": 0.06525616009174891
+   },
+   {
+    "attr": "Attr63",
+    "firms_with_value": 860,
+    "changed_band": 7,
+    "changed_share": 0.00813953488372093,
+    "mean_logodds_change": 0.06995453912696566,
+    "mean_abs_logodds_change": 0.08278270695897308
+   },
+   {
+    "attr": "Attr64",
+    "firms_with_value": 854,
+    "changed_band": 14,
+    "changed_share": 0.01639344262295082,
+    "mean_logodds_change": -0.22680713004679967,
+    "mean_abs_logodds_change": 0.23552612533957576
+   }
+  ]
+ },
+ "deep_dive": {
+  "attr2_train_median": 0.4467,
+  "co_blank_train": [
+   {
+    "attr": "Attr37",
+    "blank_with_attr27": 171,
+    "share_of_attr27_blank": 0.6812749003984063,
+    "share_blank_when_attr27_present": 0.4053050397877984
+   },
+   {
+    "attr": "Attr45",
+    "blank_with_attr27": 35,
+    "share_of_attr27_blank": 0.1394422310756972,
+    "share_blank_when_attr27_present": 0.035278514588859416
+   },
+   {
+    "attr": "Attr60",
+    "blank_with_attr27": 35,
+    "share_of_attr27_blank": 0.1394422310756972,
+    "share_blank_when_attr27_present": 0.035278514588859416
+   },
+   {
+    "attr": "Attr41",
+    "blank_with_attr27": 31,
+    "share_of_attr27_blank": 0.12350597609561753,
+    "share_blank_when_attr27_present": 0.006896551724137931
+   },
+   {
+    "attr": "Attr28",
+    "blank_with_attr27": 21,
+    "share_of_attr27_blank": 0.08366533864541832,
+    "share_blank_when_attr27_present": 0.011936339522546418
+   },
+   {
+    "attr": "Attr53",
+    "blank_with_attr27": 21,
+    "share_of_attr27_blank": 0.08366533864541832,
+    "share_blank_when_attr27_present": 0.011936339522546418
+   },
+   {
+    "attr": "Attr54",
+    "blank_with_attr27": 21,
+    "share_of_attr27_blank": 0.08366533864541832,
+    "share_blank_when_attr27_present": 0.011936339522546418
+   },
+   {
+    "attr": "Attr64",
+    "blank_with_attr27": 21,
+    "share_of_attr27_blank": 0.08366533864541832,
+    "share_blank_when_attr27_present": 0.011936339522546418
+   }
+  ],
+  "co_blank_val": [
+   {
+    "attr": "Attr37",
+    "blank_with_attr27": 37,
+    "share_of_attr27_blank": 0.5967741935483871,
+    "share_blank_when_attr27_present": 0.43283582089552236
+   },
+   {
+    "attr": "Attr45",
+    "blank_with_attr27": 10,
+    "share_of_attr27_blank": 0.16129032258064516,
+    "share_blank_when_attr27_present": 0.04228855721393035
+   },
+   {
+    "attr": "Attr60",
+    "blank_with_attr27": 10,
+    "share_of_attr27_blank": 0.16129032258064516,
+    "share_blank_when_attr27_present": 0.04228855721393035
+   },
+   {
+    "attr": "Attr41",
+    "blank_with_attr27": 7,
+    "share_of_attr27_blank": 0.11290322580645161,
+    "share_blank_when_attr27_present": 0.012437810945273632
+   },
+   {
+    "attr": "Attr28",
+    "blank_with_attr27": 4,
+    "share_of_attr27_blank": 0.06451612903225806,
+    "share_blank_when_attr27_present": 0.009950248756218905
+   },
+   {
+    "attr": "Attr53",
+    "blank_with_attr27": 4,
+    "share_of_attr27_blank": 0.06451612903225806,
+    "share_blank_when_attr27_present": 0.009950248756218905
+   },
+   {
+    "attr": "Attr54",
+    "blank_with_attr27": 4,
+    "share_of_attr27_blank": 0.06451612903225806,
+    "share_blank_when_attr27_present": 0.009950248756218905
+   },
+   {
+    "attr": "Attr64",
+    "blank_with_attr27": 4,
+    "share_of_attr27_blank": 0.06451612903225806,
+    "share_blank_when_attr27_present": 0.009950248756218905
+   }
+  ],
+  "strata_train": {
+   "Attr22 sign": [
+    {
+     "stratum": "Attr22 <= 0",
+     "blank": {
+      "firms": 153,
+      "bankrupt": 32,
+      "rate": 0.20915032679738563,
+      "wilson_95": [
+       0.15222725682228527,
+       0.2803207401498749
+      ],
+      "mean_predicted": 0.22770992820687236
+     },
+     "present": {
+      "firms": 828,
+      "bankrupt": 90,
+      "rate": 0.10869565217391304,
+      "wilson_95": [
+       0.08927387298929336,
+       0.13173153245002628
+      ],
+      "mean_predicted": 0.1185065560087387
+     }
+    },
+    {
+     "stratum": "Attr22 > 0",
+     "blank": {
+      "firms": 98,
+      "bankrupt": 37,
+      "rate": 0.37755102040816324,
+      "wilson_95": [
+       0.2879054508221201,
+       0.4764341387356666
+      ],
+      "mean_predicted": 0.3321040099144663
+     },
+     "present": {
+      "firms": 2941,
+      "bankrupt": 56,
+      "rate": 0.019041142468548114,
+      "wilson_95": [
+       0.014692669332086216,
+       0.02464440891093151
+      ],
+      "mean_predicted": 0.017942659842957533
+     }
+    },
+    {
+     "stratum": "Attr22 blank",
+     "blank": {
+      "firms": 0,
+      "bankrupt": 0,
+      "rate": null,
+      "wilson_95": [
+       null,
+       null
+      ],
+      "mean_predicted": null
+     },
+     "present": {
+      "firms": 1,
+      "bankrupt": 0,
+      "rate": 0.0,
+      "wilson_95": [
+       0.0,
+       0.7934506882081973
+      ],
+      "mean_predicted": 0.00393459426946554
+     }
+    }
+   ],
+   "Attr2 leverage": [
+    {
+     "stratum": "Attr2 above train median",
+     "blank": {
+      "firms": 101,
+      "bankrupt": 50,
+      "rate": 0.49504950495049505,
+      "wilson_95": [
+       0.39952667978574097,
+       0.5909351087979888
+      ],
+      "mean_predicted": 0.5005333395863628
+     },
+     "present": {
+      "firms": 1909,
+      "bankrupt": 117,
+      "rate": 0.061288632792037716,
+      "wilson_95": [
+       0.051384712104100685,
+       0.07295463540272035
+      ],
+      "mean_predicted": 0.062220516018465906
+     }
+    },
+    {
+     "stratum": "Attr2 at or below train median",
+     "blank": {
+      "firms": 150,
+      "bankrupt": 19,
+      "rate": 0.12666666666666668,
+      "wilson_95": [
+       0.0826112945997093,
+       0.1893664881485735
+      ],
+      "mean_predicted": 0.11221296459364356
+     },
+     "present": {
+      "firms": 1860,
+      "bankrupt": 29,
+      "rate": 0.015591397849462365,
+      "wilson_95": [
+       0.010877490688141261,
+       0.022302079702150472
+      ],
+      "mean_predicted": 0.01726549779253889
+     }
+    },
+    {
+     "stratum": "Attr2 blank",
+     "blank": {
+      "firms": 0,
+      "bankrupt": 0,
+      "rate": null,
+      "wilson_95": [
+       null,
+       null
+      ],
+      "mean_predicted": null
+     },
+     "present": {
+      "firms": 1,
+      "bankrupt": 0,
+      "rate": 0.0,
+      "wilson_95": [
+       0.0,
+       0.7934506882081973
+      ],
+      "mean_predicted": 0.00393459426946554
+     }
+    }
+   ]
+  },
+  "strata_val": {
+   "Attr22 sign": [
+    {
+     "stratum": "Attr22 <= 0",
+     "blank": {
+      "firms": 39,
+      "bankrupt": 14,
+      "rate": 0.358974358974359,
+      "wilson_95": [
+       0.2274208537281349,
+       0.515818515629512
+      ],
+      "mean_predicted": 0.35275905442191696
+     },
+     "present": {
+      "firms": 171,
+      "bankrupt": 16,
+      "rate": 0.0935672514619883,
+      "wilson_95": [
+       0.05841570390491082,
+       0.14657834676604367
+      ],
+      "mean_predicted": 0.13960121711711854
+     }
+    },
+    {
+     "stratum": "Attr22 > 0",
+     "blank": {
+      "firms": 23,
+      "bankrupt": 6,
+      "rate": 0.2608695652173913,
+      "wilson_95": [
+       0.12548615971944993,
+       0.46470005002993314
+      ],
+      "mean_predicted": 0.2806697934625846
+     },
+     "present": {
+      "firms": 633,
+      "bankrupt": 14,
+      "rate": 0.022116903633491312,
+      "wilson_95": [
+       0.013219488611385517,
+       0.03677954715684183
+      ],
+      "mean_predicted": 0.023422194045561503
+     }
+    }
+   ],
+   "Attr2 leverage": [
+    {
+     "stratum": "Attr2 above train median",
+     "blank": {
+      "firms": 31,
+      "bankrupt": 16,
+      "rate": 0.5161290322580645,
+      "wilson_95": [
+       0.34840395329054696,
+       0.6802974855156458
+      ],
+      "mean_predicted": 0.5148639538266971
+     },
+     "present": {
+      "firms": 402,
+      "bankrupt": 25,
+      "rate": 0.06218905472636816,
+      "wilson_95": [
+       0.04247496787188208,
+       0.09019126842075849
+      ],
+      "mean_predicted": 0.07719012513996806
+     }
+    },
+    {
+     "stratum": "Attr2 at or below train median",
+     "blank": {
+      "firms": 31,
+      "bankrupt": 4,
+      "rate": 0.12903225806451613,
+      "wilson_95": [
+       0.05134284338910197,
+       0.2885240640684634
+      ],
+      "mean_predicted": 0.137168574305374
+     },
+     "present": {
+      "firms": 402,
+      "bankrupt": 5,
+      "rate": 0.012437810945273632,
+      "wilson_95": [
+       0.005324072904621568,
+       0.02878150842127365
+      ],
+      "mean_predicted": 0.019073698138309815
+     }
+    }
+   ]
+  },
+  "ridge_train": {
+   "covariates": 53,
+   "rows_before": 4021,
+   "rows_dropped": 52,
+   "dropped_share": 0.012932106441183784,
+   "evaluable": true,
+   "rows_used": 3969,
+   "blank_firms_used": 236,
+   "coef": 3.012989630141054,
+   "coef_ci": [
+    2.6802892151104354,
+    3.589306724154129
+   ],
+   "odds_ratio": 20.34814250121652,
+   "odds_ratio_ci": [
+    14.589312135295716,
+    36.20896442244457
+   ]
+  }
+ },
+ "flags": [
+  "13 attributes are blank in at least 20 Attr21-present train firms. 2 meet all three pre-registered criteria: Attr24, Attr27. Under the null, 0.00 would be expected by chance (1000 label permutations). Validation is reused, so these are not described as validated.",
+  "Coverage ceiling CROSSED (train: new refusals hold 31.6% of Attr21-present bankrupt firms (ceiling 30%); val: new refusals hold 38.0% of Attr21-present bankrupt firms (ceiling 30%)). The phase stops after this report and the app is unchanged. Decision: stopped: coverage ceiling crossed, user decides.",
+  "Count limit of 6: the 3 to 6 group does not meet the pre-registered condition, the limit stays at 6.",
+  "Attr27 blank, ridge regression with 53 low-blank covariates: odds ratio 20.35 (14.59 to 36.21), 52 rows dropped. An association only, it does not feed the rule.",
+  "A blocked blank is a guard against trusting a score driven by a blank. It is not a claim that the model is wrong on those firms: see the observed rate against the mean predicted probability among blank firms in the table.",
+  "The test split is spent, so no rule change can be checked on untouched data. Blanks in real use are probably not random like these.",
+  "Test split untouched in this phase. No model, calibrator or cut was changed."
+ ],
+ "seed": 42,
+ "bootstrap_n": 1000,
+ "bands": {
+  "t_watch": 0.17360288352005987,
+  "t_high": 0.2403358325465458
+ }
+}
