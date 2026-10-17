@@ -8,17 +8,17 @@ A Streamlit app and an Indian case study come in later phases.
 
 ## Hard rules
 - Seed 42 everywhere. Fixed seeds in every script and test.
-- The test split stays unread until the user approves. Never load it, not even for shape checks.
+- The test split was read once in Phase 5 and is locked. Never read it again, not even for shape checks. Nothing is tuned on it.
 - No performance number is written by hand. Every figure comes from code.
 - No em dashes in docs. No phone number anywhere.
 - Do not pick the headline model silently. Present the comparison and recommend; the user decides.
 
 ## Repo map
 - `src/`: preprocess, polish_features, train, nn (TremorNet), evaluate, calibrate, plotting
-- `scripts/`: update_state.py (regenerates docs/STATE.md), run_phase4.py
+- `scripts/`: update_state.py (regenerates docs/STATE.md), run_phase4.py, final_test_eval.py (one-shot, refuses a rerun)
 - `tests/`: pytest suite, includes the test-split guard
 - `reports/`: generated reports and figures (validation only)
-- `artifacts/calibration/`: fitted calibrators, band thresholds and config (JSON, committed)
+- `artifacts/calibration/`: fitted calibrators, band thresholds and config (JSON, committed); `phase5_protocol.json` and `phase5.lock`: frozen hashes and the one-shot lock
 - `models/`: fitted models (gitignored, rebuild with `python -m src.train`)
 - `data/`: raw zip and processed splits (gitignored), `data/processed/summary.json` is committed
 - `docs/`: STATE.md (generated), decisions.md (log), data_card.md (when present)
@@ -26,13 +26,13 @@ A Streamlit app and an Indian case study come in later phases.
 ## Commands (use `.venv/Scripts/python`)
 - Tests: `python -m pytest -q`
 - Data: `python -m src.preprocess`; train: `python -m src.train`; curves: `python -m src.evaluate`
-- Phase 4: `python -m scripts.run_phase4`
+- Phase 4: `python -m scripts.run_phase4`. Phase 5 is done and cannot be rerun (lock in `artifacts/phase5.lock`).
 - End of every phase: `python -m scripts.update_state --phase "<phase>"`, then commit
 
 ## Status
-Headline model: LightGBM + Platt (user decision). The neural network is the deep learning comparison, not deployed.
-Current phase: Phase 4: calibration, thresholds and risk bands (complete)
-Last phase commit: fdef552
+Headline model: LightGBM + Platt (user decision), frozen at fdef552. The neural network is the deep learning comparison, not deployed. Test result: reports/phase5_test_results.md.
+Current phase: Phase 5: final test evaluation (complete)
+Last phase commit: 5d16fa8
 
 ## Pointers
 For details read docs/STATE.md, docs/decisions.md, docs/data_card.md only when needed.

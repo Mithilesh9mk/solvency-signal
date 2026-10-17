@@ -86,9 +86,9 @@
    "rows": 878,
    "bankrupt": 61,
    "bankrupt_rate": 0.06947608200455581,
-   "source": "reports/data_report.md (file itself unread)",
+   "source": "reports/data_report.md (size parsed from the report)",
    "path": "data/processed/polish_5year_test.csv",
-   "status": "LOCKED, unread"
+   "status": "READ ONCE in Phase 5, locked, results in reports/phase5_test_results.md"
   }
  },
  "feature_stats_train": {

@@ -1,4 +1,4 @@
-"""Phase 4 must never touch the test split. Any open, stat or read of its file fails the test."""
+"""Everything except scripts/final_test_eval.py must never touch the test split. Any open, stat or read of its file fails the test."""
 
 import builtins
 import io
@@ -81,7 +81,7 @@ def test_update_state_never_touches_test_split(guard):
 
     summary = update_state.build_summary()
     assert guard == []
-    assert summary["splits"]["test"]["status"].startswith("LOCKED")
+    assert summary["splits"]["test"]["status"].startswith(("LOCKED", "READ ONCE"))
     assert set(summary["splits"]) == {"train", "val", "test"}
 
 

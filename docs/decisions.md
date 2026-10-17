@@ -119,3 +119,20 @@ Frozen commit: `fdef552`. Git HEAD when frozen: `14b5dd3`. Headline cuts read fr
    Watch band to hold too few firms to read. I do not predict a direction for High precision: validation was built to
    reach the floor in-sample, while train OOF came out higher than the floor.
 10. **Out of scope.** SHAP, the app, the Indian case study and Graphify.
+
+## 2026-10-17 (Phase 5, after the one-shot run)
+
+- The run used commit `5d16fa8` (protocol, script and tests committed before the test split was read), a clean tree, and
+  frozen artifacts whose hashes matched the protocol. Before reading the test file the script confirmed that the frozen
+  artifacts reproduce the Phase 4 validation numbers exactly. The lock file was written before the read and completed
+  after. Results: `reports/phase5_test_results.json`, report `reports/phase5_test_results.md`.
+- Nothing was retrained, recalibrated or re-cut. The headline model stays LightGBM + Platt with the committed cuts.
+- Post-run additions that did not touch the test split: two Flags (the neural network scored slightly above the headline
+  model on test, and the validation to test PR AUC change per model) were added to the code that renders the report, and
+  the report was re-rendered from the saved JSON with `--render-only`. No metric was recomputed. These flags were added
+  after seeing the results; they are observations, not selection or tuning.
+- Per the protocol, the neural network and logistic regression are reference only and are not eligible to replace the
+  headline model, even though the neural network's test PR AUC point estimate is marginally higher.
+- README fix: the Method section said validation is never used for fitting or tuning, which was wrong after the user
+  asked for validation-fitted band cuts. It now says so.
+- The test split is locked for good. Further changes to the model need new data, not this split.

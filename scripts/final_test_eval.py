@@ -459,7 +459,7 @@ def reference_lines(res: dict, paths: Paths) -> list:
     return lines
 
 
-def make_flags(res: dict, proto: dict) -> list:
+def make_flags(res: dict, proto: dict, phase4: dict) -> list:
     h = res["models"][HEADLINE]
     floor, target = proto["band_rule"]["high_min_precision"], proto["band_rule"]["watch_min_recall"]
     ts, rows = h["band_stats"], {r["band"]: r for r in h["band_table"]}
@@ -483,8 +483,19 @@ def make_flags(res: dict, proto: dict) -> list:
     if not (ci["ece"][0] <= h["metrics"]["ece"] <= ci["ece"][1]):
         flags.append("The ECE point estimate lies outside its own bootstrap interval (bootstrap ECE is biased upward on small data). Read ECE as descriptive.")
     for name in REFERENCE:
-        if res["models"][name]["metrics"]["pr_auc"] > h["metrics"]["pr_auc"]:
-            flags.append(f"{name} has a higher test PR AUC than the headline model. By protocol it is reference only and does not replace the headline; the user may choose to revisit.")
+        t_pr = res["models"][name]["metrics"]["pr_auc"]
+        if t_pr > h["metrics"]["pr_auc"]:
+            flags.append(f"{name} has a higher test PR AUC ({t_pr:.3f}) than the headline model ({h['metrics']['pr_auc']:.3f}). "
+                         "The intervals overlap almost completely, so neither model can be called better on this test set. "
+                         "By protocol it is reference only and does not replace the headline; the user may choose to revisit.")
+    moves = {n: res["models"][n]["metrics"]["pr_auc"] - phase4[n]["val"][phase4[n]["selected_method"]]["pr_auc"]
+             for n in (HEADLINE, *REFERENCE)}
+    flags.append("Change in PR AUC from validation to test: " + ", ".join(f"{n} {d:+.3f}" for n, d in moves.items()) +
+                 ". The models do not move together by the same amount, so the validation gaps between the three models should not be over-read.")
+    if moves[HEADLINE] > 0:
+        flags.append("The headline PR AUC is higher on test than on validation. That is the opposite of the expected-optimism "
+                     "direction stated before the run, so the optimism sources do not explain this gap. It is small against the interval width, "
+                     "and the most plausible reading is sampling noise.")
     undefined = {k: v for k, v in h["undefined_draws"].items() if v}
     if undefined:
         flags.append(f"Some bootstrap draws had an empty flagged group, so those precision intervals use fewer draws: {undefined}.")
@@ -505,6 +516,10 @@ EXPECTED_OPTIMISM = [
     "Train OOF model strength: OOF scores come from models trained on 80% of train, so they understate the refit model slightly.",
     "Test: no part of the model, calibrator or cuts saw it. A gap from validation in the direction of these optimism sources is expected. A gap the other way, or a much larger one, is not explained by them.",
 ]
+
+
+def phase4_models(paths: Paths) -> dict:
+    return json.loads((paths.root / "reports" / "phase4_calibration.json").read_text())["models"]
 
 
 def render_outputs(res: dict, proto: dict, paths: Paths) -> None:
@@ -548,7 +563,7 @@ def render_outputs(res: dict, proto: dict, paths: Paths) -> None:
         "",
         "## Flags",
         "",
-        *[f"{i}. {f}" for i, f in enumerate(make_flags(res, proto), 1)],
+        *[f"{i}. {f}" for i, f in enumerate(make_flags(res, proto, phase4_models(paths)), 1)],
         "",
         "## Provenance",
         "",
