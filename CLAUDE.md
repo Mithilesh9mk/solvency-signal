@@ -32,7 +32,7 @@ A Streamlit app and an Indian case study come in later phases.
 ## Status
 Headline model: LightGBM + Platt (user decision). The neural network is the deep learning comparison, not deployed.
 Current phase: Phase 4: calibration, thresholds and risk bands (complete)
-Last phase commit: 5635f55
+Last phase commit: fdef552
 
 ## Pointers
 For details read docs/STATE.md, docs/decisions.md, docs/data_card.md only when needed.
