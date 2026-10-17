@@ -15,7 +15,8 @@ A Streamlit app and an Indian case study come in later phases.
 
 ## Repo map
 - `src/`: preprocess, polish_features (dictionary, categories), train, nn (TremorNet), evaluate, calibrate, explain, plotting
-- `scripts/`: update_state.py (regenerates docs/STATE.md), run_phase4.py, run_phase6.py (SHAP), run_phase7_attr21.py, final_test_eval.py (one-shot, refuses a rerun)
+- `scripts/`: update_state.py (regenerates docs/STATE.md), run_phase4.py, run_phase6.py (SHAP), run_phase7_attr21.py, run_phase8_prep.py (app numbers, demo firms), final_test_eval.py (one-shot, refuses a rerun)
+- `app/`: streamlit_app.py, demo_firms.json, requirements.txt (logic in `src/app_logic.py`)
 - `tests/`: pytest suite, includes the test-split guard
 - `reports/`: generated reports and figures (validation only)
 - `artifacts/calibration/`: fitted calibrators, band thresholds and config (JSON, committed); `phase5_protocol.json` and `phase5.lock`: frozen hashes and the one-shot lock
@@ -26,13 +27,13 @@ A Streamlit app and an Indian case study come in later phases.
 ## Commands (use `.venv/Scripts/python`)
 - Tests: `python -m pytest -q`
 - Data: `python -m src.preprocess`; train: `python -m src.train`; curves: `python -m src.evaluate`
-- Phase 4: `python -m scripts.run_phase4`. Phase 5 is done and cannot be rerun (lock in `artifacts/phase5.lock`). Phase 6: `python -m scripts.run_phase6`. Phase 7: `python -m scripts.run_phase7_attr21`.
+- Phase 4: `python -m scripts.run_phase4`. Phase 5 is done and cannot be rerun (lock in `artifacts/phase5.lock`). Phase 6: `python -m scripts.run_phase6`. Phase 7: `python -m scripts.run_phase7_attr21`. Phase 8: `python -m scripts.run_phase8_prep`, `streamlit run app/streamlit_app.py`.
 - End of every phase: `python -m scripts.update_state --phase "<phase>"`, then commit
 
 ## Status
 Headline model: LightGBM + Platt (user decision), frozen at fdef552. The neural network is the deep learning comparison, not deployed. Test result: reports/phase5_test_results.md.
-Current phase: Phase 7: Attr21 missingness (complete)
-Last phase commit: 5b2eb56
+Current phase: Phase 8: the app (complete, not deployed)
+Last phase commit: 1088bbc
 
 ## Pointers
 For details read docs/STATE.md, docs/decisions.md, docs/data_card.md only when needed.

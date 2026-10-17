@@ -31,6 +31,7 @@ data/processed/*
 # Model artefacts
 models/*
 !models/.gitkeep
+!models/lightgbm.joblib
 *.pt
 *.onnx
 

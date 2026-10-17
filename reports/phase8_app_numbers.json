@@ -1,0 +1,1671 @@
+{
+ "numbers": {
+  "val": {
+   "present": {
+    "firms": 866,
+    "bankrupt": 50,
+    "no_skill_pr_auc": 0.057736720554272515,
+    "pr_auc": 0.7129122076003869,
+    "pr_auc_ci": [
+     0.6002786220062614,
+     0.8145897730638075
+    ],
+    "roc_auc": 0.9480392156862746,
+    "roc_auc_ci": [
+     0.9167248774509804,
+     0.9718645833333334
+    ],
+    "ece": 0.013440182503352636,
+    "ece_ci": [
+     0.008201068290922158,
+     0.02565145413377778
+    ],
+    "mean_predicted": 0.06802663433021006,
+    "observed_rate": 0.057736720554272515,
+    "reliability": [
+     [
+      0.002077997796530378,
+      0.0,
+      87
+     ],
+     [
+      0.0033280454609447593,
+      0.0,
+      87
+     ],
+     [
+      0.004543713158968548,
+      0.0,
+      87
+     ],
+     [
+      0.005823475470485828,
+      0.0,
+      87
+     ],
+     [
+      0.007826258304413298,
+      0.0,
+      87
+     ],
+     [
+      0.012078118742987984,
+      0.022988505747126436,
+      87
+     ],
+     [
+      0.018431829190573363,
+      0.023255813953488372,
+      86
+     ],
+     [
+      0.03252561983531062,
+      0.023255813953488372,
+      86
+     ],
+     [
+      0.07727572435001777,
+      0.05813953488372093,
+      86
+     ],
+     [
+      0.520686749329623,
+      0.45348837209302323,
+      86
+     ]
+    ],
+    "high": {
+     "flagged": 63,
+     "bankrupt": 34,
+     "precision": 0.5396825396825397,
+     "precision_ci": [
+      0.4459084084084084,
+      0.6481481481481481
+     ],
+     "recall": 0.68,
+     "recall_ci": [
+      0.54,
+      0.8
+     ]
+    },
+    "watch_plus_high": {
+     "flagged": 79,
+     "bankrupt": 38,
+     "precision": 0.4810126582278481,
+     "precision_ci": [
+      0.4,
+      0.573614253393665
+     ],
+     "recall": 0.76,
+     "recall_ci": [
+      0.64,
+      0.88
+     ]
+    },
+    "band_table": [
+     {
+      "band": "Low",
+      "firms": 787,
+      "share_of_firms": 0.9087759815242494,
+      "bankrupt": 12,
+      "bankrupt_rate": 0.015247776365946633,
+      "share_of_all_bankrupt": 0.24,
+      "wilson_95": [
+       0.008743528194096264,
+       0.026461326797547455
+      ]
+     },
+     {
+      "band": "Watch",
+      "firms": 16,
+      "share_of_firms": 0.018475750577367205,
+      "bankrupt": 4,
+      "bankrupt_rate": 0.25,
+      "share_of_all_bankrupt": 0.08,
+      "wilson_95": [
+       0.10182067420167085,
+       0.4949831672970316
+      ]
+     },
+     {
+      "band": "High",
+      "firms": 63,
+      "share_of_firms": 0.07274826789838337,
+      "bankrupt": 34,
+      "bankrupt_rate": 0.5396825396825397,
+      "share_of_all_bankrupt": 0.68,
+      "wilson_95": [
+       0.4178925178862212,
+       0.6569113550944616
+      ]
+     }
+    ]
+   },
+   "all": {
+    "firms": 878,
+    "bankrupt": 61,
+    "no_skill_pr_auc": 0.06947608200455581,
+    "pr_auc": 0.7830833183831574,
+    "pr_auc_ci": [
+     0.6972750076089075,
+     0.8627928537330898
+    ],
+    "roc_auc": 0.956698838212573,
+    "roc_auc_ci": [
+     0.9313436803980978,
+     0.978029877400325
+    ],
+    "ece": 0.013232175561187848,
+    "ece_ci": [
+     0.008284180312321492,
+     0.027131728504484524
+    ],
+    "mean_predicted": 0.07991559167016331,
+    "observed_rate": 0.06947608200455581,
+    "reliability": [
+     [
+      0.002086356682839184,
+      0.0,
+      88
+     ],
+     [
+      0.003347061548181965,
+      0.0,
+      88
+     ],
+     [
+      0.004578606014443919,
+      0.0,
+      88
+     ],
+     [
+      0.005888674140438573,
+      0.0,
+      88
+     ],
+     [
+      0.007981967499995184,
+      0.0,
+      88
+     ],
+     [
+      0.01243190665177704,
+      0.022727272727272728,
+      88
+     ],
+     [
+      0.01909104416458913,
+      0.022727272727272728,
+      88
+     ],
+     [
+      0.03516191146214659,
+      0.03409090909090909,
+      88
+     ],
+     [
+      0.09141331744231579,
+      0.06896551724137931,
+      87
+     ],
+     [
+      0.6234826251776285,
+      0.5517241379310345,
+      87
+     ]
+    ],
+    "high": {
+     "flagged": 75,
+     "bankrupt": 45,
+     "precision": 0.6,
+     "precision_ci": [
+      0.5185185185185185,
+      0.690248435054773
+     ],
+     "recall": 0.7377049180327869,
+     "recall_ci": [
+      0.6229508196721312,
+      0.8524590163934426
+     ]
+    },
+    "watch_plus_high": {
+     "flagged": 91,
+     "bankrupt": 49,
+     "precision": 0.5384615384615384,
+     "precision_ci": [
+      0.46875,
+      0.6207211942809083
+     ],
+     "recall": 0.8032786885245902,
+     "recall_ci": [
+      0.7045081967213115,
+      0.9016393442622951
+     ]
+    },
+    "band_table": [
+     {
+      "band": "Low",
+      "firms": 787,
+      "share_of_firms": 0.8963553530751709,
+      "bankrupt": 12,
+      "bankrupt_rate": 0.015247776365946633,
+      "share_of_all_bankrupt": 0.19672131147540983,
+      "wilson_95": [
+       0.008743528194096264,
+       0.026461326797547455
+      ]
+     },
+     {
+      "band": "Watch",
+      "firms": 16,
+      "share_of_firms": 0.018223234624145785,
+      "bankrupt": 4,
+      "bankrupt_rate": 0.25,
+      "share_of_all_bankrupt": 0.06557377049180328,
+      "wilson_95": [
+       0.10182067420167085,
+       0.4949831672970316
+      ]
+     },
+     {
+      "band": "High",
+      "firms": 75,
+      "share_of_firms": 0.08542141230068337,
+      "bankrupt": 45,
+      "bankrupt_rate": 0.6,
+      "share_of_all_bankrupt": 0.7377049180327869,
+      "wilson_95": [
+       0.4868803870751028,
+       0.7033748442820953
+      ]
+     }
+    ]
+   },
+   "attr21_missing_firms": 12,
+   "attr21_missing_bankrupt": 11
+  },
+  "train_oof": {
+   "present": {
+    "firms": 4021,
+    "bankrupt": 215,
+    "no_skill_pr_auc": 0.05346928624720219,
+    "pr_auc": 0.6940812252253816,
+    "pr_auc_ci": [
+     0.642425814921803,
+     0.7480040578086458
+    ],
+    "roc_auc": 0.9462904349313813,
+    "roc_auc_ci": [
+     0.929960191374696,
+     0.9609149568001564
+    ],
+    "ece": 0.004169734919947452,
+    "ece_ci": [
+     0.002929608550532524,
+     0.010086415275663849
+    ],
+    "mean_predicted": 0.054285634805996616,
+    "observed_rate": 0.05346928624720219,
+    "reliability": [
+     [
+      0.001279519746913147,
+      0.0,
+      403
+     ],
+     [
+      0.0021353500792114424,
+      0.0,
+      402
+     ],
+     [
+      0.0030769344001127293,
+      0.0024875621890547263,
+      402
+     ],
+     [
+      0.0042718546603087776,
+      0.0024875621890547263,
+      402
+     ],
+     [
+      0.00603478920203561,
+      0.004975124378109453,
+      402
+     ],
+     [
+      0.008729880223486145,
+      0.007462686567164179,
+      402
+     ],
+     [
+      0.013595507221777256,
+      0.014925373134328358,
+      402
+     ],
+     [
+      0.022866465322626282,
+      0.017412935323383085,
+      402
+     ],
+     [
+      0.051722942332704976,
+      0.06716417910447761,
+      402
+     ],
+     [
+      0.4292749608783995,
+      0.417910447761194,
+      402
+     ]
+    ],
+    "high": {
+     "flagged": 234,
+     "bankrupt": 137,
+     "precision": 0.5854700854700855,
+     "precision_ci": [
+      0.5324211502782931,
+      0.6396980354111085
+     ],
+     "recall": 0.6372093023255814,
+     "recall_ci": [
+      0.5720930232558139,
+      0.7023255813953488
+     ]
+    },
+    "watch_plus_high": {
+     "flagged": 286,
+     "bankrupt": 149,
+     "precision": 0.5209790209790209,
+     "precision_ci": [
+      0.47648902821316613,
+      0.5676738721804512
+     ],
+     "recall": 0.6930232558139535,
+     "recall_ci": [
+      0.6325581395348837,
+      0.7536046511627905
+     ]
+    },
+    "band_table": [
+     {
+      "band": "Low",
+      "firms": 3735,
+      "share_of_firms": 0.9288734145734892,
+      "bankrupt": 66,
+      "bankrupt_rate": 0.017670682730923693,
+      "share_of_all_bankrupt": 0.30697674418604654,
+      "wilson_95": [
+       0.013914139938421161,
+       0.022418360483231196
+      ]
+     },
+     {
+      "band": "Watch",
+      "firms": 52,
+      "share_of_firms": 0.012932106441183784,
+      "bankrupt": 12,
+      "bankrupt_rate": 0.23076923076923078,
+      "share_of_all_bankrupt": 0.05581395348837209,
+      "wilson_95": [
+       0.13724260868150548,
+       0.3613378266985854
+      ]
+     },
+     {
+      "band": "High",
+      "firms": 234,
+      "share_of_firms": 0.058194478985327036,
+      "bankrupt": 137,
+      "bankrupt_rate": 0.5854700854700855,
+      "share_of_all_bankrupt": 0.6372093023255814,
+      "wilson_95": [
+       0.5214657231928908,
+       0.6467135344863331
+      ]
+     }
+    ]
+   },
+   "all": {
+    "firms": 4094,
+    "bankrupt": 286,
+    "no_skill_pr_auc": 0.06985832926233512,
+    "pr_auc": 0.7999215568131193,
+    "pr_auc_ci": [
+     0.76024541709771,
+     0.8388127010567686
+    ],
+    "roc_auc": 0.9591272697890345,
+    "roc_auc_ci": [
+     0.9468819783158019,
+     0.9701642566991832
+    ],
+    "ece": 0.004947209224013748,
+    "ece_ci": [
+     0.0034790366317413875,
+     0.010654392367161479
+    ],
+    "mean_predicted": 0.0698603044882948,
+    "observed_rate": 0.06985832926233512,
+    "reliability": [
+     [
+      0.0012873967463370494,
+      0.0,
+      410
+     ],
+     [
+      0.0021584931342254125,
+      0.0,
+      410
+     ],
+     [
+      0.0031264824593123654,
+      0.0024390243902439024,
+      410
+     ],
+     [
+      0.004369400842966297,
+      0.0024390243902439024,
+      410
+     ],
+     [
+      0.006216526597224957,
+      0.004889975550122249,
+      409
+     ],
+     [
+      0.009128111839383444,
+      0.009779951100244499,
+      409
+     ],
+     [
+      0.014384619997210923,
+      0.017114914425427872,
+      409
+     ],
+     [
+      0.02496325816239734,
+      0.014669926650366748,
+      409
+     ],
+     [
+      0.06420635375260694,
+      0.08557457212713937,
+      409
+     ],
+     [
+      0.5694188792113576,
+      0.5623471882640587,
+      409
+     ]
+    ],
+    "high": {
+     "flagged": 307,
+     "bankrupt": 208,
+     "precision": 0.6775244299674267,
+     "precision_ci": [
+      0.633010658391797,
+      0.7227731457356261
+     ],
+     "recall": 0.7272727272727273,
+     "recall_ci": [
+      0.6747377622377622,
+      0.7797202797202797
+     ]
+    },
+    "watch_plus_high": {
+     "flagged": 359,
+     "bankrupt": 220,
+     "precision": 0.6128133704735376,
+     "precision_ci": [
+      0.5714193429309709,
+      0.6553777096011668
+     ],
+     "recall": 0.7692307692307693,
+     "recall_ci": [
+      0.7202797202797203,
+      0.8216783216783217
+     ]
+    },
+    "band_table": [
+     {
+      "band": "Low",
+      "firms": 3735,
+      "share_of_firms": 0.9123106985832926,
+      "bankrupt": 66,
+      "bankrupt_rate": 0.017670682730923693,
+      "share_of_all_bankrupt": 0.23076923076923078,
+      "wilson_95": [
+       0.013914139938421161,
+       0.022418360483231196
+      ]
+     },
+     {
+      "band": "Watch",
+      "firms": 52,
+      "share_of_firms": 0.012701514411333659,
+      "bankrupt": 12,
+      "bankrupt_rate": 0.23076923076923078,
+      "share_of_all_bankrupt": 0.04195804195804196,
+      "wilson_95": [
+       0.13724260868150548,
+       0.3613378266985854
+      ]
+     },
+     {
+      "band": "High",
+      "firms": 307,
+      "share_of_firms": 0.07498778700537372,
+      "bankrupt": 208,
+      "bankrupt_rate": 0.6775244299674267,
+      "share_of_all_bankrupt": 0.7272727272727273,
+      "wilson_95": [
+       0.6233218066130354,
+       0.7273392679819878
+      ]
+     }
+    ]
+   },
+   "attr21_missing_firms": 73,
+   "attr21_missing_bankrupt": 71
+  }
+ },
+ "blanks": {
+  "train": {
+   "firms": 4094,
+   "attr21_blank_firms": 73,
+   "attr21_present_firms": 4021,
+   "present_firms_with_any_other_blank": 1889,
+   "present_firms_with_any_other_blank_share": 0.4697836359114648,
+   "other_blank_count_distribution": {
+    "0": 2132,
+    "1": 1470,
+    "2": 199,
+    "3": 99,
+    "4": 38,
+    "5": 28,
+    "6": 16,
+    "7": 18,
+    "8": 7,
+    "9": 4,
+    "12": 1,
+    "14": 4,
+    "15": 2,
+    "19": 1,
+    "20": 1,
+    "32": 1
+   },
+   "limit": 6,
+   "present_firms_over_limit": 39,
+   "bankrupt_among_over_limit": 4,
+   "features_with_blanks": [
+    {
+     "attr": "Attr37",
+     "name": "quick_assets_to_long_term_liabilities",
+     "blank_firms": 1699,
+     "blank_rate": 0.4225317085302164
+    },
+    {
+     "attr": "Attr27",
+     "name": "operating_profit_to_fin_expenses",
+     "blank_firms": 251,
+     "blank_rate": 0.06242228301417558
+    },
+    {
+     "attr": "Attr45",
+     "name": "net_profit_to_inventory",
+     "blank_firms": 168,
+     "blank_rate": 0.041780651579209155
+    },
+    {
+     "attr": "Attr60",
+     "name": "inventory_turnover",
+     "blank_firms": 168,
+     "blank_rate": 0.041780651579209155
+    },
+    {
+     "attr": "Attr24",
+     "name": "gp_3y_to_assets",
+     "blank_firms": 90,
+     "blank_rate": 0.022382491917433474
+    },
+    {
+     "attr": "Attr54",
+     "name": "constant_capital_to_fixed_assets",
+     "blank_firms": 66,
+     "blank_rate": 0.01641382740611788
+    },
+    {
+     "attr": "Attr28",
+     "name": "working_capital_to_fixed_assets",
+     "blank_firms": 66,
+     "blank_rate": 0.01641382740611788
+    },
+    {
+     "attr": "Attr64",
+     "name": "sales_to_fixed_assets",
+     "blank_firms": 66,
+     "blank_rate": 0.01641382740611788
+    },
+    {
+     "attr": "Attr53",
+     "name": "equity_to_fixed_assets",
+     "blank_firms": 66,
+     "blank_rate": 0.01641382740611788
+    },
+    {
+     "attr": "Attr41",
+     "name": "liabilities_to_annualised_op_profit_dep",
+     "blank_firms": 57,
+     "blank_rate": 0.014175578214374533
+    },
+    {
+     "attr": "Attr32",
+     "name": "current_liabilities_days_of_cogs",
+     "blank_firms": 34,
+     "blank_rate": 0.00845560805769709
+    },
+    {
+     "attr": "Attr52",
+     "name": "short_term_liabilities_days_of_cogs",
+     "blank_firms": 26,
+     "blank_rate": 0.006466053220591892
+    },
+    {
+     "attr": "Attr47",
+     "name": "inventory_days_of_cogs",
+     "blank_firms": 25,
+     "blank_rate": 0.006217358865953743
+    },
+    {
+     "attr": "Attr12",
+     "name": "gp_to_short_term_liabilities",
+     "blank_firms": 11,
+     "blank_rate": 0.002735637901019647
+    },
+    {
+     "attr": "Attr4",
+     "name": "current_ratio",
+     "blank_firms": 11,
+     "blank_rate": 0.002735637901019647
+    },
+    {
+     "attr": "Attr33",
+     "name": "opex_to_short_term_liabilities",
+     "blank_firms": 11,
+     "blank_rate": 0.002735637901019647
+    },
+    {
+     "attr": "Attr63",
+     "name": "sales_to_short_term_liabilities",
+     "blank_firms": 11,
+     "blank_rate": 0.002735637901019647
+    },
+    {
+     "attr": "Attr46",
+     "name": "quick_ratio",
+     "blank_firms": 11,
+     "blank_rate": 0.002735637901019647
+    },
+    {
+     "attr": "Attr40",
+     "name": "cash_ratio",
+     "blank_firms": 11,
+     "blank_rate": 0.002735637901019647
+    },
+    {
+     "attr": "Attr8",
+     "name": "book_equity_to_liabilities",
+     "blank_firms": 9,
+     "blank_rate": 0.002238249191743347
+    },
+    {
+     "attr": "Attr34",
+     "name": "opex_to_liabilities",
+     "blank_firms": 9,
+     "blank_rate": 0.002238249191743347
+    },
+    {
+     "attr": "Attr50",
+     "name": "current_assets_to_liabilities",
+     "blank_firms": 9,
+     "blank_rate": 0.002238249191743347
+    },
+    {
+     "attr": "Attr5",
+     "name": "cash_interval_days",
+     "blank_firms": 9,
+     "blank_rate": 0.002238249191743347
+    },
+    {
+     "attr": "Attr16",
+     "name": "gp_plus_dep_to_liabilities",
+     "blank_firms": 9,
+     "blank_rate": 0.002238249191743347
+    },
+    {
+     "attr": "Attr17",
+     "name": "assets_to_liabilities",
+     "blank_firms": 9,
+     "blank_rate": 0.002238249191743347
+    },
+    {
+     "attr": "Attr26",
+     "name": "net_profit_plus_dep_to_liabilities",
+     "blank_firms": 9,
+     "blank_rate": 0.002238249191743347
+    },
+    {
+     "attr": "Attr61",
+     "name": "receivables_turnover",
+     "blank_firms": 7,
+     "blank_rate": 0.001740860482467048
+    },
+    {
+     "attr": "Attr15",
+     "name": "liabilities_days_of_gp_dep",
+     "blank_firms": 3,
+     "blank_rate": 0.0007460830639144492
+    },
+    {
+     "attr": "Attr7",
+     "name": "ebit_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr3",
+     "name": "working_capital_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr1",
+     "name": "net_profit_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr57",
+     "name": "net_quick_assets_to_cash_costs",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr59",
+     "name": "long_term_liabilities_to_equity",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr51",
+     "name": "short_term_liabilities_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr48",
+     "name": "ebitda_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr36",
+     "name": "total_sales_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr35",
+     "name": "profit_on_sales_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr38",
+     "name": "constant_capital_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr22",
+     "name": "operating_profit_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr18",
+     "name": "gp_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr6",
+     "name": "retained_earnings_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr2",
+     "name": "liabilities_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr10",
+     "name": "equity_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr14",
+     "name": "gp_plus_interest_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr11",
+     "name": "gp_extra_finexp_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr29",
+     "name": "log_total_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    },
+    {
+     "attr": "Attr25",
+     "name": "equity_less_share_capital_to_assets",
+     "blank_firms": 1,
+     "blank_rate": 0.0002486943546381497
+    }
+   ]
+  },
+  "val": {
+   "firms": 878,
+   "attr21_blank_firms": 12,
+   "attr21_present_firms": 866,
+   "present_firms_with_any_other_blank": 440,
+   "present_firms_with_any_other_blank_share": 0.5080831408775982,
+   "other_blank_count_distribution": {
+    "0": 426,
+    "1": 341,
+    "2": 48,
+    "3": 24,
+    "4": 7,
+    "5": 8,
+    "6": 2,
+    "7": 3,
+    "8": 2,
+    "14": 3,
+    "20": 2
+   },
+   "limit": 6,
+   "present_firms_over_limit": 10,
+   "bankrupt_among_over_limit": 2,
+   "features_with_blanks": [
+    {
+     "attr": "Attr37",
+     "name": "quick_assets_to_long_term_liabilities",
+     "blank_firms": 385,
+     "blank_rate": 0.4445727482678984
+    },
+    {
+     "attr": "Attr27",
+     "name": "operating_profit_to_fin_expenses",
+     "blank_firms": 62,
+     "blank_rate": 0.07159353348729793
+    },
+    {
+     "attr": "Attr45",
+     "name": "net_profit_to_inventory",
+     "blank_firms": 44,
+     "blank_rate": 0.050808314087759814
+    },
+    {
+     "attr": "Attr60",
+     "name": "inventory_turnover",
+     "blank_firms": 44,
+     "blank_rate": 0.050808314087759814
+    },
+    {
+     "attr": "Attr24",
+     "name": "gp_3y_to_assets",
+     "blank_firms": 22,
+     "blank_rate": 0.025404157043879907
+    },
+    {
+     "attr": "Attr41",
+     "name": "liabilities_to_annualised_op_profit_dep",
+     "blank_firms": 17,
+     "blank_rate": 0.019630484988452657
+    },
+    {
+     "attr": "Attr28",
+     "name": "working_capital_to_fixed_assets",
+     "blank_firms": 12,
+     "blank_rate": 0.013856812933025405
+    },
+    {
+     "attr": "Attr64",
+     "name": "sales_to_fixed_assets",
+     "blank_firms": 12,
+     "blank_rate": 0.013856812933025405
+    },
+    {
+     "attr": "Attr54",
+     "name": "constant_capital_to_fixed_assets",
+     "blank_firms": 12,
+     "blank_rate": 0.013856812933025405
+    },
+    {
+     "attr": "Attr53",
+     "name": "equity_to_fixed_assets",
+     "blank_firms": 12,
+     "blank_rate": 0.013856812933025405
+    },
+    {
+     "attr": "Attr33",
+     "name": "opex_to_short_term_liabilities",
+     "blank_firms": 6,
+     "blank_rate": 0.006928406466512702
+    },
+    {
+     "attr": "Attr12",
+     "name": "gp_to_short_term_liabilities",
+     "blank_firms": 6,
+     "blank_rate": 0.006928406466512702
+    },
+    {
+     "attr": "Attr4",
+     "name": "current_ratio",
+     "blank_firms": 6,
+     "blank_rate": 0.006928406466512702
+    },
+    {
+     "attr": "Attr46",
+     "name": "quick_ratio",
+     "blank_firms": 6,
+     "blank_rate": 0.006928406466512702
+    },
+    {
+     "attr": "Attr40",
+     "name": "cash_ratio",
+     "blank_firms": 6,
+     "blank_rate": 0.006928406466512702
+    },
+    {
+     "attr": "Attr63",
+     "name": "sales_to_short_term_liabilities",
+     "blank_firms": 6,
+     "blank_rate": 0.006928406466512702
+    },
+    {
+     "attr": "Attr26",
+     "name": "net_profit_plus_dep_to_liabilities",
+     "blank_firms": 5,
+     "blank_rate": 0.005773672055427252
+    },
+    {
+     "attr": "Attr16",
+     "name": "gp_plus_dep_to_liabilities",
+     "blank_firms": 5,
+     "blank_rate": 0.005773672055427252
+    },
+    {
+     "attr": "Attr34",
+     "name": "opex_to_liabilities",
+     "blank_firms": 5,
+     "blank_rate": 0.005773672055427252
+    },
+    {
+     "attr": "Attr50",
+     "name": "current_assets_to_liabilities",
+     "blank_firms": 5,
+     "blank_rate": 0.005773672055427252
+    },
+    {
+     "attr": "Attr17",
+     "name": "assets_to_liabilities",
+     "blank_firms": 5,
+     "blank_rate": 0.005773672055427252
+    },
+    {
+     "attr": "Attr8",
+     "name": "book_equity_to_liabilities",
+     "blank_firms": 5,
+     "blank_rate": 0.005773672055427252
+    },
+    {
+     "attr": "Attr52",
+     "name": "short_term_liabilities_days_of_cogs",
+     "blank_firms": 4,
+     "blank_rate": 0.004618937644341801
+    },
+    {
+     "attr": "Attr32",
+     "name": "current_liabilities_days_of_cogs",
+     "blank_firms": 4,
+     "blank_rate": 0.004618937644341801
+    },
+    {
+     "attr": "Attr47",
+     "name": "inventory_days_of_cogs",
+     "blank_firms": 4,
+     "blank_rate": 0.004618937644341801
+    },
+    {
+     "attr": "Attr61",
+     "name": "receivables_turnover",
+     "blank_firms": 3,
+     "blank_rate": 0.003464203233256351
+    },
+    {
+     "attr": "Attr15",
+     "name": "liabilities_days_of_gp_dep",
+     "blank_firms": 3,
+     "blank_rate": 0.003464203233256351
+    },
+    {
+     "attr": "Attr5",
+     "name": "cash_interval_days",
+     "blank_firms": 2,
+     "blank_rate": 0.0023094688221709007
+    }
+   ]
+  }
+ },
+ "blank_effects": {
+  "Attr24": {
+   "train": {
+    "blank": {
+     "firms": 90,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.04093562618368095
+     ]
+    },
+    "present": {
+     "firms": 3931,
+     "bankrupt": 215,
+     "rate": 0.054693462223352834,
+     "wilson_95": [
+      0.0480103302529923,
+      0.062246071031505756
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 22,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.14865487660514556
+     ]
+    },
+    "present": {
+     "firms": 844,
+     "bankrupt": 50,
+     "rate": 0.05924170616113744,
+     "wilson_95": [
+      0.045223011329812754,
+      0.0772544374827424
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": -1.014098687178441,
+   "mean_contribution_when_present_train": 0.02768534474897552
+  },
+  "Attr27": {
+   "train": {
+    "blank": {
+     "firms": 251,
+     "bankrupt": 69,
+     "rate": 0.2749003984063745,
+     "wilson_95": [
+      0.22337359214653796,
+      0.3332134698799948
+     ]
+    },
+    "present": {
+     "firms": 3770,
+     "bankrupt": 146,
+     "rate": 0.03872679045092838,
+     "wilson_95": [
+      0.033022633992397694,
+      0.045370022960656765
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 62,
+     "bankrupt": 20,
+     "rate": 0.3225806451612903,
+     "wilson_95": [
+      0.21954490581739158,
+      0.44631912007451213
+     ]
+    },
+    "present": {
+     "firms": 804,
+     "bankrupt": 30,
+     "rate": 0.03731343283582089,
+     "wilson_95": [
+      0.026260174080131034,
+      0.05276703872187599
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": 2.306213928365906,
+   "mean_contribution_when_present_train": -0.2151404501796966
+  },
+  "Attr28": {
+   "train": {
+    "blank": {
+     "firms": 66,
+     "bankrupt": 4,
+     "rate": 0.06060606060606061,
+     "wilson_95": [
+      0.02381861466682568,
+      0.14572908767172355
+     ]
+    },
+    "present": {
+     "firms": 3955,
+     "bankrupt": 211,
+     "rate": 0.053350189633375476,
+     "wilson_95": [
+      0.04676973049662462,
+      0.06079746139633687
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 12,
+     "bankrupt": 3,
+     "rate": 0.25,
+     "wilson_95": [
+      0.08894166769488562,
+      0.5323053370816633
+     ]
+    },
+    "present": {
+     "firms": 854,
+     "bankrupt": 47,
+     "rate": 0.05503512880562061,
+     "wilson_95": [
+      0.041637541525489374,
+      0.07241786797743933
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": -0.1668114631147542,
+   "mean_contribution_when_present_train": 0.004346453154288114
+  },
+  "Attr32": {
+   "train": {
+    "blank": {
+     "firms": 34,
+     "bankrupt": 1,
+     "rate": 0.029411764705882353,
+     "wilson_95": [
+      0.005210906218596753,
+      0.14915573433878604
+     ]
+    },
+    "present": {
+     "firms": 3987,
+     "bankrupt": 214,
+     "rate": 0.05367444193629295,
+     "wilson_95": [
+      0.04709857738634982,
+      0.06110954446731782
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 4,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.4898908403969213
+     ]
+    },
+    "present": {
+     "firms": 862,
+     "bankrupt": 50,
+     "rate": 0.058004640371229696,
+     "wilson_95": [
+      0.04427276741042563,
+      0.0756584946193039
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": 0.06129569818547531,
+   "mean_contribution_when_present_train": 0.008909480271486641
+  },
+  "Attr37": {
+   "train": {
+    "blank": {
+     "firms": 1699,
+     "bankrupt": 95,
+     "rate": 0.055915244261330196,
+     "wilson_95": [
+      0.04595848734913128,
+      0.06787563259803202
+     ]
+    },
+    "present": {
+     "firms": 2322,
+     "bankrupt": 120,
+     "rate": 0.05167958656330749,
+     "wilson_95": [
+      0.04339268644638431,
+      0.06144741688489822
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 385,
+     "bankrupt": 25,
+     "rate": 0.06493506493506493,
+     "wilson_95": [
+      0.0443670040339043,
+      0.0940993494156452
+     ]
+    },
+    "present": {
+     "firms": 481,
+     "bankrupt": 25,
+     "rate": 0.05197505197505198,
+     "wilson_95": [
+      0.035449900109878175,
+      0.07559971805917787
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": -0.04128319498851703,
+   "mean_contribution_when_present_train": 0.03005295219530515
+  },
+  "Attr41": {
+   "train": {
+    "blank": {
+     "firms": 57,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.0631388357861509
+     ]
+    },
+    "present": {
+     "firms": 3964,
+     "bankrupt": 215,
+     "rate": 0.05423814328960646,
+     "wilson_95": [
+      0.04760934308691085,
+      0.061730070641483045
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 17,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      -1.3877787807814457e-17,
+      0.18431813738065556
+     ]
+    },
+    "present": {
+     "firms": 849,
+     "bankrupt": 50,
+     "rate": 0.05889281507656066,
+     "wilson_95": [
+      0.04495498686238044,
+      0.07680440675048253
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": -0.8782804486752527,
+   "mean_contribution_when_present_train": 0.009841777694740077
+  },
+  "Attr45": {
+   "train": {
+    "blank": {
+     "firms": 168,
+     "bankrupt": 15,
+     "rate": 0.08928571428571429,
+     "wilson_95": [
+      0.05485470926028358,
+      0.14207948288174704
+     ]
+    },
+    "present": {
+     "firms": 3853,
+     "bankrupt": 200,
+     "rate": 0.051907604464053986,
+     "wilson_95": [
+      0.045338490098304075,
+      0.0593693292888151
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 44,
+     "bankrupt": 3,
+     "rate": 0.06818181818181818,
+     "wilson_95": [
+      0.02345939572462935,
+      0.18225044489111314
+     ]
+    },
+    "present": {
+     "firms": 822,
+     "bankrupt": 47,
+     "rate": 0.057177615571776155,
+     "wilson_95": [
+      0.043268676968808886,
+      0.07520619230432533
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": 0.1309860174769742,
+   "mean_contribution_when_present_train": -0.007681929246828805
+  },
+  "Attr47": {
+   "train": {
+    "blank": {
+     "firms": 25,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.13319225276039096
+     ]
+    },
+    "present": {
+     "firms": 3996,
+     "bankrupt": 215,
+     "rate": 0.053803803803803806,
+     "wilson_95": [
+      0.04722685272895084,
+      0.06123781101865577
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 4,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.4898908403969213
+     ]
+    },
+    "present": {
+     "firms": 862,
+     "bankrupt": 50,
+     "rate": 0.058004640371229696,
+     "wilson_95": [
+      0.04427276741042563,
+      0.0756584946193039
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": -0.2502928742448417,
+   "mean_contribution_when_present_train": -0.002842456367610983
+  },
+  "Attr52": {
+   "train": {
+    "blank": {
+     "firms": 26,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.12872892362858793
+     ]
+    },
+    "present": {
+     "firms": 3995,
+     "bankrupt": 215,
+     "rate": 0.05381727158948686,
+     "wilson_95": [
+      0.047238712497713456,
+      0.06125307527190374
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 4,
+     "bankrupt": 0,
+     "rate": 0.0,
+     "wilson_95": [
+      0.0,
+      0.4898908403969213
+     ]
+    },
+    "present": {
+     "firms": 862,
+     "bankrupt": 50,
+     "rate": 0.058004640371229696,
+     "wilson_95": [
+      0.04427276741042563,
+      0.0756584946193039
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": -0.07989611997114647,
+   "mean_contribution_when_present_train": 0.0012781774418143346
+  },
+  "Attr53": {
+   "train": {
+    "blank": {
+     "firms": 66,
+     "bankrupt": 4,
+     "rate": 0.06060606060606061,
+     "wilson_95": [
+      0.02381861466682568,
+      0.14572908767172355
+     ]
+    },
+    "present": {
+     "firms": 3955,
+     "bankrupt": 211,
+     "rate": 0.053350189633375476,
+     "wilson_95": [
+      0.04676973049662462,
+      0.06079746139633687
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 12,
+     "bankrupt": 3,
+     "rate": 0.25,
+     "wilson_95": [
+      0.08894166769488562,
+      0.5323053370816633
+     ]
+    },
+    "present": {
+     "firms": 854,
+     "bankrupt": 47,
+     "rate": 0.05503512880562061,
+     "wilson_95": [
+      0.041637541525489374,
+      0.07241786797743933
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": -0.06939450049207842,
+   "mean_contribution_when_present_train": -0.0031537287711973705
+  },
+  "Attr54": {
+   "train": {
+    "blank": {
+     "firms": 66,
+     "bankrupt": 4,
+     "rate": 0.06060606060606061,
+     "wilson_95": [
+      0.02381861466682568,
+      0.14572908767172355
+     ]
+    },
+    "present": {
+     "firms": 3955,
+     "bankrupt": 211,
+     "rate": 0.053350189633375476,
+     "wilson_95": [
+      0.04676973049662462,
+      0.06079746139633687
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 12,
+     "bankrupt": 3,
+     "rate": 0.25,
+     "wilson_95": [
+      0.08894166769488562,
+      0.5323053370816633
+     ]
+    },
+    "present": {
+     "firms": 854,
+     "bankrupt": 47,
+     "rate": 0.05503512880562061,
+     "wilson_95": [
+      0.041637541525489374,
+      0.07241786797743933
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": -0.10489747521599901,
+   "mean_contribution_when_present_train": 0.005698508238739908
+  },
+  "Attr60": {
+   "train": {
+    "blank": {
+     "firms": 168,
+     "bankrupt": 15,
+     "rate": 0.08928571428571429,
+     "wilson_95": [
+      0.05485470926028358,
+      0.14207948288174704
+     ]
+    },
+    "present": {
+     "firms": 3853,
+     "bankrupt": 200,
+     "rate": 0.051907604464053986,
+     "wilson_95": [
+      0.045338490098304075,
+      0.0593693292888151
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 44,
+     "bankrupt": 3,
+     "rate": 0.06818181818181818,
+     "wilson_95": [
+      0.02345939572462935,
+      0.18225044489111314
+     ]
+    },
+    "present": {
+     "firms": 822,
+     "bankrupt": 47,
+     "rate": 0.057177615571776155,
+     "wilson_95": [
+      0.043268676968808886,
+      0.07520619230432533
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": 0.11986665844257528,
+   "mean_contribution_when_present_train": -0.005888725584464621
+  },
+  "Attr64": {
+   "train": {
+    "blank": {
+     "firms": 66,
+     "bankrupt": 4,
+     "rate": 0.06060606060606061,
+     "wilson_95": [
+      0.02381861466682568,
+      0.14572908767172355
+     ]
+    },
+    "present": {
+     "firms": 3955,
+     "bankrupt": 211,
+     "rate": 0.053350189633375476,
+     "wilson_95": [
+      0.04676973049662462,
+      0.06079746139633687
+     ]
+    }
+   },
+   "val": {
+    "blank": {
+     "firms": 12,
+     "bankrupt": 3,
+     "rate": 0.25,
+     "wilson_95": [
+      0.08894166769488562,
+      0.5323053370816633
+     ]
+    },
+    "present": {
+     "firms": 854,
+     "bankrupt": 47,
+     "rate": 0.05503512880562061,
+     "wilson_95": [
+      0.041637541525489374,
+      0.07241786797743933
+     ]
+    }
+   },
+   "mean_contribution_when_blank_train": -0.23631587146421423,
+   "mean_contribution_when_present_train": 0.007091921531888079
+  }
+ },
+ "bands": {
+  "t_watch": 0.17360288352005987,
+  "t_high": 0.2403358325465458
+ },
+ "blank_limit": 6,
+ "flags": [
+  "Blanks in other attributes can carry signal too. In train, a blank Attr27 adds more than 1.0 calibrated log-odds on average to that attribute's contribution. The app's warning therefore also shows the train and validation history for each blank attribute. 2 of the 3 demo firms have a blank attribute. This is descriptive and is not a test of the effect.",
+  "A blank-attribute warning will appear for about half of scorable firms: 47.0% of train and 50.8% of validation firms with Attr21 present have at least one other blank, most often Attr37 (42.3% of train firms). The limit of 6 would block 39 train and 10 validation firms. The effect of these blanks on the score is untested.",
+  "The cuts were set on all firms. High precision on firms with Attr21 present is 0.540 on validation and 0.585 on train out-of-fold, against 0.600 and 0.678 for all firms, and the band rule's floor is 0.60. Nothing was re-cut or recalibrated.",
+  "Calibration on firms with Attr21 present is report only: mean predicted probability 0.0680 against an observed rate of 0.0577 on validation, and 0.0543 against 0.0535 on train out-of-fold. ECE is 0.0134 (0.0082 to 0.0257) on validation and 0.0042 (0.0029 to 0.0101) out-of-fold. Bootstrap ECE is biased upward on small data, so the point estimate can sit outside its own interval.",
+  "Validation Watch band on firms with Attr21 present has 16 firms, so its rate carries very little information.",
+  "Train out-of-fold scores use the saved Platt calibrator that was fitted on those same scores, so the out-of-fold calibration numbers are mildly optimistic.",
+  "The validation cuts were fitted on validation, so validation precision and recall at the cuts are in-sample. Train out-of-fold is the independent check.",
+  "Sector composition of the Polish data is not stated on the UCI page, so the sector is UNVERIFIED. The data is a random split, with no company id or year.",
+  "Test split untouched in this phase. No model, calibrator or cut was changed."
+ ],
+ "seed": 42,
+ "bootstrap_n": 1000
+}

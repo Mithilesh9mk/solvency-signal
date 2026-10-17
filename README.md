@@ -2,7 +2,7 @@
 
 An early-warning neural network for corporate financial distress.
 
-> Status: Phase 7 done (Attr21 missingness analysis, descriptive). Phase 6 gave SHAP explanations of the frozen LightGBM + Platt model. The test split was read once, in Phase 5, and is locked.
+> Status: Phase 8 done (the Streamlit app, not yet deployed). Phase 7 was the Attr21 missingness analysis (descriptive). Phase 6 gave SHAP explanations of the frozen LightGBM + Platt model. The test split was read once, in Phase 5, and is locked.
 
 ## Problem
 
@@ -19,7 +19,9 @@ distress in the following period, early enough for the warning to be useful.
 
 Feature names, formulas, data quality flags and split sizes: [reports/data_report.md](reports/data_report.md).
 
-Citation: Tomczak, S. (2016). Polish Companies Bankruptcy. UCI Machine Learning Repository. https://doi.org/10.24432/C5F600
+Citation: Tomczak, S. (2016). Polish Companies Bankruptcy [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5F600
+
+License: Creative Commons Attribution 4.0 International (CC BY 4.0), as stated on the UCI dataset page (checked 2026-10-17). This project changed the data: exact duplicates dropped, a stratified random 70/15/15 split, and model scores derived from it. The UCI page does not state the sector of the companies (UNVERIFIED).
 
 ## Method
 
@@ -122,6 +124,15 @@ Attr21 (sales growth) missingness, train and validation only, frozen model uncha
 
 What-if on the frozen model (validation): blanking Attr21 moves 803 Low or Watch firms to High-heavy bands (862 of 866 firms High after blanking, 63 before).
 
+App (Phase 8):
+
+Streamlit app (app/streamlit_app.py) scoring firms with the frozen LightGBM + Platt model. Policy: Attr21 blank is not scored, more than 6 other blank attributes is not scored. Numbers below are on firms with Attr21 present. Details: reports/phase8_app_prep.md.
+
+| Scores | PR AUC | High precision | High recall |
+|---|---|---|---|
+| validation | 0.713 | 0.540 | 0.680 |
+| train out-of-fold | 0.694 | 0.585 | 0.637 |
+
 Details, reliability diagrams, band tables, cost framing and the model decision: [reports/phase4_calibration.md](reports/phase4_calibration.md). Earlier phases: [reports/models_val.md](reports/models_val.md).
 
 ### Flags
@@ -177,6 +188,15 @@ Details, reliability diagrams, band tables, cost framing and the model decision:
 49. Phase 7: The test split cannot be broken down by Attr21 status without reading it again, so no such breakdown exists. The Phase 5 test results are unchanged and already include whatever reliance on Attr21 the model has.
 50. Phase 7: Out-of-fold scores use the saved Platt calibrator that was fitted on those same out-of-fold scores, so the calibrated train numbers are mildly optimistic.
 51. Phase 7: Test split untouched in this phase. No model, calibrator or cut was changed.
+52. Phase 8: Blanks in other attributes can carry signal too. In train, a blank Attr27 adds more than 1.0 calibrated log-odds on average to that attribute's contribution. The app's warning therefore also shows the train and validation history for each blank attribute. 2 of the 3 demo firms have a blank attribute. This is descriptive and is not a test of the effect.
+53. Phase 8: A blank-attribute warning will appear for about half of scorable firms: 47.0% of train and 50.8% of validation firms with Attr21 present have at least one other blank, most often Attr37 (42.3% of train firms). The limit of 6 would block 39 train and 10 validation firms. The effect of these blanks on the score is untested.
+54. Phase 8: The cuts were set on all firms. High precision on firms with Attr21 present is 0.540 on validation and 0.585 on train out-of-fold, against 0.600 and 0.678 for all firms, and the band rule's floor is 0.60. Nothing was re-cut or recalibrated.
+55. Phase 8: Calibration on firms with Attr21 present is report only: mean predicted probability 0.0680 against an observed rate of 0.0577 on validation, and 0.0543 against 0.0535 on train out-of-fold. ECE is 0.0134 (0.0082 to 0.0257) on validation and 0.0042 (0.0029 to 0.0101) out-of-fold. Bootstrap ECE is biased upward on small data, so the point estimate can sit outside its own interval.
+56. Phase 8: Validation Watch band on firms with Attr21 present has 16 firms, so its rate carries very little information.
+57. Phase 8: Train out-of-fold scores use the saved Platt calibrator that was fitted on those same scores, so the out-of-fold calibration numbers are mildly optimistic.
+58. Phase 8: The validation cuts were fitted on validation, so validation precision and recall at the cuts are in-sample. Train out-of-fold is the independent check.
+59. Phase 8: Sector composition of the Polish data is not stated on the UCI page, so the sector is UNVERIFIED. The data is a random split, with no company id or year.
+60. Phase 8: Test split untouched in this phase. No model, calibrator or cut was changed.
 
 <!-- RESULTS:END -->
 
@@ -240,7 +260,18 @@ python -m scripts.run_phase7_attr21
 python -m scripts.update_state --phase "Phase 7: Attr21 missingness"
 ```
 
-TODO: Commands for the app.
+Build the app numbers and demo firms (train and validation only), then run the app locally:
+
+```bash
+python -m scripts.run_phase8_prep
+streamlit run app/streamlit_app.py
+```
+
+The app is a screening signal for firms like those in the Polish data. It is not lending advice, and it was checked on a random
+split only. It does not score a firm with Attr21 (sales growth) blank, and it does not score a firm with more than 6 other
+blank attributes. Uploaded data is processed in memory and is not written to disk by this app. At start-up it checks the model
+and calibration files against the hashes in `artifacts/phase5_protocol.json` and stops on a mismatch. To deploy on Streamlit
+Community Cloud, point it at `app/streamlit_app.py` (it uses `app/requirements.txt`). Deploying is left to the repo owner.
 
 ## Live app
 

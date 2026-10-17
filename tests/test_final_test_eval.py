@@ -100,7 +100,7 @@ def test_real_repo_refuses_a_rerun(guard):
 
 
 def test_only_the_final_script_can_read_the_test_split():
-    sources = [p for d in ("src", "scripts") for p in (ROOT / d).rglob("*.py") if p.name != "final_test_eval.py"]
+    sources = [p for d in ("src", "scripts", "app") for p in (ROOT / d).rglob("*.py") if p.name != "final_test_eval.py"]
     assert sources
     allowed_pattern_files = {"preprocess.py", "train.py", "run_phase4.py", "update_state.py"}
     seen = set()

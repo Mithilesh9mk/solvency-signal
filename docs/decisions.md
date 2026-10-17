@@ -279,3 +279,23 @@ Phase numbering: Phase 7 was the Attr21 probe, Phase 8 is the Streamlit app. Gra
   so for those two text files the check accepts the same bytes with LF or CRLF line endings, and never for the model.
 - **Deployment** is the user's action (public-facing). This phase prepares `app/requirements.txt` with pinned versions and
   the commands, and leaves the live-app link as a TODO.
+
+## 2026-10-17 (Phase 8, after the build)
+
+- The app follows the protocol above: policy A for Attr21, the blank limit of 6 fixed before any count was seen, demo firms
+  re-picked with the restricted rule, validation page led by firms with Attr21 present, no accuracy figure, privacy wording
+  "not written to disk by this app", and the model, calibrator and cuts unchanged.
+- **Finding after the numbers were generated, reported as a flag.** A blank Attr27 also carries a strong signal, like Attr21:
+  the bankrupt rate is far higher when it is blank than when it is present (train and validation), and in train it adds more
+  than 1.0 calibrated log-odds on average. One demo firm (the highest-scoring true positive among Attr21-present firms) has
+  Attr27 blank, and that blank is its largest driver. The pre-stated blank rule was not changed. Instead the app's blank
+  warning now also shows the train and validation history for each blank attribute, labelled descriptive and not a test.
+  The warning still says the effect on scoring is untested.
+- **Blank warning will show for about half of scorable firms** (mostly Attr37, which is blank in about 42% of train firms).
+  Reported in the flags.
+- Floor statement uses three decimals so it matches the report (0.540 validation, 0.585 out-of-fold against 0.60).
+- **License.** CC BY 4.0 confirmed on the UCI page. The sector is not stated there, so the user's wording "non-financial
+  firms" could not be confirmed. The app says the sector is not documented (UNVERIFIED).
+- `models/lightgbm.joblib` is committed through a gitignore exception and marked binary. The hash check tolerates LF or CRLF
+  line endings for the two calibration JSON files only, because they were hashed on Windows with CRLF.
+- Not done: deployment (the repo owner's action), manual entry of attributes, any model change. The live-app link stays a TODO.
