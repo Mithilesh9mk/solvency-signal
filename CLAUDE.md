@@ -14,8 +14,8 @@ A Streamlit app and an Indian case study come in later phases.
 - Do not pick the headline model silently. Present the comparison and recommend; the user decides.
 
 ## Repo map
-- `src/`: preprocess, polish_features, train, nn (TremorNet), evaluate, calibrate, plotting
-- `scripts/`: update_state.py (regenerates docs/STATE.md), run_phase4.py, final_test_eval.py (one-shot, refuses a rerun)
+- `src/`: preprocess, polish_features (dictionary, categories), train, nn (TremorNet), evaluate, calibrate, explain, plotting
+- `scripts/`: update_state.py (regenerates docs/STATE.md), run_phase4.py, run_phase6.py (SHAP), final_test_eval.py (one-shot, refuses a rerun)
 - `tests/`: pytest suite, includes the test-split guard
 - `reports/`: generated reports and figures (validation only)
 - `artifacts/calibration/`: fitted calibrators, band thresholds and config (JSON, committed); `phase5_protocol.json` and `phase5.lock`: frozen hashes and the one-shot lock
@@ -26,13 +26,13 @@ A Streamlit app and an Indian case study come in later phases.
 ## Commands (use `.venv/Scripts/python`)
 - Tests: `python -m pytest -q`
 - Data: `python -m src.preprocess`; train: `python -m src.train`; curves: `python -m src.evaluate`
-- Phase 4: `python -m scripts.run_phase4`. Phase 5 is done and cannot be rerun (lock in `artifacts/phase5.lock`).
+- Phase 4: `python -m scripts.run_phase4`. Phase 5 is done and cannot be rerun (lock in `artifacts/phase5.lock`). Phase 6: `python -m scripts.run_phase6`.
 - End of every phase: `python -m scripts.update_state --phase "<phase>"`, then commit
 
 ## Status
 Headline model: LightGBM + Platt (user decision), frozen at fdef552. The neural network is the deep learning comparison, not deployed. Test result: reports/phase5_test_results.md.
-Current phase: Phase 5: final test evaluation (complete)
-Last phase commit: a523d24
+Current phase: Phase 6: SHAP explanations (complete)
+Last phase commit: 0aa6b71
 
 ## Pointers
 For details read docs/STATE.md, docs/decisions.md, docs/data_card.md only when needed.

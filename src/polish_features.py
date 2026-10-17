@@ -105,3 +105,17 @@ FEATURES = [
 RENAME = {attr: name for attr, name, _, _ in FEATURES}
 FEATURE_NAMES = [name for _, name, _, _ in FEATURES]
 TARGET = "bankrupt"
+
+# Categories are NOT in the UCI description or in the dictionary above. They are assigned by this project,
+# once, by what the ratio's formula measures (see docs/decisions.md, Phase 6 protocol). Project judgement,
+# not dataset documentation. Borderline: Attr27 (interest cover, profit numerator), Attr37 (quick assets over
+# long-term liabilities), Attr30 (net debt to sales), Attr33 and Attr34 (operating costs over liabilities),
+# Attr58 (cost ratio).
+CATEGORIES = ("Liquidity", "Leverage", "Profitability", "Cash Flow", "Other")
+CATEGORY = {
+    **{f"Attr{i}": "Liquidity" for i in (3, 4, 5, 28, 37, 40, 46, 50, 55, 57)},
+    **{f"Attr{i}": "Leverage" for i in (2, 8, 10, 17, 25, 30, 38, 51, 53, 54, 59)},
+    **{f"Attr{i}": "Profitability" for i in (1, 6, 7, 11, 12, 14, 18, 19, 22, 23, 24, 27, 31, 35, 39, 42, 45, 48, 49, 56, 58)},
+    **{f"Attr{i}": "Cash Flow" for i in (13, 15, 16, 26, 41)},
+    **{f"Attr{i}": "Other" for i in (9, 20, 21, 29, 32, 33, 34, 36, 43, 44, 47, 52, 60, 61, 62, 63, 64)},
+}

@@ -5,7 +5,7 @@ lightgbm
 torch
 onnx
 onnxruntime
-shap
+shap==0.51.0
 matplotlib
 streamlit
 scipy

@@ -1,0 +1,28 @@
+{
+ "seed": 42,
+ "bootstrap_n": 1000,
+ "scale": "calibrated_log_odds",
+ "platt_slope_a": 0.6475164988326704,
+ "slope_check": {
+  "train": {
+   "ok": true,
+   "reason": "",
+   "max_abs_error": 2.8332891588433995e-13,
+   "clipped": 0,
+   "tol": 1e-06,
+   "n": 4094
+  },
+  "val": {
+   "ok": true,
+   "reason": "",
+   "max_abs_error": 6.306066779870889e-14,
+   "clipped": 0,
+   "tol": 1e-06,
+   "n": 878
+  }
+ },
+ "shap_version": "0.51.0",
+ "python": "3.11.4",
+ "fit_data": "none (explains the frozen model on train and validation)",
+ "test_split_read": false
+}

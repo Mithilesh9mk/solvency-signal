@@ -1,0 +1,642 @@
+[
+ {
+  "attr": "Attr1",
+  "name": "net_profit_to_assets",
+  "formula": "net profit / total assets",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "",
+  "label": "Attr1: net profit / total assets",
+  "short_label": "Attr1 net profit / total assets"
+ },
+ {
+  "attr": "Attr2",
+  "name": "liabilities_to_assets",
+  "formula": "total liabilities / total assets",
+  "category": "Leverage",
+  "unverified": false,
+  "note": "",
+  "label": "Attr2: total liabilities / total assets",
+  "short_label": "Attr2 total liabilities / total assets"
+ },
+ {
+  "attr": "Attr3",
+  "name": "working_capital_to_assets",
+  "formula": "working capital / total assets",
+  "category": "Liquidity",
+  "unverified": false,
+  "note": "",
+  "label": "Attr3: working capital / total assets",
+  "short_label": "Attr3 working capital / total assets"
+ },
+ {
+  "attr": "Attr4",
+  "name": "current_ratio",
+  "formula": "current assets / short-term liabilities",
+  "category": "Liquidity",
+  "unverified": false,
+  "note": "",
+  "label": "Attr4: current assets / short-term liabilities",
+  "short_label": "Attr4 current assets / short-term liabilities"
+ },
+ {
+  "attr": "Attr5",
+  "name": "cash_interval_days",
+  "formula": "[(cash + short-term securities + receivables - short-term liabilities) / (operating expenses - depreciation)] * 365",
+  "category": "Liquidity",
+  "unverified": false,
+  "note": "",
+  "label": "Attr5: [(cash + short-term securities + receivables - short-term liabilities) / (operating expenses - depreciation)] * 365",
+  "short_label": "Attr5 [(cash + short-term securities + receivable..."
+ },
+ {
+  "attr": "Attr6",
+  "name": "retained_earnings_to_assets",
+  "formula": "retained earnings / total assets",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "",
+  "label": "Attr6: retained earnings / total assets",
+  "short_label": "Attr6 retained earnings / total assets"
+ },
+ {
+  "attr": "Attr7",
+  "name": "ebit_to_assets",
+  "formula": "EBIT / total assets",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "",
+  "label": "Attr7: EBIT / total assets",
+  "short_label": "Attr7 EBIT / total assets"
+ },
+ {
+  "attr": "Attr8",
+  "name": "book_equity_to_liabilities",
+  "formula": "book value of equity / total liabilities",
+  "category": "Leverage",
+  "unverified": false,
+  "note": "",
+  "label": "Attr8: book value of equity / total liabilities",
+  "short_label": "Attr8 book value of equity / total liabilities"
+ },
+ {
+  "attr": "Attr9",
+  "name": "sales_to_assets",
+  "formula": "sales / total assets",
+  "category": "Other",
+  "unverified": false,
+  "note": "near duplicate of Attr36 (equal in 58% of rows)",
+  "label": "Attr9: sales / total assets",
+  "short_label": "Attr9 sales / total assets"
+ },
+ {
+  "attr": "Attr10",
+  "name": "equity_to_assets",
+  "formula": "equity / total assets",
+  "category": "Leverage",
+  "unverified": false,
+  "note": "",
+  "label": "Attr10: equity / total assets",
+  "short_label": "Attr10 equity / total assets"
+ },
+ {
+  "attr": "Attr11",
+  "name": "gp_extra_finexp_to_assets",
+  "formula": "(gross profit + extraordinary items + financial expenses) / total assets",
+  "category": "Profitability",
+  "unverified": true,
+  "note": "'gross profit' likely means profit before tax (translation)",
+  "label": "Attr11: (gross profit + extraordinary items + financial expenses) / total assets [UNVERIFIED Attr11: 'gross profit' likely means profit before tax (translation)]",
+  "short_label": "Attr11 (gross profit + extraordinary items + finan... [U]"
+ },
+ {
+  "attr": "Attr12",
+  "name": "gp_to_short_term_liabilities",
+  "formula": "gross profit / short-term liabilities",
+  "category": "Profitability",
+  "unverified": true,
+  "note": "'gross profit' likely means profit before tax (translation)",
+  "label": "Attr12: gross profit / short-term liabilities [UNVERIFIED Attr12: 'gross profit' likely means profit before tax (translation)]",
+  "short_label": "Attr12 gross profit / short-term liabilities [U]"
+ },
+ {
+  "attr": "Attr13",
+  "name": "gp_plus_dep_to_sales",
+  "formula": "(gross profit + depreciation) / sales",
+  "category": "Cash Flow",
+  "unverified": true,
+  "note": "'gross profit' likely means profit before tax (translation)",
+  "label": "Attr13: (gross profit + depreciation) / sales [UNVERIFIED Attr13: 'gross profit' likely means profit before tax (translation)]",
+  "short_label": "Attr13 (gross profit + depreciation) / sales [U]"
+ },
+ {
+  "attr": "Attr14",
+  "name": "gp_plus_interest_to_assets",
+  "formula": "(gross profit + interest) / total assets",
+  "category": "Profitability",
+  "unverified": true,
+  "note": "'gross profit' likely means profit before tax (translation)",
+  "label": "Attr14: (gross profit + interest) / total assets [UNVERIFIED Attr14: 'gross profit' likely means profit before tax (translation)]",
+  "short_label": "Attr14 (gross profit + interest) / total assets [U]"
+ },
+ {
+  "attr": "Attr15",
+  "name": "liabilities_days_of_gp_dep",
+  "formula": "(total liabilities * 365) / (gross profit + depreciation)",
+  "category": "Cash Flow",
+  "unverified": true,
+  "note": "'gross profit' likely means profit before tax (translation); sign flips when denominator is negative",
+  "label": "Attr15: (total liabilities * 365) / (gross profit + depreciation) [UNVERIFIED Attr15: 'gross profit' likely means profit before tax (translation); sign flips when denominator is negative]",
+  "short_label": "Attr15 (total liabilities * 365) / (gross profit +... [U]"
+ },
+ {
+  "attr": "Attr16",
+  "name": "gp_plus_dep_to_liabilities",
+  "formula": "(gross profit + depreciation) / total liabilities",
+  "category": "Cash Flow",
+  "unverified": true,
+  "note": "'gross profit' likely means profit before tax (translation); cash flow proxy, not true operating cash flow",
+  "label": "Attr16: (gross profit + depreciation) / total liabilities [UNVERIFIED Attr16: 'gross profit' likely means profit before tax (translation); cash flow proxy, not true operating cash flow]",
+  "short_label": "Attr16 (gross profit + depreciation) / total liabi... [U]"
+ },
+ {
+  "attr": "Attr17",
+  "name": "assets_to_liabilities",
+  "formula": "total assets / total liabilities",
+  "category": "Leverage",
+  "unverified": false,
+  "note": "exact reciprocal of Attr2",
+  "label": "Attr17: total assets / total liabilities",
+  "short_label": "Attr17 total assets / total liabilities"
+ },
+ {
+  "attr": "Attr18",
+  "name": "gp_to_assets",
+  "formula": "gross profit / total assets",
+  "category": "Profitability",
+  "unverified": true,
+  "note": "'gross profit' likely means profit before tax (translation)",
+  "label": "Attr18: gross profit / total assets [UNVERIFIED Attr18: 'gross profit' likely means profit before tax (translation)]",
+  "short_label": "Attr18 gross profit / total assets [U]"
+ },
+ {
+  "attr": "Attr19",
+  "name": "gp_to_sales",
+  "formula": "gross profit / sales",
+  "category": "Profitability",
+  "unverified": true,
+  "note": "'gross profit' likely means profit before tax (translation)",
+  "label": "Attr19: gross profit / sales [UNVERIFIED Attr19: 'gross profit' likely means profit before tax (translation)]",
+  "short_label": "Attr19 gross profit / sales [U]"
+ },
+ {
+  "attr": "Attr20",
+  "name": "inventory_days",
+  "formula": "(inventory * 365) / sales",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr20: (inventory * 365) / sales",
+  "short_label": "Attr20 (inventory * 365) / sales"
+ },
+ {
+  "attr": "Attr21",
+  "name": "sales_growth",
+  "formula": "sales (n) / sales (n-1)",
+  "category": "Other",
+  "unverified": false,
+  "note": "needs prior year; often missing",
+  "label": "Attr21: sales (n) / sales (n-1)",
+  "short_label": "Attr21 sales (n) / sales (n-1)"
+ },
+ {
+  "attr": "Attr22",
+  "name": "operating_profit_to_assets",
+  "formula": "profit on operating activities / total assets",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "",
+  "label": "Attr22: profit on operating activities / total assets",
+  "short_label": "Attr22 profit on operating activities / total assets"
+ },
+ {
+  "attr": "Attr23",
+  "name": "net_profit_to_sales",
+  "formula": "net profit / sales",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "",
+  "label": "Attr23: net profit / sales",
+  "short_label": "Attr23 net profit / sales"
+ },
+ {
+  "attr": "Attr24",
+  "name": "gp_3y_to_assets",
+  "formula": "gross profit (in 3 years) / total assets",
+  "category": "Profitability",
+  "unverified": true,
+  "note": "'gross profit' likely means profit before tax (translation); '(in 3 years)' unclear, possibly 3-year cumulative",
+  "label": "Attr24: gross profit (in 3 years) / total assets [UNVERIFIED Attr24: 'gross profit' likely means profit before tax (translation); '(in 3 years)' unclear, possibly 3-year cumulative]",
+  "short_label": "Attr24 gross profit (in 3 years) / total assets [U]"
+ },
+ {
+  "attr": "Attr25",
+  "name": "equity_less_share_capital_to_assets",
+  "formula": "(equity - share capital) / total assets",
+  "category": "Leverage",
+  "unverified": false,
+  "note": "",
+  "label": "Attr25: (equity - share capital) / total assets",
+  "short_label": "Attr25 (equity - share capital) / total assets"
+ },
+ {
+  "attr": "Attr26",
+  "name": "net_profit_plus_dep_to_liabilities",
+  "formula": "(net profit + depreciation) / total liabilities",
+  "category": "Cash Flow",
+  "unverified": false,
+  "note": "cash flow proxy, not true operating cash flow",
+  "label": "Attr26: (net profit + depreciation) / total liabilities",
+  "short_label": "Attr26 (net profit + depreciation) / total liabili..."
+ },
+ {
+  "attr": "Attr27",
+  "name": "operating_profit_to_fin_expenses",
+  "formula": "profit on operating activities / financial expenses",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "interest coverage style; undefined when financial expenses are zero",
+  "label": "Attr27: profit on operating activities / financial expenses",
+  "short_label": "Attr27 profit on operating activities / financial..."
+ },
+ {
+  "attr": "Attr28",
+  "name": "working_capital_to_fixed_assets",
+  "formula": "working capital / fixed assets",
+  "category": "Liquidity",
+  "unverified": false,
+  "note": "",
+  "label": "Attr28: working capital / fixed assets",
+  "short_label": "Attr28 working capital / fixed assets"
+ },
+ {
+  "attr": "Attr29",
+  "name": "log_total_assets",
+  "formula": "logarithm of total assets",
+  "category": "Other",
+  "unverified": true,
+  "note": "size measure, log base not stated",
+  "label": "Attr29: logarithm of total assets [UNVERIFIED Attr29: size measure, log base not stated]",
+  "short_label": "Attr29 logarithm of total assets [U]"
+ },
+ {
+  "attr": "Attr30",
+  "name": "liabilities_less_cash_to_sales",
+  "formula": "(total liabilities - cash) / sales",
+  "category": "Leverage",
+  "unverified": false,
+  "note": "",
+  "label": "Attr30: (total liabilities - cash) / sales",
+  "short_label": "Attr30 (total liabilities - cash) / sales"
+ },
+ {
+  "attr": "Attr31",
+  "name": "gp_plus_interest_to_sales",
+  "formula": "(gross profit + interest) / sales",
+  "category": "Profitability",
+  "unverified": true,
+  "note": "'gross profit' likely means profit before tax (translation)",
+  "label": "Attr31: (gross profit + interest) / sales [UNVERIFIED Attr31: 'gross profit' likely means profit before tax (translation)]",
+  "short_label": "Attr31 (gross profit + interest) / sales [U]"
+ },
+ {
+  "attr": "Attr32",
+  "name": "current_liabilities_days_of_cogs",
+  "formula": "(current liabilities * 365) / cost of products sold",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr32: (current liabilities * 365) / cost of products sold",
+  "short_label": "Attr32 (current liabilities * 365) / cost of produ..."
+ },
+ {
+  "attr": "Attr33",
+  "name": "opex_to_short_term_liabilities",
+  "formula": "operating expenses / short-term liabilities",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr33: operating expenses / short-term liabilities",
+  "short_label": "Attr33 operating expenses / short-term liabilities"
+ },
+ {
+  "attr": "Attr34",
+  "name": "opex_to_liabilities",
+  "formula": "operating expenses / total liabilities",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr34: operating expenses / total liabilities",
+  "short_label": "Attr34 operating expenses / total liabilities"
+ },
+ {
+  "attr": "Attr35",
+  "name": "profit_on_sales_to_assets",
+  "formula": "profit on sales / total assets",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "",
+  "label": "Attr35: profit on sales / total assets",
+  "short_label": "Attr35 profit on sales / total assets"
+ },
+ {
+  "attr": "Attr36",
+  "name": "total_sales_to_assets",
+  "formula": "total sales / total assets",
+  "category": "Other",
+  "unverified": false,
+  "note": "near duplicate of Attr9 (equal in 58% of rows)",
+  "label": "Attr36: total sales / total assets",
+  "short_label": "Attr36 total sales / total assets"
+ },
+ {
+  "attr": "Attr37",
+  "name": "quick_assets_to_long_term_liabilities",
+  "formula": "(current assets - inventories) / long-term liabilities",
+  "category": "Liquidity",
+  "unverified": false,
+  "note": "about 43% missing; undefined when no long-term liabilities",
+  "label": "Attr37: (current assets - inventories) / long-term liabilities",
+  "short_label": "Attr37 (current assets - inventories) / long-term..."
+ },
+ {
+  "attr": "Attr38",
+  "name": "constant_capital_to_assets",
+  "formula": "constant capital / total assets",
+  "category": "Leverage",
+  "unverified": true,
+  "note": "'constant capital' likely equity plus long-term liabilities (translation)",
+  "label": "Attr38: constant capital / total assets [UNVERIFIED Attr38: 'constant capital' likely equity plus long-term liabilities (translation)]",
+  "short_label": "Attr38 constant capital / total assets [U]"
+ },
+ {
+  "attr": "Attr39",
+  "name": "profit_on_sales_to_sales",
+  "formula": "profit on sales / sales",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "",
+  "label": "Attr39: profit on sales / sales",
+  "short_label": "Attr39 profit on sales / sales"
+ },
+ {
+  "attr": "Attr40",
+  "name": "cash_ratio",
+  "formula": "(current assets - inventory - receivables) / short-term liabilities",
+  "category": "Liquidity",
+  "unverified": false,
+  "note": "",
+  "label": "Attr40: (current assets - inventory - receivables) / short-term liabilities",
+  "short_label": "Attr40 (current assets - inventory - receivables)..."
+ },
+ {
+  "attr": "Attr41",
+  "name": "liabilities_to_annualised_op_profit_dep",
+  "formula": "total liabilities / ((profit on operating activities + depreciation) * (12/365))",
+  "category": "Cash Flow",
+  "unverified": true,
+  "note": "12/365 scaling looks odd; sign flips when denominator is negative",
+  "label": "Attr41: total liabilities / ((profit on operating activities + depreciation) * (12/365)) [UNVERIFIED Attr41: 12/365 scaling looks odd; sign flips when denominator is negative]",
+  "short_label": "Attr41 total liabilities / ((profit on operating a... [U]"
+ },
+ {
+  "attr": "Attr42",
+  "name": "operating_profit_to_sales",
+  "formula": "profit on operating activities / sales",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "",
+  "label": "Attr42: profit on operating activities / sales",
+  "short_label": "Attr42 profit on operating activities / sales"
+ },
+ {
+  "attr": "Attr43",
+  "name": "receivables_plus_inventory_days",
+  "formula": "rotation receivables + inventory turnover in days",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr43: rotation receivables + inventory turnover in days",
+  "short_label": "Attr43 rotation receivables + inventory turnover i..."
+ },
+ {
+  "attr": "Attr44",
+  "name": "receivables_days",
+  "formula": "(receivables * 365) / sales",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr44: (receivables * 365) / sales",
+  "short_label": "Attr44 (receivables * 365) / sales"
+ },
+ {
+  "attr": "Attr45",
+  "name": "net_profit_to_inventory",
+  "formula": "net profit / inventory",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "undefined when inventory is zero",
+  "label": "Attr45: net profit / inventory",
+  "short_label": "Attr45 net profit / inventory"
+ },
+ {
+  "attr": "Attr46",
+  "name": "quick_ratio",
+  "formula": "(current assets - inventory) / short-term liabilities",
+  "category": "Liquidity",
+  "unverified": false,
+  "note": "",
+  "label": "Attr46: (current assets - inventory) / short-term liabilities",
+  "short_label": "Attr46 (current assets - inventory) / short-term l..."
+ },
+ {
+  "attr": "Attr47",
+  "name": "inventory_days_of_cogs",
+  "formula": "(inventory * 365) / cost of products sold",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr47: (inventory * 365) / cost of products sold",
+  "short_label": "Attr47 (inventory * 365) / cost of products sold"
+ },
+ {
+  "attr": "Attr48",
+  "name": "ebitda_to_assets",
+  "formula": "EBITDA (profit on operating activities - depreciation) / total assets",
+  "category": "Profitability",
+  "unverified": true,
+  "note": "inconsistent: EBITDA adds depreciation, formula subtracts it",
+  "label": "Attr48: EBITDA (profit on operating activities - depreciation) / total assets [UNVERIFIED Attr48: inconsistent: EBITDA adds depreciation, formula subtracts it]",
+  "short_label": "Attr48 EBITDA (profit on operating activities - de... [U]"
+ },
+ {
+  "attr": "Attr49",
+  "name": "ebitda_to_sales",
+  "formula": "EBITDA (profit on operating activities - depreciation) / sales",
+  "category": "Profitability",
+  "unverified": true,
+  "note": "inconsistent: EBITDA adds depreciation, formula subtracts it",
+  "label": "Attr49: EBITDA (profit on operating activities - depreciation) / sales [UNVERIFIED Attr49: inconsistent: EBITDA adds depreciation, formula subtracts it]",
+  "short_label": "Attr49 EBITDA (profit on operating activities - de... [U]"
+ },
+ {
+  "attr": "Attr50",
+  "name": "current_assets_to_liabilities",
+  "formula": "current assets / total liabilities",
+  "category": "Liquidity",
+  "unverified": false,
+  "note": "",
+  "label": "Attr50: current assets / total liabilities",
+  "short_label": "Attr50 current assets / total liabilities"
+ },
+ {
+  "attr": "Attr51",
+  "name": "short_term_liabilities_to_assets",
+  "formula": "short-term liabilities / total assets",
+  "category": "Leverage",
+  "unverified": false,
+  "note": "",
+  "label": "Attr51: short-term liabilities / total assets",
+  "short_label": "Attr51 short-term liabilities / total assets"
+ },
+ {
+  "attr": "Attr52",
+  "name": "short_term_liabilities_days_of_cogs",
+  "formula": "(short-term liabilities * 365) / cost of products sold",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr52: (short-term liabilities * 365) / cost of products sold",
+  "short_label": "Attr52 (short-term liabilities * 365) / cost of pr..."
+ },
+ {
+  "attr": "Attr53",
+  "name": "equity_to_fixed_assets",
+  "formula": "equity / fixed assets",
+  "category": "Leverage",
+  "unverified": false,
+  "note": "",
+  "label": "Attr53: equity / fixed assets",
+  "short_label": "Attr53 equity / fixed assets"
+ },
+ {
+  "attr": "Attr54",
+  "name": "constant_capital_to_fixed_assets",
+  "formula": "constant capital / fixed assets",
+  "category": "Leverage",
+  "unverified": true,
+  "note": "'constant capital' likely equity plus long-term liabilities (translation)",
+  "label": "Attr54: constant capital / fixed assets [UNVERIFIED Attr54: 'constant capital' likely equity plus long-term liabilities (translation)]",
+  "short_label": "Attr54 constant capital / fixed assets [U]"
+ },
+ {
+  "attr": "Attr55",
+  "name": "working_capital",
+  "formula": "working capital",
+  "category": "Liquidity",
+  "unverified": true,
+  "note": "absolute amount, not a ratio; currency and unit not stated",
+  "label": "Attr55: working capital [UNVERIFIED Attr55: absolute amount, not a ratio; currency and unit not stated]",
+  "short_label": "Attr55 working capital [U]"
+ },
+ {
+  "attr": "Attr56",
+  "name": "gross_margin",
+  "formula": "(sales - cost of products sold) / sales",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "",
+  "label": "Attr56: (sales - cost of products sold) / sales",
+  "short_label": "Attr56 (sales - cost of products sold) / sales"
+ },
+ {
+  "attr": "Attr57",
+  "name": "net_quick_assets_to_cash_costs",
+  "formula": "(current assets - inventory - short-term liabilities) / (sales - gross profit - depreciation)",
+  "category": "Liquidity",
+  "unverified": true,
+  "note": "'gross profit' likely means profit before tax (translation)",
+  "label": "Attr57: (current assets - inventory - short-term liabilities) / (sales - gross profit - depreciation) [UNVERIFIED Attr57: 'gross profit' likely means profit before tax (translation)]",
+  "short_label": "Attr57 (current assets - inventory - short-term li... [U]"
+ },
+ {
+  "attr": "Attr58",
+  "name": "costs_to_sales",
+  "formula": "total costs / total sales",
+  "category": "Profitability",
+  "unverified": false,
+  "note": "",
+  "label": "Attr58: total costs / total sales",
+  "short_label": "Attr58 total costs / total sales"
+ },
+ {
+  "attr": "Attr59",
+  "name": "long_term_liabilities_to_equity",
+  "formula": "long-term liabilities / equity",
+  "category": "Leverage",
+  "unverified": false,
+  "note": "",
+  "label": "Attr59: long-term liabilities / equity",
+  "short_label": "Attr59 long-term liabilities / equity"
+ },
+ {
+  "attr": "Attr60",
+  "name": "inventory_turnover",
+  "formula": "sales / inventory",
+  "category": "Other",
+  "unverified": false,
+  "note": "undefined when inventory is zero",
+  "label": "Attr60: sales / inventory",
+  "short_label": "Attr60 sales / inventory"
+ },
+ {
+  "attr": "Attr61",
+  "name": "receivables_turnover",
+  "formula": "sales / receivables",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr61: sales / receivables",
+  "short_label": "Attr61 sales / receivables"
+ },
+ {
+  "attr": "Attr62",
+  "name": "short_term_liabilities_days_of_sales",
+  "formula": "(short-term liabilities * 365) / sales",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr62: (short-term liabilities * 365) / sales",
+  "short_label": "Attr62 (short-term liabilities * 365) / sales"
+ },
+ {
+  "attr": "Attr63",
+  "name": "sales_to_short_term_liabilities",
+  "formula": "sales / short-term liabilities",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr63: sales / short-term liabilities",
+  "short_label": "Attr63 sales / short-term liabilities"
+ },
+ {
+  "attr": "Attr64",
+  "name": "sales_to_fixed_assets",
+  "formula": "sales / fixed assets",
+  "category": "Other",
+  "unverified": false,
+  "note": "",
+  "label": "Attr64: sales / fixed assets",
+  "short_label": "Attr64 sales / fixed assets"
+ }
+]

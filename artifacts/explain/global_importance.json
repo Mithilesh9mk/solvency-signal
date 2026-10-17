@@ -1,0 +1,825 @@
+{
+ "scale": "calibrated_log_odds",
+ "features": [
+  {
+   "attr": "Attr1",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.018515408834688125,
+   "mean_abs_train": 0.019850837746012085,
+   "ci_val": [
+    0.01771352630738391,
+    0.01930827445287647
+   ],
+   "rank_val": 56
+  },
+  {
+   "attr": "Attr2",
+   "category": "Leverage",
+   "unverified": false,
+   "mean_abs_val": 0.019135895847683746,
+   "mean_abs_train": 0.01918895184891341,
+   "ci_val": [
+    0.017930766368883317,
+    0.020327981998908257
+   ],
+   "rank_val": 55
+  },
+  {
+   "attr": "Attr3",
+   "category": "Liquidity",
+   "unverified": false,
+   "mean_abs_val": 0.025528416572711404,
+   "mean_abs_train": 0.02552994141660693,
+   "ci_val": [
+    0.024327437737993955,
+    0.026735139414486832
+   ],
+   "rank_val": 49
+  },
+  {
+   "attr": "Attr4",
+   "category": "Liquidity",
+   "unverified": false,
+   "mean_abs_val": 0.020416883778877494,
+   "mean_abs_train": 0.020374086108336662,
+   "ci_val": [
+    0.018366314635939122,
+    0.02263310238165961
+   ],
+   "rank_val": 54
+  },
+  {
+   "attr": "Attr5",
+   "category": "Liquidity",
+   "unverified": false,
+   "mean_abs_val": 0.15790034083460783,
+   "mean_abs_train": 0.16015456426981675,
+   "ci_val": [
+    0.1518108213261099,
+    0.16376979510604
+   ],
+   "rank_val": 8
+  },
+  {
+   "attr": "Attr6",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.056163628371546453,
+   "mean_abs_train": 0.05578863850547522,
+   "ci_val": [
+    0.0515916291309213,
+    0.06060202085968088
+   ],
+   "rank_val": 29
+  },
+  {
+   "attr": "Attr7",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.009316407755094024,
+   "mean_abs_train": 0.009104361891398571,
+   "ci_val": [
+    0.008772525622070948,
+    0.009854051605232087
+   ],
+   "rank_val": 62
+  },
+  {
+   "attr": "Attr8",
+   "category": "Leverage",
+   "unverified": false,
+   "mean_abs_val": 0.022422203508039383,
+   "mean_abs_train": 0.022638742871613552,
+   "ci_val": [
+    0.02149559999745395,
+    0.023373137276916305
+   ],
+   "rank_val": 51
+  },
+  {
+   "attr": "Attr9",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.06834394252962267,
+   "mean_abs_train": 0.0665456380463108,
+   "ci_val": [
+    0.06503361163878785,
+    0.07197492285770309
+   ],
+   "rank_val": 25
+  },
+  {
+   "attr": "Attr10",
+   "category": "Leverage",
+   "unverified": false,
+   "mean_abs_val": 0.037236406501883694,
+   "mean_abs_train": 0.03729777573340976,
+   "ci_val": [
+    0.035647176265873576,
+    0.03878325721760564
+   ],
+   "rank_val": 40
+  },
+  {
+   "attr": "Attr11",
+   "category": "Profitability",
+   "unverified": true,
+   "mean_abs_val": 0.027793767906338078,
+   "mean_abs_train": 0.027115291849982147,
+   "ci_val": [
+    0.02620083827814019,
+    0.029360061167609856
+   ],
+   "rank_val": 46
+  },
+  {
+   "attr": "Attr12",
+   "category": "Profitability",
+   "unverified": true,
+   "mean_abs_val": 0.040198969395175636,
+   "mean_abs_train": 0.0406189398880515,
+   "ci_val": [
+    0.037507316240677775,
+    0.043064158462098656
+   ],
+   "rank_val": 35
+  },
+  {
+   "attr": "Attr13",
+   "category": "Cash Flow",
+   "unverified": true,
+   "mean_abs_val": 0.13118146963553676,
+   "mean_abs_train": 0.12918517110952846,
+   "ci_val": [
+    0.12732627208375838,
+    0.13560970986153134
+   ],
+   "rank_val": 10
+  },
+  {
+   "attr": "Attr14",
+   "category": "Profitability",
+   "unverified": true,
+   "mean_abs_val": 0.004331946919653019,
+   "mean_abs_train": 0.00426797414365653,
+   "ci_val": [
+    0.003966956292971327,
+    0.004731041278493818
+   ],
+   "rank_val": 63
+  },
+  {
+   "attr": "Attr15",
+   "category": "Cash Flow",
+   "unverified": true,
+   "mean_abs_val": 0.014123857597341518,
+   "mean_abs_train": 0.015502306652738555,
+   "ci_val": [
+    0.012746739331522422,
+    0.01572604192745305
+   ],
+   "rank_val": 60
+  },
+  {
+   "attr": "Attr16",
+   "category": "Cash Flow",
+   "unverified": true,
+   "mean_abs_val": 0.02992860634299709,
+   "mean_abs_train": 0.029526125650144987,
+   "ci_val": [
+    0.028601311547897777,
+    0.031338707352290336
+   ],
+   "rank_val": 42
+  },
+  {
+   "attr": "Attr17",
+   "category": "Leverage",
+   "unverified": false,
+   "mean_abs_val": 0.009599134980833984,
+   "mean_abs_train": 0.009685006581478042,
+   "ci_val": [
+    0.008872864011732247,
+    0.010421834865468941
+   ],
+   "rank_val": 61
+  },
+  {
+   "attr": "Attr18",
+   "category": "Profitability",
+   "unverified": true,
+   "mean_abs_val": 0.0,
+   "mean_abs_train": 0.0,
+   "ci_val": [
+    0.0,
+    0.0
+   ],
+   "rank_val": 64
+  },
+  {
+   "attr": "Attr19",
+   "category": "Profitability",
+   "unverified": true,
+   "mean_abs_val": 0.03351469637417989,
+   "mean_abs_train": 0.033904437807461,
+   "ci_val": [
+    0.031768060787425834,
+    0.035370506742602024
+   ],
+   "rank_val": 41
+  },
+  {
+   "attr": "Attr20",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.01625841182769675,
+   "mean_abs_train": 0.016413094777817137,
+   "ci_val": [
+    0.015357463439476282,
+    0.017157864877034697
+   ],
+   "rank_val": 59
+  },
+  {
+   "attr": "Attr21",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.3886557933879247,
+   "mean_abs_train": 0.40274970693213796,
+   "ci_val": [
+    0.35264123447920503,
+    0.43122282385733707
+   ],
+   "rank_val": 2
+  },
+  {
+   "attr": "Attr22",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.0374898062937686,
+   "mean_abs_train": 0.03782838859454163,
+   "ci_val": [
+    0.035082730228532144,
+    0.04009996620704093
+   ],
+   "rank_val": 39
+  },
+  {
+   "attr": "Attr23",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.023661368682822533,
+   "mean_abs_train": 0.02398850681913941,
+   "ci_val": [
+    0.02252541637531465,
+    0.024820653946351967
+   ],
+   "rank_val": 50
+  },
+  {
+   "attr": "Attr24",
+   "category": "Profitability",
+   "unverified": true,
+   "mean_abs_val": 0.16656563797557553,
+   "mean_abs_train": 0.16537432072131816,
+   "ci_val": [
+    0.15385541807099073,
+    0.1797959387748368
+   ],
+   "rank_val": 7
+  },
+  {
+   "attr": "Attr25",
+   "category": "Leverage",
+   "unverified": false,
+   "mean_abs_val": 0.19134181266309264,
+   "mean_abs_train": 0.1963461581358661,
+   "ci_val": [
+    0.18292453874283388,
+    0.20048434859354838
+   ],
+   "rank_val": 5
+  },
+  {
+   "attr": "Attr26",
+   "category": "Cash Flow",
+   "unverified": false,
+   "mean_abs_val": 0.10276143598313495,
+   "mean_abs_train": 0.1024876983938809,
+   "ci_val": [
+    0.098137092325049,
+    0.10729435373372397
+   ],
+   "rank_val": 14
+  },
+  {
+   "attr": "Attr27",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.6408986025554341,
+   "mean_abs_train": 0.6286120868176274,
+   "ci_val": [
+    0.6058354682136827,
+    0.6799164580980274
+   ],
+   "rank_val": 1
+  },
+  {
+   "attr": "Attr28",
+   "category": "Liquidity",
+   "unverified": false,
+   "mean_abs_val": 0.01750450714582252,
+   "mean_abs_train": 0.01780450255058895,
+   "ci_val": [
+    0.014575239188752753,
+    0.021097173060219587
+   ],
+   "rank_val": 58
+  },
+  {
+   "attr": "Attr29",
+   "category": "Other",
+   "unverified": true,
+   "mean_abs_val": 0.0825111580950572,
+   "mean_abs_train": 0.08479595959647376,
+   "ci_val": [
+    0.07698994993314126,
+    0.08851830276519712
+   ],
+   "rank_val": 18
+  },
+  {
+   "attr": "Attr30",
+   "category": "Leverage",
+   "unverified": false,
+   "mean_abs_val": 0.06996077438973765,
+   "mean_abs_train": 0.06923701753024157,
+   "ci_val": [
+    0.06748471134830125,
+    0.0725655794589789
+   ],
+   "rank_val": 24
+  },
+  {
+   "attr": "Attr31",
+   "category": "Profitability",
+   "unverified": true,
+   "mean_abs_val": 0.01834815056144377,
+   "mean_abs_train": 0.018221302560236175,
+   "ci_val": [
+    0.01738149461190974,
+    0.019282658961222898
+   ],
+   "rank_val": 57
+  },
+  {
+   "attr": "Attr32",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.042793243922802746,
+   "mean_abs_train": 0.04110984193752601,
+   "ci_val": [
+    0.03973831258960592,
+    0.04633613590955385
+   ],
+   "rank_val": 34
+  },
+  {
+   "attr": "Attr33",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.04794261294629237,
+   "mean_abs_train": 0.048442560420681804,
+   "ci_val": [
+    0.04512631939424241,
+    0.05077194676617831
+   ],
+   "rank_val": 30
+  },
+  {
+   "attr": "Attr34",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.2543478810947721,
+   "mean_abs_train": 0.25503239689524554,
+   "ci_val": [
+    0.2434064394013211,
+    0.2641601556996069
+   ],
+   "rank_val": 3
+  },
+  {
+   "attr": "Attr35",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.08573692367144847,
+   "mean_abs_train": 0.08919877249665902,
+   "ci_val": [
+    0.07932035284307253,
+    0.09215533762196988
+   ],
+   "rank_val": 17
+  },
+  {
+   "attr": "Attr36",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.07911636949719314,
+   "mean_abs_train": 0.07558745355953826,
+   "ci_val": [
+    0.07413499741583097,
+    0.08412178717223032
+   ],
+   "rank_val": 20
+  },
+  {
+   "attr": "Attr37",
+   "category": "Liquidity",
+   "unverified": false,
+   "mean_abs_val": 0.06060316794193255,
+   "mean_abs_train": 0.06341209299070504,
+   "ci_val": [
+    0.056355231814810475,
+    0.06526557597588592
+   ],
+   "rank_val": 27
+  },
+  {
+   "attr": "Attr38",
+   "category": "Leverage",
+   "unverified": true,
+   "mean_abs_val": 0.1430084272393175,
+   "mean_abs_train": 0.14056445488262312,
+   "ci_val": [
+    0.13509292752958083,
+    0.15039410441260148
+   ],
+   "rank_val": 9
+  },
+  {
+   "attr": "Attr39",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.10475359465905272,
+   "mean_abs_train": 0.1061778674981117,
+   "ci_val": [
+    0.09910748489825927,
+    0.11071461647745409
+   ],
+   "rank_val": 13
+  },
+  {
+   "attr": "Attr40",
+   "category": "Liquidity",
+   "unverified": false,
+   "mean_abs_val": 0.12209278945685284,
+   "mean_abs_train": 0.12192061795000485,
+   "ci_val": [
+    0.11749940867572838,
+    0.126922068103624
+   ],
+   "rank_val": 11
+  },
+  {
+   "attr": "Attr41",
+   "category": "Cash Flow",
+   "unverified": true,
+   "mean_abs_val": 0.08774671330468206,
+   "mean_abs_train": 0.0867425607531199,
+   "ci_val": [
+    0.07934410906564208,
+    0.09705365130555144
+   ],
+   "rank_val": 16
+  },
+  {
+   "attr": "Attr42",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.027669417562831256,
+   "mean_abs_train": 0.027820433458146516,
+   "ci_val": [
+    0.026275971093951363,
+    0.029121222072708234
+   ],
+   "rank_val": 47
+  },
+  {
+   "attr": "Attr43",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.11432922865681835,
+   "mean_abs_train": 0.11112075941512628,
+   "ci_val": [
+    0.1064803544377337,
+    0.12390167381581436
+   ],
+   "rank_val": 12
+  },
+  {
+   "attr": "Attr44",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.02783645074649581,
+   "mean_abs_train": 0.026561579046551792,
+   "ci_val": [
+    0.02541667715266493,
+    0.030244825428900408
+   ],
+   "rank_val": 45
+  },
+  {
+   "attr": "Attr45",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.07241879734233117,
+   "mean_abs_train": 0.06782602898415496,
+   "ci_val": [
+    0.06815359837310495,
+    0.07653963701478435
+   ],
+   "rank_val": 23
+  },
+  {
+   "attr": "Attr46",
+   "category": "Liquidity",
+   "unverified": false,
+   "mean_abs_val": 0.2532183631183739,
+   "mean_abs_train": 0.2544951048916817,
+   "ci_val": [
+    0.24349169967230003,
+    0.26300092517477697
+   ],
+   "rank_val": 4
+  },
+  {
+   "attr": "Attr47",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.046036709088432715,
+   "mean_abs_train": 0.04649597785469046,
+   "ci_val": [
+    0.04289414740464958,
+    0.049528402514576034
+   ],
+   "rank_val": 31
+  },
+  {
+   "attr": "Attr48",
+   "category": "Profitability",
+   "unverified": true,
+   "mean_abs_val": 0.057599778428743705,
+   "mean_abs_train": 0.05833208731490358,
+   "ci_val": [
+    0.054500345362399255,
+    0.060586908440362845
+   ],
+   "rank_val": 28
+  },
+  {
+   "attr": "Attr49",
+   "category": "Profitability",
+   "unverified": true,
+   "mean_abs_val": 0.04516971749318104,
+   "mean_abs_train": 0.04489904474220566,
+   "ci_val": [
+    0.04245703592533536,
+    0.047892209095753355
+   ],
+   "rank_val": 32
+  },
+  {
+   "attr": "Attr50",
+   "category": "Liquidity",
+   "unverified": false,
+   "mean_abs_val": 0.037714992902547075,
+   "mean_abs_train": 0.03590641683453759,
+   "ci_val": [
+    0.034832050954526336,
+    0.040560388262557937
+   ],
+   "rank_val": 38
+  },
+  {
+   "attr": "Attr51",
+   "category": "Leverage",
+   "unverified": false,
+   "mean_abs_val": 0.038372956130168646,
+   "mean_abs_train": 0.038244123773399474,
+   "ci_val": [
+    0.036365143193759206,
+    0.0404274040126947
+   ],
+   "rank_val": 37
+  },
+  {
+   "attr": "Attr52",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.039223101379299345,
+   "mean_abs_train": 0.039684336128472754,
+   "ci_val": [
+    0.037877527178607255,
+    0.04040766408558734
+   ],
+   "rank_val": 36
+  },
+  {
+   "attr": "Attr53",
+   "category": "Leverage",
+   "unverified": false,
+   "mean_abs_val": 0.02885352334777152,
+   "mean_abs_train": 0.02963099354963388,
+   "ci_val": [
+    0.02738571249026244,
+    0.03039353465363556
+   ],
+   "rank_val": 44
+  },
+  {
+   "attr": "Attr54",
+   "category": "Leverage",
+   "unverified": true,
+   "mean_abs_val": 0.025793632670530225,
+   "mean_abs_train": 0.026509266211311937,
+   "ci_val": [
+    0.024067295829005235,
+    0.027636096530749162
+   ],
+   "rank_val": 48
+  },
+  {
+   "attr": "Attr55",
+   "category": "Liquidity",
+   "unverified": true,
+   "mean_abs_val": 0.09622247814166054,
+   "mean_abs_train": 0.09793988613934192,
+   "ci_val": [
+    0.09263548123568813,
+    0.09994108712698924
+   ],
+   "rank_val": 15
+  },
+  {
+   "attr": "Attr56",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.07565809503942823,
+   "mean_abs_train": 0.07672327245240618,
+   "ci_val": [
+    0.07077858680904105,
+    0.08062848393617099
+   ],
+   "rank_val": 21
+  },
+  {
+   "attr": "Attr57",
+   "category": "Liquidity",
+   "unverified": true,
+   "mean_abs_val": 0.021134668658028204,
+   "mean_abs_train": 0.020283548215809816,
+   "ci_val": [
+    0.01949776847646133,
+    0.02286156699714858
+   ],
+   "rank_val": 53
+  },
+  {
+   "attr": "Attr58",
+   "category": "Profitability",
+   "unverified": false,
+   "mean_abs_val": 0.17282170689443424,
+   "mean_abs_train": 0.1718699548165247,
+   "ci_val": [
+    0.1645740174304883,
+    0.1816416828274026
+   ],
+   "rank_val": 6
+  },
+  {
+   "attr": "Attr59",
+   "category": "Leverage",
+   "unverified": false,
+   "mean_abs_val": 0.08073935390889404,
+   "mean_abs_train": 0.08438532135015282,
+   "ci_val": [
+    0.07691793066156839,
+    0.08505686743383169
+   ],
+   "rank_val": 19
+  },
+  {
+   "attr": "Attr60",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.06384049657367481,
+   "mean_abs_train": 0.06087078162592111,
+   "ci_val": [
+    0.059793051093371734,
+    0.06770298844377369
+   ],
+   "rank_val": 26
+  },
+  {
+   "attr": "Attr61",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.07257749598837442,
+   "mean_abs_train": 0.06759396217394589,
+   "ci_val": [
+    0.06748362081336941,
+    0.07800265246518638
+   ],
+   "rank_val": 22
+  },
+  {
+   "attr": "Attr62",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.04444245454297659,
+   "mean_abs_train": 0.044671185654972946,
+   "ci_val": [
+    0.04267809803486202,
+    0.04637923821873087
+   ],
+   "rank_val": 33
+  },
+  {
+   "attr": "Attr63",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.022162637534208107,
+   "mean_abs_train": 0.021376414139811565,
+   "ci_val": [
+    0.02066330456268642,
+    0.023941795909071945
+   ],
+   "rank_val": 52
+  },
+  {
+   "attr": "Attr64",
+   "category": "Other",
+   "unverified": false,
+   "mean_abs_val": 0.029133178003343963,
+   "mean_abs_train": 0.03144037991552696,
+   "ci_val": [
+    0.026236470451668055,
+    0.032097817663774356
+   ],
+   "rank_val": 43
+  }
+ ],
+ "category": {
+  "Liquidity": {
+   "mean_abs_sum_val": 0.8123366085514143,
+   "mean_abs_sum_train": 0.8178207613674301,
+   "share_val": 0.16237897452095848,
+   "n_features": 10,
+   "ci_val": [
+    0.7951074077475906,
+    0.8296803517596897
+   ]
+  },
+  "Leverage": {
+   "mean_abs_sum_val": 0.6664641211879531,
+   "mean_abs_sum_train": 0.6737278124686437,
+   "share_val": 0.1332203416838405,
+   "n_features": 11,
+   "ci_val": [
+    0.6493694673849452,
+    0.683311587457181
+   ]
+  },
+  "Profitability": {
+   "mean_abs_sum_val": 1.7186264227171706,
+   "mean_abs_sum_train": 1.7075225491080122,
+   "share_val": 0.3435383721079396,
+   "n_features": 21,
+   "ci_val": [
+    1.6702633946680696,
+    1.7668624589559005
+   ]
+  },
+  "Cash Flow": {
+   "mean_abs_sum_val": 0.36574208286369236,
+   "mean_abs_sum_train": 0.36344386255941274,
+   "share_val": 0.07310863960750201,
+   "n_features": 5,
+   "ci_val": [
+    0.3521388996558543,
+    0.37917638823524824
+   ]
+  },
+  "Other": {
+   "mean_abs_sum_val": 1.4395511658149855,
+   "mean_abs_sum_train": 1.440492028120751,
+   "share_val": 0.28775367207975944,
+   "n_features": 17,
+   "ci_val": [
+    1.3934777566469685,
+    1.4868781117133354
+   ]
+  }
+ }
+}

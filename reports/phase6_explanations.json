@@ -1,0 +1,1791 @@
+{
+ "dictionary": [
+  {
+   "attr": "Attr1",
+   "name": "net_profit_to_assets",
+   "formula": "net profit / total assets",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "",
+   "label": "Attr1: net profit / total assets",
+   "short_label": "Attr1 net profit / total assets"
+  },
+  {
+   "attr": "Attr2",
+   "name": "liabilities_to_assets",
+   "formula": "total liabilities / total assets",
+   "category": "Leverage",
+   "unverified": false,
+   "note": "",
+   "label": "Attr2: total liabilities / total assets",
+   "short_label": "Attr2 total liabilities / total assets"
+  },
+  {
+   "attr": "Attr3",
+   "name": "working_capital_to_assets",
+   "formula": "working capital / total assets",
+   "category": "Liquidity",
+   "unverified": false,
+   "note": "",
+   "label": "Attr3: working capital / total assets",
+   "short_label": "Attr3 working capital / total assets"
+  },
+  {
+   "attr": "Attr4",
+   "name": "current_ratio",
+   "formula": "current assets / short-term liabilities",
+   "category": "Liquidity",
+   "unverified": false,
+   "note": "",
+   "label": "Attr4: current assets / short-term liabilities",
+   "short_label": "Attr4 current assets / short-term liabilities"
+  },
+  {
+   "attr": "Attr5",
+   "name": "cash_interval_days",
+   "formula": "[(cash + short-term securities + receivables - short-term liabilities) / (operating expenses - depreciation)] * 365",
+   "category": "Liquidity",
+   "unverified": false,
+   "note": "",
+   "label": "Attr5: [(cash + short-term securities + receivables - short-term liabilities) / (operating expenses - depreciation)] * 365",
+   "short_label": "Attr5 [(cash + short-term securities + receivable..."
+  },
+  {
+   "attr": "Attr6",
+   "name": "retained_earnings_to_assets",
+   "formula": "retained earnings / total assets",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "",
+   "label": "Attr6: retained earnings / total assets",
+   "short_label": "Attr6 retained earnings / total assets"
+  },
+  {
+   "attr": "Attr7",
+   "name": "ebit_to_assets",
+   "formula": "EBIT / total assets",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "",
+   "label": "Attr7: EBIT / total assets",
+   "short_label": "Attr7 EBIT / total assets"
+  },
+  {
+   "attr": "Attr8",
+   "name": "book_equity_to_liabilities",
+   "formula": "book value of equity / total liabilities",
+   "category": "Leverage",
+   "unverified": false,
+   "note": "",
+   "label": "Attr8: book value of equity / total liabilities",
+   "short_label": "Attr8 book value of equity / total liabilities"
+  },
+  {
+   "attr": "Attr9",
+   "name": "sales_to_assets",
+   "formula": "sales / total assets",
+   "category": "Other",
+   "unverified": false,
+   "note": "near duplicate of Attr36 (equal in 58% of rows)",
+   "label": "Attr9: sales / total assets",
+   "short_label": "Attr9 sales / total assets"
+  },
+  {
+   "attr": "Attr10",
+   "name": "equity_to_assets",
+   "formula": "equity / total assets",
+   "category": "Leverage",
+   "unverified": false,
+   "note": "",
+   "label": "Attr10: equity / total assets",
+   "short_label": "Attr10 equity / total assets"
+  },
+  {
+   "attr": "Attr11",
+   "name": "gp_extra_finexp_to_assets",
+   "formula": "(gross profit + extraordinary items + financial expenses) / total assets",
+   "category": "Profitability",
+   "unverified": true,
+   "note": "'gross profit' likely means profit before tax (translation)",
+   "label": "Attr11: (gross profit + extraordinary items + financial expenses) / total assets [UNVERIFIED Attr11: 'gross profit' likely means profit before tax (translation)]",
+   "short_label": "Attr11 (gross profit + extraordinary items + finan... [U]"
+  },
+  {
+   "attr": "Attr12",
+   "name": "gp_to_short_term_liabilities",
+   "formula": "gross profit / short-term liabilities",
+   "category": "Profitability",
+   "unverified": true,
+   "note": "'gross profit' likely means profit before tax (translation)",
+   "label": "Attr12: gross profit / short-term liabilities [UNVERIFIED Attr12: 'gross profit' likely means profit before tax (translation)]",
+   "short_label": "Attr12 gross profit / short-term liabilities [U]"
+  },
+  {
+   "attr": "Attr13",
+   "name": "gp_plus_dep_to_sales",
+   "formula": "(gross profit + depreciation) / sales",
+   "category": "Cash Flow",
+   "unverified": true,
+   "note": "'gross profit' likely means profit before tax (translation)",
+   "label": "Attr13: (gross profit + depreciation) / sales [UNVERIFIED Attr13: 'gross profit' likely means profit before tax (translation)]",
+   "short_label": "Attr13 (gross profit + depreciation) / sales [U]"
+  },
+  {
+   "attr": "Attr14",
+   "name": "gp_plus_interest_to_assets",
+   "formula": "(gross profit + interest) / total assets",
+   "category": "Profitability",
+   "unverified": true,
+   "note": "'gross profit' likely means profit before tax (translation)",
+   "label": "Attr14: (gross profit + interest) / total assets [UNVERIFIED Attr14: 'gross profit' likely means profit before tax (translation)]",
+   "short_label": "Attr14 (gross profit + interest) / total assets [U]"
+  },
+  {
+   "attr": "Attr15",
+   "name": "liabilities_days_of_gp_dep",
+   "formula": "(total liabilities * 365) / (gross profit + depreciation)",
+   "category": "Cash Flow",
+   "unverified": true,
+   "note": "'gross profit' likely means profit before tax (translation); sign flips when denominator is negative",
+   "label": "Attr15: (total liabilities * 365) / (gross profit + depreciation) [UNVERIFIED Attr15: 'gross profit' likely means profit before tax (translation); sign flips when denominator is negative]",
+   "short_label": "Attr15 (total liabilities * 365) / (gross profit +... [U]"
+  },
+  {
+   "attr": "Attr16",
+   "name": "gp_plus_dep_to_liabilities",
+   "formula": "(gross profit + depreciation) / total liabilities",
+   "category": "Cash Flow",
+   "unverified": true,
+   "note": "'gross profit' likely means profit before tax (translation); cash flow proxy, not true operating cash flow",
+   "label": "Attr16: (gross profit + depreciation) / total liabilities [UNVERIFIED Attr16: 'gross profit' likely means profit before tax (translation); cash flow proxy, not true operating cash flow]",
+   "short_label": "Attr16 (gross profit + depreciation) / total liabi... [U]"
+  },
+  {
+   "attr": "Attr17",
+   "name": "assets_to_liabilities",
+   "formula": "total assets / total liabilities",
+   "category": "Leverage",
+   "unverified": false,
+   "note": "exact reciprocal of Attr2",
+   "label": "Attr17: total assets / total liabilities",
+   "short_label": "Attr17 total assets / total liabilities"
+  },
+  {
+   "attr": "Attr18",
+   "name": "gp_to_assets",
+   "formula": "gross profit / total assets",
+   "category": "Profitability",
+   "unverified": true,
+   "note": "'gross profit' likely means profit before tax (translation)",
+   "label": "Attr18: gross profit / total assets [UNVERIFIED Attr18: 'gross profit' likely means profit before tax (translation)]",
+   "short_label": "Attr18 gross profit / total assets [U]"
+  },
+  {
+   "attr": "Attr19",
+   "name": "gp_to_sales",
+   "formula": "gross profit / sales",
+   "category": "Profitability",
+   "unverified": true,
+   "note": "'gross profit' likely means profit before tax (translation)",
+   "label": "Attr19: gross profit / sales [UNVERIFIED Attr19: 'gross profit' likely means profit before tax (translation)]",
+   "short_label": "Attr19 gross profit / sales [U]"
+  },
+  {
+   "attr": "Attr20",
+   "name": "inventory_days",
+   "formula": "(inventory * 365) / sales",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr20: (inventory * 365) / sales",
+   "short_label": "Attr20 (inventory * 365) / sales"
+  },
+  {
+   "attr": "Attr21",
+   "name": "sales_growth",
+   "formula": "sales (n) / sales (n-1)",
+   "category": "Other",
+   "unverified": false,
+   "note": "needs prior year; often missing",
+   "label": "Attr21: sales (n) / sales (n-1)",
+   "short_label": "Attr21 sales (n) / sales (n-1)"
+  },
+  {
+   "attr": "Attr22",
+   "name": "operating_profit_to_assets",
+   "formula": "profit on operating activities / total assets",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "",
+   "label": "Attr22: profit on operating activities / total assets",
+   "short_label": "Attr22 profit on operating activities / total assets"
+  },
+  {
+   "attr": "Attr23",
+   "name": "net_profit_to_sales",
+   "formula": "net profit / sales",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "",
+   "label": "Attr23: net profit / sales",
+   "short_label": "Attr23 net profit / sales"
+  },
+  {
+   "attr": "Attr24",
+   "name": "gp_3y_to_assets",
+   "formula": "gross profit (in 3 years) / total assets",
+   "category": "Profitability",
+   "unverified": true,
+   "note": "'gross profit' likely means profit before tax (translation); '(in 3 years)' unclear, possibly 3-year cumulative",
+   "label": "Attr24: gross profit (in 3 years) / total assets [UNVERIFIED Attr24: 'gross profit' likely means profit before tax (translation); '(in 3 years)' unclear, possibly 3-year cumulative]",
+   "short_label": "Attr24 gross profit (in 3 years) / total assets [U]"
+  },
+  {
+   "attr": "Attr25",
+   "name": "equity_less_share_capital_to_assets",
+   "formula": "(equity - share capital) / total assets",
+   "category": "Leverage",
+   "unverified": false,
+   "note": "",
+   "label": "Attr25: (equity - share capital) / total assets",
+   "short_label": "Attr25 (equity - share capital) / total assets"
+  },
+  {
+   "attr": "Attr26",
+   "name": "net_profit_plus_dep_to_liabilities",
+   "formula": "(net profit + depreciation) / total liabilities",
+   "category": "Cash Flow",
+   "unverified": false,
+   "note": "cash flow proxy, not true operating cash flow",
+   "label": "Attr26: (net profit + depreciation) / total liabilities",
+   "short_label": "Attr26 (net profit + depreciation) / total liabili..."
+  },
+  {
+   "attr": "Attr27",
+   "name": "operating_profit_to_fin_expenses",
+   "formula": "profit on operating activities / financial expenses",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "interest coverage style; undefined when financial expenses are zero",
+   "label": "Attr27: profit on operating activities / financial expenses",
+   "short_label": "Attr27 profit on operating activities / financial..."
+  },
+  {
+   "attr": "Attr28",
+   "name": "working_capital_to_fixed_assets",
+   "formula": "working capital / fixed assets",
+   "category": "Liquidity",
+   "unverified": false,
+   "note": "",
+   "label": "Attr28: working capital / fixed assets",
+   "short_label": "Attr28 working capital / fixed assets"
+  },
+  {
+   "attr": "Attr29",
+   "name": "log_total_assets",
+   "formula": "logarithm of total assets",
+   "category": "Other",
+   "unverified": true,
+   "note": "size measure, log base not stated",
+   "label": "Attr29: logarithm of total assets [UNVERIFIED Attr29: size measure, log base not stated]",
+   "short_label": "Attr29 logarithm of total assets [U]"
+  },
+  {
+   "attr": "Attr30",
+   "name": "liabilities_less_cash_to_sales",
+   "formula": "(total liabilities - cash) / sales",
+   "category": "Leverage",
+   "unverified": false,
+   "note": "",
+   "label": "Attr30: (total liabilities - cash) / sales",
+   "short_label": "Attr30 (total liabilities - cash) / sales"
+  },
+  {
+   "attr": "Attr31",
+   "name": "gp_plus_interest_to_sales",
+   "formula": "(gross profit + interest) / sales",
+   "category": "Profitability",
+   "unverified": true,
+   "note": "'gross profit' likely means profit before tax (translation)",
+   "label": "Attr31: (gross profit + interest) / sales [UNVERIFIED Attr31: 'gross profit' likely means profit before tax (translation)]",
+   "short_label": "Attr31 (gross profit + interest) / sales [U]"
+  },
+  {
+   "attr": "Attr32",
+   "name": "current_liabilities_days_of_cogs",
+   "formula": "(current liabilities * 365) / cost of products sold",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr32: (current liabilities * 365) / cost of products sold",
+   "short_label": "Attr32 (current liabilities * 365) / cost of produ..."
+  },
+  {
+   "attr": "Attr33",
+   "name": "opex_to_short_term_liabilities",
+   "formula": "operating expenses / short-term liabilities",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr33: operating expenses / short-term liabilities",
+   "short_label": "Attr33 operating expenses / short-term liabilities"
+  },
+  {
+   "attr": "Attr34",
+   "name": "opex_to_liabilities",
+   "formula": "operating expenses / total liabilities",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr34: operating expenses / total liabilities",
+   "short_label": "Attr34 operating expenses / total liabilities"
+  },
+  {
+   "attr": "Attr35",
+   "name": "profit_on_sales_to_assets",
+   "formula": "profit on sales / total assets",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "",
+   "label": "Attr35: profit on sales / total assets",
+   "short_label": "Attr35 profit on sales / total assets"
+  },
+  {
+   "attr": "Attr36",
+   "name": "total_sales_to_assets",
+   "formula": "total sales / total assets",
+   "category": "Other",
+   "unverified": false,
+   "note": "near duplicate of Attr9 (equal in 58% of rows)",
+   "label": "Attr36: total sales / total assets",
+   "short_label": "Attr36 total sales / total assets"
+  },
+  {
+   "attr": "Attr37",
+   "name": "quick_assets_to_long_term_liabilities",
+   "formula": "(current assets - inventories) / long-term liabilities",
+   "category": "Liquidity",
+   "unverified": false,
+   "note": "about 43% missing; undefined when no long-term liabilities",
+   "label": "Attr37: (current assets - inventories) / long-term liabilities",
+   "short_label": "Attr37 (current assets - inventories) / long-term..."
+  },
+  {
+   "attr": "Attr38",
+   "name": "constant_capital_to_assets",
+   "formula": "constant capital / total assets",
+   "category": "Leverage",
+   "unverified": true,
+   "note": "'constant capital' likely equity plus long-term liabilities (translation)",
+   "label": "Attr38: constant capital / total assets [UNVERIFIED Attr38: 'constant capital' likely equity plus long-term liabilities (translation)]",
+   "short_label": "Attr38 constant capital / total assets [U]"
+  },
+  {
+   "attr": "Attr39",
+   "name": "profit_on_sales_to_sales",
+   "formula": "profit on sales / sales",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "",
+   "label": "Attr39: profit on sales / sales",
+   "short_label": "Attr39 profit on sales / sales"
+  },
+  {
+   "attr": "Attr40",
+   "name": "cash_ratio",
+   "formula": "(current assets - inventory - receivables) / short-term liabilities",
+   "category": "Liquidity",
+   "unverified": false,
+   "note": "",
+   "label": "Attr40: (current assets - inventory - receivables) / short-term liabilities",
+   "short_label": "Attr40 (current assets - inventory - receivables)..."
+  },
+  {
+   "attr": "Attr41",
+   "name": "liabilities_to_annualised_op_profit_dep",
+   "formula": "total liabilities / ((profit on operating activities + depreciation) * (12/365))",
+   "category": "Cash Flow",
+   "unverified": true,
+   "note": "12/365 scaling looks odd; sign flips when denominator is negative",
+   "label": "Attr41: total liabilities / ((profit on operating activities + depreciation) * (12/365)) [UNVERIFIED Attr41: 12/365 scaling looks odd; sign flips when denominator is negative]",
+   "short_label": "Attr41 total liabilities / ((profit on operating a... [U]"
+  },
+  {
+   "attr": "Attr42",
+   "name": "operating_profit_to_sales",
+   "formula": "profit on operating activities / sales",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "",
+   "label": "Attr42: profit on operating activities / sales",
+   "short_label": "Attr42 profit on operating activities / sales"
+  },
+  {
+   "attr": "Attr43",
+   "name": "receivables_plus_inventory_days",
+   "formula": "rotation receivables + inventory turnover in days",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr43: rotation receivables + inventory turnover in days",
+   "short_label": "Attr43 rotation receivables + inventory turnover i..."
+  },
+  {
+   "attr": "Attr44",
+   "name": "receivables_days",
+   "formula": "(receivables * 365) / sales",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr44: (receivables * 365) / sales",
+   "short_label": "Attr44 (receivables * 365) / sales"
+  },
+  {
+   "attr": "Attr45",
+   "name": "net_profit_to_inventory",
+   "formula": "net profit / inventory",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "undefined when inventory is zero",
+   "label": "Attr45: net profit / inventory",
+   "short_label": "Attr45 net profit / inventory"
+  },
+  {
+   "attr": "Attr46",
+   "name": "quick_ratio",
+   "formula": "(current assets - inventory) / short-term liabilities",
+   "category": "Liquidity",
+   "unverified": false,
+   "note": "",
+   "label": "Attr46: (current assets - inventory) / short-term liabilities",
+   "short_label": "Attr46 (current assets - inventory) / short-term l..."
+  },
+  {
+   "attr": "Attr47",
+   "name": "inventory_days_of_cogs",
+   "formula": "(inventory * 365) / cost of products sold",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr47: (inventory * 365) / cost of products sold",
+   "short_label": "Attr47 (inventory * 365) / cost of products sold"
+  },
+  {
+   "attr": "Attr48",
+   "name": "ebitda_to_assets",
+   "formula": "EBITDA (profit on operating activities - depreciation) / total assets",
+   "category": "Profitability",
+   "unverified": true,
+   "note": "inconsistent: EBITDA adds depreciation, formula subtracts it",
+   "label": "Attr48: EBITDA (profit on operating activities - depreciation) / total assets [UNVERIFIED Attr48: inconsistent: EBITDA adds depreciation, formula subtracts it]",
+   "short_label": "Attr48 EBITDA (profit on operating activities - de... [U]"
+  },
+  {
+   "attr": "Attr49",
+   "name": "ebitda_to_sales",
+   "formula": "EBITDA (profit on operating activities - depreciation) / sales",
+   "category": "Profitability",
+   "unverified": true,
+   "note": "inconsistent: EBITDA adds depreciation, formula subtracts it",
+   "label": "Attr49: EBITDA (profit on operating activities - depreciation) / sales [UNVERIFIED Attr49: inconsistent: EBITDA adds depreciation, formula subtracts it]",
+   "short_label": "Attr49 EBITDA (profit on operating activities - de... [U]"
+  },
+  {
+   "attr": "Attr50",
+   "name": "current_assets_to_liabilities",
+   "formula": "current assets / total liabilities",
+   "category": "Liquidity",
+   "unverified": false,
+   "note": "",
+   "label": "Attr50: current assets / total liabilities",
+   "short_label": "Attr50 current assets / total liabilities"
+  },
+  {
+   "attr": "Attr51",
+   "name": "short_term_liabilities_to_assets",
+   "formula": "short-term liabilities / total assets",
+   "category": "Leverage",
+   "unverified": false,
+   "note": "",
+   "label": "Attr51: short-term liabilities / total assets",
+   "short_label": "Attr51 short-term liabilities / total assets"
+  },
+  {
+   "attr": "Attr52",
+   "name": "short_term_liabilities_days_of_cogs",
+   "formula": "(short-term liabilities * 365) / cost of products sold",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr52: (short-term liabilities * 365) / cost of products sold",
+   "short_label": "Attr52 (short-term liabilities * 365) / cost of pr..."
+  },
+  {
+   "attr": "Attr53",
+   "name": "equity_to_fixed_assets",
+   "formula": "equity / fixed assets",
+   "category": "Leverage",
+   "unverified": false,
+   "note": "",
+   "label": "Attr53: equity / fixed assets",
+   "short_label": "Attr53 equity / fixed assets"
+  },
+  {
+   "attr": "Attr54",
+   "name": "constant_capital_to_fixed_assets",
+   "formula": "constant capital / fixed assets",
+   "category": "Leverage",
+   "unverified": true,
+   "note": "'constant capital' likely equity plus long-term liabilities (translation)",
+   "label": "Attr54: constant capital / fixed assets [UNVERIFIED Attr54: 'constant capital' likely equity plus long-term liabilities (translation)]",
+   "short_label": "Attr54 constant capital / fixed assets [U]"
+  },
+  {
+   "attr": "Attr55",
+   "name": "working_capital",
+   "formula": "working capital",
+   "category": "Liquidity",
+   "unverified": true,
+   "note": "absolute amount, not a ratio; currency and unit not stated",
+   "label": "Attr55: working capital [UNVERIFIED Attr55: absolute amount, not a ratio; currency and unit not stated]",
+   "short_label": "Attr55 working capital [U]"
+  },
+  {
+   "attr": "Attr56",
+   "name": "gross_margin",
+   "formula": "(sales - cost of products sold) / sales",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "",
+   "label": "Attr56: (sales - cost of products sold) / sales",
+   "short_label": "Attr56 (sales - cost of products sold) / sales"
+  },
+  {
+   "attr": "Attr57",
+   "name": "net_quick_assets_to_cash_costs",
+   "formula": "(current assets - inventory - short-term liabilities) / (sales - gross profit - depreciation)",
+   "category": "Liquidity",
+   "unverified": true,
+   "note": "'gross profit' likely means profit before tax (translation)",
+   "label": "Attr57: (current assets - inventory - short-term liabilities) / (sales - gross profit - depreciation) [UNVERIFIED Attr57: 'gross profit' likely means profit before tax (translation)]",
+   "short_label": "Attr57 (current assets - inventory - short-term li... [U]"
+  },
+  {
+   "attr": "Attr58",
+   "name": "costs_to_sales",
+   "formula": "total costs / total sales",
+   "category": "Profitability",
+   "unverified": false,
+   "note": "",
+   "label": "Attr58: total costs / total sales",
+   "short_label": "Attr58 total costs / total sales"
+  },
+  {
+   "attr": "Attr59",
+   "name": "long_term_liabilities_to_equity",
+   "formula": "long-term liabilities / equity",
+   "category": "Leverage",
+   "unverified": false,
+   "note": "",
+   "label": "Attr59: long-term liabilities / equity",
+   "short_label": "Attr59 long-term liabilities / equity"
+  },
+  {
+   "attr": "Attr60",
+   "name": "inventory_turnover",
+   "formula": "sales / inventory",
+   "category": "Other",
+   "unverified": false,
+   "note": "undefined when inventory is zero",
+   "label": "Attr60: sales / inventory",
+   "short_label": "Attr60 sales / inventory"
+  },
+  {
+   "attr": "Attr61",
+   "name": "receivables_turnover",
+   "formula": "sales / receivables",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr61: sales / receivables",
+   "short_label": "Attr61 sales / receivables"
+  },
+  {
+   "attr": "Attr62",
+   "name": "short_term_liabilities_days_of_sales",
+   "formula": "(short-term liabilities * 365) / sales",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr62: (short-term liabilities * 365) / sales",
+   "short_label": "Attr62 (short-term liabilities * 365) / sales"
+  },
+  {
+   "attr": "Attr63",
+   "name": "sales_to_short_term_liabilities",
+   "formula": "sales / short-term liabilities",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr63: sales / short-term liabilities",
+   "short_label": "Attr63 sales / short-term liabilities"
+  },
+  {
+   "attr": "Attr64",
+   "name": "sales_to_fixed_assets",
+   "formula": "sales / fixed assets",
+   "category": "Other",
+   "unverified": false,
+   "note": "",
+   "label": "Attr64: sales / fixed assets",
+   "short_label": "Attr64 sales / fixed assets"
+  }
+ ],
+ "scale": "calibrated_log_odds",
+ "slope": 0.6475164988326704,
+ "base_log_odds": -4.0500515827031744,
+ "base_probability": 0.017123165159150223,
+ "check": {
+  "train": {
+   "ok": true,
+   "reason": "",
+   "max_abs_error": 2.8332891588433995e-13,
+   "clipped": 0,
+   "tol": 1e-06,
+   "n": 4094
+  },
+  "val": {
+   "ok": true,
+   "reason": "",
+   "max_abs_error": 6.306066779870889e-14,
+   "clipped": 0,
+   "tol": 1e-06,
+   "n": 878
+  }
+ },
+ "additivity_error_raw": {
+  "train": 2.1316282072803006e-14,
+  "val": 1.9539925233402755e-14
+ },
+ "max_diff_vs_native": {
+  "train": 0.0,
+  "val": 0.0
+ },
+ "importance": {
+  "mean_abs_val": [
+   0.018515408834688125,
+   0.019135895847683746,
+   0.025528416572711404,
+   0.020416883778877494,
+   0.15790034083460783,
+   0.056163628371546453,
+   0.009316407755094024,
+   0.022422203508039383,
+   0.06834394252962267,
+   0.037236406501883694,
+   0.027793767906338078,
+   0.040198969395175636,
+   0.13118146963553676,
+   0.004331946919653019,
+   0.014123857597341518,
+   0.02992860634299709,
+   0.009599134980833984,
+   0.0,
+   0.03351469637417989,
+   0.01625841182769675,
+   0.3886557933879247,
+   0.0374898062937686,
+   0.023661368682822533,
+   0.16656563797557553,
+   0.19134181266309264,
+   0.10276143598313495,
+   0.6408986025554341,
+   0.01750450714582252,
+   0.0825111580950572,
+   0.06996077438973765,
+   0.01834815056144377,
+   0.042793243922802746,
+   0.04794261294629237,
+   0.2543478810947721,
+   0.08573692367144847,
+   0.07911636949719314,
+   0.06060316794193255,
+   0.1430084272393175,
+   0.10475359465905272,
+   0.12209278945685284,
+   0.08774671330468206,
+   0.027669417562831256,
+   0.11432922865681835,
+   0.02783645074649581,
+   0.07241879734233117,
+   0.2532183631183739,
+   0.046036709088432715,
+   0.057599778428743705,
+   0.04516971749318104,
+   0.037714992902547075,
+   0.038372956130168646,
+   0.039223101379299345,
+   0.02885352334777152,
+   0.025793632670530225,
+   0.09622247814166054,
+   0.07565809503942823,
+   0.021134668658028204,
+   0.17282170689443424,
+   0.08073935390889404,
+   0.06384049657367481,
+   0.07257749598837442,
+   0.04444245454297659,
+   0.022162637534208107,
+   0.029133178003343963
+  ],
+  "mean_abs_train": [
+   0.019850837746012085,
+   0.01918895184891341,
+   0.02552994141660693,
+   0.020374086108336662,
+   0.16015456426981675,
+   0.05578863850547522,
+   0.009104361891398571,
+   0.022638742871613552,
+   0.0665456380463108,
+   0.03729777573340976,
+   0.027115291849982147,
+   0.0406189398880515,
+   0.12918517110952846,
+   0.00426797414365653,
+   0.015502306652738555,
+   0.029526125650144987,
+   0.009685006581478042,
+   0.0,
+   0.033904437807461,
+   0.016413094777817137,
+   0.40274970693213796,
+   0.03782838859454163,
+   0.02398850681913941,
+   0.16537432072131816,
+   0.1963461581358661,
+   0.1024876983938809,
+   0.6286120868176274,
+   0.01780450255058895,
+   0.08479595959647376,
+   0.06923701753024157,
+   0.018221302560236175,
+   0.04110984193752601,
+   0.048442560420681804,
+   0.25503239689524554,
+   0.08919877249665902,
+   0.07558745355953826,
+   0.06341209299070504,
+   0.14056445488262312,
+   0.1061778674981117,
+   0.12192061795000485,
+   0.0867425607531199,
+   0.027820433458146516,
+   0.11112075941512628,
+   0.026561579046551792,
+   0.06782602898415496,
+   0.2544951048916817,
+   0.04649597785469046,
+   0.05833208731490358,
+   0.04489904474220566,
+   0.03590641683453759,
+   0.038244123773399474,
+   0.039684336128472754,
+   0.02963099354963388,
+   0.026509266211311937,
+   0.09793988613934192,
+   0.07672327245240618,
+   0.020283548215809816,
+   0.1718699548165247,
+   0.08438532135015282,
+   0.06087078162592111,
+   0.06759396217394589,
+   0.044671185654972946,
+   0.021376414139811565,
+   0.03144037991552696
+  ],
+  "ci_val": [
+   [
+    0.01771352630738391,
+    0.01930827445287647
+   ],
+   [
+    0.017930766368883317,
+    0.020327981998908257
+   ],
+   [
+    0.024327437737993955,
+    0.026735139414486832
+   ],
+   [
+    0.018366314635939122,
+    0.02263310238165961
+   ],
+   [
+    0.1518108213261099,
+    0.16376979510604
+   ],
+   [
+    0.0515916291309213,
+    0.06060202085968088
+   ],
+   [
+    0.008772525622070948,
+    0.009854051605232087
+   ],
+   [
+    0.02149559999745395,
+    0.023373137276916305
+   ],
+   [
+    0.06503361163878785,
+    0.07197492285770309
+   ],
+   [
+    0.035647176265873576,
+    0.03878325721760564
+   ],
+   [
+    0.02620083827814019,
+    0.029360061167609856
+   ],
+   [
+    0.037507316240677775,
+    0.043064158462098656
+   ],
+   [
+    0.12732627208375838,
+    0.13560970986153134
+   ],
+   [
+    0.003966956292971327,
+    0.004731041278493818
+   ],
+   [
+    0.012746739331522422,
+    0.01572604192745305
+   ],
+   [
+    0.028601311547897777,
+    0.031338707352290336
+   ],
+   [
+    0.008872864011732247,
+    0.010421834865468941
+   ],
+   [
+    0.0,
+    0.0
+   ],
+   [
+    0.031768060787425834,
+    0.035370506742602024
+   ],
+   [
+    0.015357463439476282,
+    0.017157864877034697
+   ],
+   [
+    0.35264123447920503,
+    0.43122282385733707
+   ],
+   [
+    0.035082730228532144,
+    0.04009996620704093
+   ],
+   [
+    0.02252541637531465,
+    0.024820653946351967
+   ],
+   [
+    0.15385541807099073,
+    0.1797959387748368
+   ],
+   [
+    0.18292453874283388,
+    0.20048434859354838
+   ],
+   [
+    0.098137092325049,
+    0.10729435373372397
+   ],
+   [
+    0.6058354682136827,
+    0.6799164580980274
+   ],
+   [
+    0.014575239188752753,
+    0.021097173060219587
+   ],
+   [
+    0.07698994993314126,
+    0.08851830276519712
+   ],
+   [
+    0.06748471134830125,
+    0.0725655794589789
+   ],
+   [
+    0.01738149461190974,
+    0.019282658961222898
+   ],
+   [
+    0.03973831258960592,
+    0.04633613590955385
+   ],
+   [
+    0.04512631939424241,
+    0.05077194676617831
+   ],
+   [
+    0.2434064394013211,
+    0.2641601556996069
+   ],
+   [
+    0.07932035284307253,
+    0.09215533762196988
+   ],
+   [
+    0.07413499741583097,
+    0.08412178717223032
+   ],
+   [
+    0.056355231814810475,
+    0.06526557597588592
+   ],
+   [
+    0.13509292752958083,
+    0.15039410441260148
+   ],
+   [
+    0.09910748489825927,
+    0.11071461647745409
+   ],
+   [
+    0.11749940867572838,
+    0.126922068103624
+   ],
+   [
+    0.07934410906564208,
+    0.09705365130555144
+   ],
+   [
+    0.026275971093951363,
+    0.029121222072708234
+   ],
+   [
+    0.1064803544377337,
+    0.12390167381581436
+   ],
+   [
+    0.02541667715266493,
+    0.030244825428900408
+   ],
+   [
+    0.06815359837310495,
+    0.07653963701478435
+   ],
+   [
+    0.24349169967230003,
+    0.26300092517477697
+   ],
+   [
+    0.04289414740464958,
+    0.049528402514576034
+   ],
+   [
+    0.054500345362399255,
+    0.060586908440362845
+   ],
+   [
+    0.04245703592533536,
+    0.047892209095753355
+   ],
+   [
+    0.034832050954526336,
+    0.040560388262557937
+   ],
+   [
+    0.036365143193759206,
+    0.0404274040126947
+   ],
+   [
+    0.037877527178607255,
+    0.04040766408558734
+   ],
+   [
+    0.02738571249026244,
+    0.03039353465363556
+   ],
+   [
+    0.024067295829005235,
+    0.027636096530749162
+   ],
+   [
+    0.09263548123568813,
+    0.09994108712698924
+   ],
+   [
+    0.07077858680904105,
+    0.08062848393617099
+   ],
+   [
+    0.01949776847646133,
+    0.02286156699714858
+   ],
+   [
+    0.1645740174304883,
+    0.1816416828274026
+   ],
+   [
+    0.07691793066156839,
+    0.08505686743383169
+   ],
+   [
+    0.059793051093371734,
+    0.06770298844377369
+   ],
+   [
+    0.06748362081336941,
+    0.07800265246518638
+   ],
+   [
+    0.04267809803486202,
+    0.04637923821873087
+   ],
+   [
+    0.02066330456268642,
+    0.023941795909071945
+   ],
+   [
+    0.026236470451668055,
+    0.032097817663774356
+   ]
+  ],
+  "rank_val": [
+   56,
+   55,
+   49,
+   54,
+   8,
+   29,
+   62,
+   51,
+   25,
+   40,
+   46,
+   35,
+   10,
+   63,
+   60,
+   42,
+   61,
+   64,
+   41,
+   59,
+   2,
+   39,
+   50,
+   7,
+   5,
+   14,
+   1,
+   58,
+   18,
+   24,
+   57,
+   34,
+   30,
+   3,
+   17,
+   20,
+   27,
+   9,
+   13,
+   11,
+   16,
+   47,
+   12,
+   45,
+   23,
+   4,
+   31,
+   28,
+   32,
+   38,
+   37,
+   36,
+   44,
+   48,
+   15,
+   21,
+   53,
+   6,
+   19,
+   26,
+   22,
+   33,
+   52,
+   43
+  ],
+  "rank_ci_val": [
+   [
+    55.0,
+    58.0
+   ],
+   [
+    54.0,
+    57.0
+   ],
+   [
+    47.0,
+    49.0
+   ],
+   [
+    52.0,
+    56.0
+   ],
+   [
+    7.0,
+    8.0
+   ],
+   [
+    27.0,
+    29.0
+   ],
+   [
+    61.0,
+    62.0
+   ],
+   [
+    50.0,
+    53.0
+   ],
+   [
+    23.0,
+    26.0
+   ],
+   [
+    37.0,
+    40.0
+   ],
+   [
+    43.0,
+    48.0
+   ],
+   [
+    34.0,
+    39.0
+   ],
+   [
+    10.0,
+    10.0
+   ],
+   [
+    63.0,
+    63.0
+   ],
+   [
+    59.0,
+    60.0
+   ],
+   [
+    42.0,
+    44.0
+   ],
+   [
+    61.0,
+    62.0
+   ],
+   [
+    64.0,
+    64.0
+   ],
+   [
+    41.0,
+    41.0
+   ],
+   [
+    58.0,
+    59.0
+   ],
+   [
+    2.0,
+    2.0
+   ],
+   [
+    36.0,
+    40.0
+   ],
+   [
+    49.0,
+    51.0
+   ],
+   [
+    6.0,
+    8.0
+   ],
+   [
+    5.0,
+    5.0
+   ],
+   [
+    13.0,
+    14.0
+   ],
+   [
+    1.0,
+    1.0
+   ],
+   [
+    53.0,
+    59.0
+   ],
+   [
+    16.0,
+    20.0
+   ],
+   [
+    22.0,
+    25.0
+   ],
+   [
+    55.0,
+    58.0
+   ],
+   [
+    32.0,
+    35.0
+   ],
+   [
+    30.0,
+    32.0
+   ],
+   [
+    3.0,
+    4.0
+   ],
+   [
+    16.0,
+    19.0
+   ],
+   [
+    17.0,
+    22.0
+   ],
+   [
+    26.0,
+    29.0
+   ],
+   [
+    9.0,
+    9.0
+   ],
+   [
+    12.0,
+    14.0
+   ],
+   [
+    11.0,
+    12.0
+   ],
+   [
+    15.0,
+    19.0
+   ],
+   [
+    44.0,
+    48.0
+   ],
+   [
+    11.0,
+    13.0
+   ],
+   [
+    42.0,
+    49.0
+   ],
+   [
+    21.0,
+    25.0
+   ],
+   [
+    3.0,
+    4.0
+   ],
+   [
+    30.0,
+    34.0
+   ],
+   [
+    27.0,
+    29.0
+   ],
+   [
+    30.0,
+    34.0
+   ],
+   [
+    35.0,
+    40.0
+   ],
+   [
+    35.0,
+    40.0
+   ],
+   [
+    35.0,
+    38.02499999999998
+   ],
+   [
+    42.0,
+    46.0
+   ],
+   [
+    46.0,
+    49.0
+   ],
+   [
+    15.0,
+    16.0
+   ],
+   [
+    19.0,
+    23.0
+   ],
+   [
+    51.0,
+    55.0
+   ],
+   [
+    6.0,
+    7.0
+   ],
+   [
+    17.0,
+    21.0
+   ],
+   [
+    25.0,
+    27.0
+   ],
+   [
+    20.0,
+    25.0
+   ],
+   [
+    31.0,
+    34.0
+   ],
+   [
+    50.0,
+    54.0
+   ],
+   [
+    42.0,
+    47.0
+   ]
+  ],
+  "category": {
+   "Liquidity": {
+    "mean_abs_sum_val": 0.8123366085514143,
+    "mean_abs_sum_train": 0.8178207613674301,
+    "share_val": 0.16237897452095848,
+    "n_features": 10,
+    "ci_val": [
+     0.7951074077475906,
+     0.8296803517596897
+    ]
+   },
+   "Leverage": {
+    "mean_abs_sum_val": 0.6664641211879531,
+    "mean_abs_sum_train": 0.6737278124686437,
+    "share_val": 0.1332203416838405,
+    "n_features": 11,
+    "ci_val": [
+     0.6493694673849452,
+     0.683311587457181
+    ]
+   },
+   "Profitability": {
+    "mean_abs_sum_val": 1.7186264227171706,
+    "mean_abs_sum_train": 1.7075225491080122,
+    "share_val": 0.3435383721079396,
+    "n_features": 21,
+    "ci_val": [
+     1.6702633946680696,
+     1.7668624589559005
+    ]
+   },
+   "Cash Flow": {
+    "mean_abs_sum_val": 0.36574208286369236,
+    "mean_abs_sum_train": 0.36344386255941274,
+    "share_val": 0.07310863960750201,
+    "n_features": 5,
+    "ci_val": [
+     0.3521388996558543,
+     0.37917638823524824
+    ]
+   },
+   "Other": {
+    "mean_abs_sum_val": 1.4395511658149855,
+    "mean_abs_sum_train": 1.440492028120751,
+    "share_val": 0.28775367207975944,
+    "n_features": 17,
+    "ci_val": [
+     1.3934777566469685,
+     1.4868781117133354
+    ]
+   }
+  },
+  "spearman_train_vs_val": 0.9991300366300366,
+  "top10_overlap_train_val": 10,
+  "spearman_gain_vs_val": 0.8305860805860804,
+  "total_mean_abs_val": 5.002720401135216
+ },
+ "gain": [
+  102.37685281038284,
+  59.96704488992691,
+  70.67077416181564,
+  69.3504599481821,
+  557.6579020321369,
+  199.5856803059578,
+  31.859808579087257,
+  56.50079023838043,
+  204.63929706811905,
+  35.995543628931046,
+  65.9525845348835,
+  61.30509638786316,
+  169.23310251533985,
+  9.264592111110687,
+  97.77663940191269,
+  55.10852791368961,
+  18.04339101910591,
+  0.0,
+  55.41291403770447,
+  110.59265300631523,
+  3568.244341135025,
+  373.31262269616127,
+  35.90858554840088,
+  750.1525702476501,
+  306.40243597328663,
+  155.0020867586136,
+  3591.376294195652,
+  98.44827780127525,
+  333.1829430013895,
+  101.35506135225296,
+  45.72967630624771,
+  72.72390300035477,
+  108.23171284794807,
+  837.7608116567135,
+  312.98360455036163,
+  155.99588517844677,
+  144.2832146435976,
+  186.31468001008034,
+  362.1231085062027,
+  391.4824390858412,
+  378.617602750659,
+  86.08719328045845,
+  269.36120307445526,
+  111.82398465275764,
+  216.13836987316608,
+  945.8803336918354,
+  209.14122988283634,
+  96.04974257946014,
+  125.21327275037766,
+  126.9488313794136,
+  123.16974252462387,
+  56.540169075131416,
+  216.71178469061852,
+  97.3789958357811,
+  289.615106344223,
+  307.4498451203108,
+  76.20859935879707,
+  426.4710543602705,
+  100.30423492193222,
+  168.159090295434,
+  241.8896170705557,
+  92.39047864079475,
+  56.56443762779236,
+  126.78264334797859
+ ],
+ "attr21_missingness": {
+  "train": {
+   "missing": {
+    "firms": 73,
+    "bankrupt": 71,
+    "rate": 0.9726027397260274,
+    "wilson_95": [
+     0.905498517506993,
+     0.9924542413883135
+    ]
+   },
+   "present": {
+    "firms": 4021,
+    "bankrupt": 215,
+    "rate": 0.05346928624720219,
+    "wilson_95": [
+     0.04693228191128414,
+     0.06085866173544578
+    ]
+   }
+  },
+  "val": {
+   "missing": {
+    "firms": 12,
+    "bankrupt": 11,
+    "rate": 0.9166666666666666,
+    "wilson_95": [
+     0.6461200862787544,
+     0.9851349057603305
+    ]
+   },
+   "present": {
+    "firms": 866,
+    "bankrupt": 50,
+    "rate": 0.057736720554272515,
+    "wilson_95": [
+     0.04406700049838813,
+     0.0753127529279967
+    ]
+   }
+  }
+ },
+ "attr21_shap": {
+  "train": {
+   "missing": {
+    "firms": 73,
+    "mean_shap": 5.1655477760546304,
+    "mean_abs_shap": 5.1655477760546304
+   },
+   "present": {
+    "firms": 4021,
+    "mean_shap": -0.10636418944735075,
+    "mean_abs_shap": 0.3162825945108641
+   }
+  },
+  "val": {
+   "missing": {
+    "firms": 12,
+    "mean_shap": 5.190220498877472,
+    "mean_abs_shap": 5.190220498877472
+   },
+   "present": {
+    "firms": 866,
+    "mean_shap": -0.08775110655783082,
+    "mean_abs_shap": 0.3221214094781387
+   }
+  }
+ },
+ "examples": {
+  "highest_scoring_true_positive": {
+   "val_row": 31,
+   "bankrupt": 1,
+   "probability": 0.9933375210169182,
+   "band": "High",
+   "base_probability": 0.017123165159150223,
+   "scale": "calibrated_log_odds",
+   "drivers": [
+    {
+     "attr": "Attr21",
+     "label": "Attr21: sales (n) / sales (n-1)",
+     "unverified": false,
+     "value": null,
+     "contribution": 4.702982660359855,
+     "direction": "raises",
+     "sentence": "Attr21 (sales (n) / sales (n-1)) is missing and raises the risk score by 4.70"
+    },
+    {
+     "attr": "Attr27",
+     "label": "Attr27: profit on operating activities / financial expenses",
+     "unverified": false,
+     "value": -409.67,
+     "contribution": 0.9005368761378394,
+     "direction": "raises",
+     "sentence": "Attr27 (profit on operating activities / financial expenses) is -409.7 and raises the risk score by 0.90"
+    },
+    {
+     "attr": "Attr35",
+     "label": "Attr35: profit on sales / total assets",
+     "unverified": false,
+     "value": -0.91624,
+     "contribution": 0.5766750787220004,
+     "direction": "raises",
+     "sentence": "Attr35 (profit on sales / total assets) is -0.9162 and raises the risk score by 0.58"
+    },
+    {
+     "attr": "Attr46",
+     "label": "Attr46: (current assets - inventory) / short-term liabilities",
+     "unverified": false,
+     "value": 0.19718,
+     "contribution": 0.5172236910749863,
+     "direction": "raises",
+     "sentence": "Attr46 ((current assets - inventory) / short-term liabilities) is 0.1972 and raises the risk score by 0.52"
+    },
+    {
+     "attr": "Attr24",
+     "label": "Attr24: gross profit (in 3 years) / total assets [UNVERIFIED Attr24: 'gross profit' likely means profit before tax (translation); '(in 3 years)' unclear, possibly 3-year cumulative]",
+     "unverified": true,
+     "value": 0.5486,
+     "contribution": 0.41552373062068093,
+     "direction": "raises",
+     "sentence": "Attr24 (gross profit (in 3 years) / total assets) is 0.5486 and raises the risk score by 0.42 [UNVERIFIED definition, Attr24]"
+    },
+    {
+     "attr": "Attr43",
+     "label": "Attr43: rotation receivables + inventory turnover in days",
+     "unverified": false,
+     "value": 16.237,
+     "contribution": 0.3073818635640159,
+     "direction": "raises",
+     "sentence": "Attr43 (rotation receivables + inventory turnover in days) is 16.24 and raises the risk score by 0.31"
+    }
+   ]
+  },
+  "highest_scoring_false_alarm": {
+   "val_row": 395,
+   "bankrupt": 0,
+   "probability": 0.8449547310036297,
+   "band": "High",
+   "base_probability": 0.017123165159150223,
+   "scale": "calibrated_log_odds",
+   "drivers": [
+    {
+     "attr": "Attr21",
+     "label": "Attr21: sales (n) / sales (n-1)",
+     "unverified": false,
+     "value": null,
+     "contribution": 5.445649953772125,
+     "direction": "raises",
+     "sentence": "Attr21 (sales (n) / sales (n-1)) is missing and raises the risk score by 5.45"
+    },
+    {
+     "attr": "Attr25",
+     "label": "Attr25: (equity - share capital) / total assets",
+     "unverified": false,
+     "value": -0.001145,
+     "contribution": 0.4615855143017011,
+     "direction": "raises",
+     "sentence": "Attr25 ((equity - share capital) / total assets) is -0.001145 and raises the risk score by 0.46"
+    },
+    {
+     "attr": "Attr27",
+     "label": "Attr27: profit on operating activities / financial expenses",
+     "unverified": false,
+     "value": 1.1314,
+     "contribution": -0.3809440031058626,
+     "direction": "lowers",
+     "sentence": "Attr27 (profit on operating activities / financial expenses) is 1.131 and lowers the risk score by 0.38"
+    },
+    {
+     "attr": "Attr36",
+     "label": "Attr36: total sales / total assets",
+     "unverified": false,
+     "value": 0.50333,
+     "contribution": -0.25468823485086617,
+     "direction": "lowers",
+     "sentence": "Attr36 (total sales / total assets) is 0.5033 and lowers the risk score by 0.25"
+    },
+    {
+     "attr": "Attr41",
+     "label": "Attr41: total liabilities / ((profit on operating activities + depreciation) * (12/365)) [UNVERIFIED Attr41: 12/365 scaling looks odd; sign flips when denominator is negative]",
+     "unverified": true,
+     "value": 1.105,
+     "contribution": -0.23691509192121102,
+     "direction": "lowers",
+     "sentence": "Attr41 (total liabilities / ((profit on operating activities + depreciation) * (12/365))) is 1.105 and lowers the risk score by 0.24 [UNVERIFIED definition, Attr41]"
+    },
+    {
+     "attr": "Attr9",
+     "label": "Attr9: sales / total assets",
+     "unverified": false,
+     "value": 0.50333,
+     "contribution": 0.1936866054585753,
+     "direction": "raises",
+     "sentence": "Attr9 (sales / total assets) is 0.5033 and raises the risk score by 0.19"
+    }
+   ]
+  },
+  "nearest_miss_below_watch_cut": {
+   "val_row": 319,
+   "bankrupt": 1,
+   "probability": 0.16293576389061223,
+   "band": "Low",
+   "base_probability": 0.017123165159150223,
+   "scale": "calibrated_log_odds",
+   "drivers": [
+    {
+     "attr": "Attr27",
+     "label": "Attr27: profit on operating activities / financial expenses",
+     "unverified": false,
+     "value": -7.1298,
+     "contribution": 1.148946159520502,
+     "direction": "raises",
+     "sentence": "Attr27 (profit on operating activities / financial expenses) is -7.13 and raises the risk score by 1.15"
+    },
+    {
+     "attr": "Attr39",
+     "label": "Attr39: profit on sales / sales",
+     "unverified": false,
+     "value": -0.2776,
+     "contribution": 0.4239459698224829,
+     "direction": "raises",
+     "sentence": "Attr39 (profit on sales / sales) is -0.2776 and raises the risk score by 0.42"
+    },
+    {
+     "attr": "Attr58",
+     "label": "Attr58: total costs / total sales",
+     "unverified": false,
+     "value": 1.065,
+     "contribution": -0.3817132716030367,
+     "direction": "lowers",
+     "sentence": "Attr58 (total costs / total sales) is 1.065 and lowers the risk score by 0.38"
+    },
+    {
+     "attr": "Attr35",
+     "label": "Attr35: profit on sales / total assets",
+     "unverified": false,
+     "value": -0.22437,
+     "contribution": 0.3180266702576907,
+     "direction": "raises",
+     "sentence": "Attr35 (profit on sales / total assets) is -0.2244 and raises the risk score by 0.32"
+    },
+    {
+     "attr": "Attr41",
+     "label": "Attr41: total liabilities / ((profit on operating activities + depreciation) * (12/365)) [UNVERIFIED Attr41: 12/365 scaling looks odd; sign flips when denominator is negative]",
+     "unverified": true,
+     "value": 0.55242,
+     "contribution": -0.2301182450075411,
+     "direction": "lowers",
+     "sentence": "Attr41 (total liabilities / ((profit on operating activities + depreciation) * (12/365))) is 0.5524 and lowers the risk score by 0.23 [UNVERIFIED definition, Attr41]"
+    },
+    {
+     "attr": "Attr34",
+     "label": "Attr34: operating expenses / total liabilities",
+     "unverified": false,
+     "value": 3.1248,
+     "contribution": 0.17778364766006668,
+     "direction": "raises",
+     "sentence": "Attr34 (operating expenses / total liabilities) is 3.125 and raises the risk score by 0.18"
+    }
+   ]
+  }
+ },
+ "flags": [
+  "SHAP describes what the model does, not what causes bankruptcy. A large contribution is a model pattern, not a cause.",
+  "Correlated ratios split credit, so one ratio can look less important because a close twin shares its signal. Known near twins: Attr2 and Attr17 (exact reciprocals), Attr9 and Attr36 (near duplicates). Category sums are only a partial remedy.",
+  "The five categories are assigned by this project from each formula. They are not in the UCI description or the dictionary. Borderline cases are Attr27, Attr30, Attr33, Attr34, Attr37 and Attr58. The full map is in the appendix.",
+  "3 of the 10 most important features have UNVERIFIED definitions (Attr24, Attr38, Attr13). Read their plain-language names as the UCI wording, which the dictionary marks as possibly mistranslated, unclear or inconsistent.",
+  "Importance stability: Spearman correlation of mean |SHAP| between train and validation is 0.999, and 10 of the top 10 features agree. Agreement with LightGBM gain importance (Spearman) is 0.831.",
+  "Cross-checks: SHAP additivity error against the model output is at most 2.1e-14. The shap library differs from LightGBM's native contributions by at most 0.0e+00; a difference of exactly zero suggests the library delegates to LightGBM's own routine for this model type, so that comparison is not an independent check.",
+  "The frozen model is refit on all of train, while the Platt slope was fitted on fold models. The slope is applied to the refit model. Whether that mismatch matters is not verified.",
+  "The base value is the model's average output over the training trees, not the observed bankruptcy rate, so it need not equal the prevalence.",
+  "Example firms were chosen by a rule fixed in advance, and there is no company id, so they are identified by validation row number.",
+  "Validation has 61 bankrupt firms and importance is an average over all 878 firms. The intervals show the sampling noise.",
+  "Test split untouched in this phase.",
+  "In 2 of the 3 example firms (highest_scoring_true_positive, highest_scoring_false_alarm) the largest driver is Attr21 being missing. The model gives such firms a very large score on that signal alone.",
+  "Attr21 missing vs present SHAP: mean abs SHAP is 5.190 when missing vs 0.322 when present (validation; 12 firms have it missing). Pattern only.",
+  "Attr21 train: bankruptcy rate 0.973 when missing (73 firms) vs 0.053 when present (4021 firms); the 95% Wilson intervals do not overlap. Pattern only.",
+  "Attr21 val: bankruptcy rate 0.917 when missing (12 firms) vs 0.058 when present (866 firms); the 95% Wilson intervals do not overlap. Pattern only."
+ ]
+}

@@ -136,3 +136,57 @@ Frozen commit: `fdef552`. Git HEAD when frozen: `14b5dd3`. Headline cuts read fr
 - README fix: the Method section said validation is never used for fitting or tuning, which was wrong after the user
   asked for validation-fitted band cuts. It now says so.
 - The test split is locked for good. Further changes to the model need new data, not this split.
+
+## 2026-10-17 (Phase 6 protocol: SHAP explanations, written BEFORE any SHAP is computed)
+
+- **Final model confirmed (user decision, after Phase 5):** LightGBM + Platt, frozen at `fdef552`. The neural network stays
+  the deep learning comparison, not deployed. Nothing about the model, calibrator or cuts changes in this phase.
+- **Data:** SHAP is computed on the train and validation splits only. The test split stays locked. The frozen model file is
+  checked against the hash in `artifacts/phase5_protocol.json` before it is used.
+- **Scale and the Platt check (user requirement).** SHAP is computed in the model's raw log-odds. Platt is
+  `sigmoid(a * logit(score) + b)`, so if the calibrator was fitted on the raw log-odds, calibrated log-odds are
+  `a * raw + b` and each SHAP value converts exactly by multiplying by `a`. Before using that conversion the code verifies
+  it: the converted values must reproduce the calibrated log-odds from the saved calibrator within 1e-6 on every
+  validation firm, and no score may be clipped by the calibrator's clip at 1e-6. A test fails if this does not hold. If the
+  check fails in the real run, SHAP is reported on the raw model scale and the report says so.
+- **Feature names (user requirement).** The plain-language label for each feature is its UCI formula text from
+  `src/polish_features.py` (UCI "X1 to X64"), with its attribute code. Any definition that the dictionary itself marks as
+  ambiguous, inconsistent, unclear or a probable mistranslation is labelled **UNVERIFIED** with its attribute code. The test
+  for that marking is a keyword rule on the dictionary flag (translation, unclear, odd, inconsistent, not stated). Nothing
+  else is guessed. Quality notes (missing data, duplicates, undefined cases) are shown as notes, not as UNVERIFIED.
+- **Categories (user requirement, with a correction to the premise).** The feature dictionary has NO category field and the
+  UCI description gives none. The five categories (Liquidity, Leverage, Profitability, Cash Flow, Other) are therefore
+  assigned by this project, once, by what the ratio's formula measures: short-term assets against short-term obligations
+  is Liquidity, debt and capital structure is Leverage, profit-type numerators (including profit over liabilities and
+  interest cover) are Profitability, profit-plus-depreciation measures are Cash Flow, and activity (turnover, days),
+  growth and size are Other. The map is stored with the dictionary, is reviewable in the report, and is project
+  judgement, not dataset documentation. Category importance is the sum of the member features' mean absolute SHAP. Correlated
+  ratios split credit between them, so single-feature importance understates the ones with close twins, and categories
+  are only a partial remedy.
+- **Attr21 missingness (user requirement).** The bankruptcy rate with Attr21 missing vs present, on train and on
+  validation, with Wilson 95% intervals. The pattern is stated only, with no causal explanation. The mean SHAP of Attr21 for
+  missing vs present rows is reported alongside.
+- **Importance reporting.** Mean absolute SHAP per feature on validation with stratified bootstrap 95% CIs (1000
+  resamples, seed 42), the same measure on train for a stability check (Spearman correlation and top-10 overlap), and
+  agreement with LightGBM gain importance (reported, not required).
+- **Example firms, picked by a rule fixed now, not by eye.** From validation: the highest-scoring true positive, the
+  highest-scoring false alarm (healthy firm), and the highest-scoring bankrupt firm below the Watch cut (the nearest miss).
+  There is no company id, so firms are identified by validation row number.
+- **Cross-checks.** Additivity (base plus SHAP sum equals the model output within 1e-6) and agreement of the `shap`
+  library with LightGBM's native `pred_contrib`. Disagreement is reported as a flag, not hidden.
+- **Dependency.** `shap` is pinned in `requirements.txt` to the installed version.
+- **Out of scope:** the app, the Indian case study, Graphify, and any change to the model, calibrator or cuts.
+
+## 2026-10-17 (Phase 6, after the run)
+
+- SHAP was computed on train and validation only, for the frozen LightGBM + Platt model (hash checked). The test split
+  was not read. Report: `reports/phase6_explanations.md`, artifacts in `artifacts/explain/`.
+- **Platt slope check passed** on all train and validation firms (max error far below the 1e-6 tolerance, no clipped
+  scores), so SHAP is reported in calibrated log-odds. Had it failed, the code falls back to the raw scale and says so.
+- **Correction to the premise recorded in the protocol:** the feature dictionary had no categories. They were added to
+  `src/polish_features.py` as a project-assigned map, and the report says so. Six borderline features are listed, and the
+  report gives the share of importance they carry.
+- The `shap` library returned contributions identical to LightGBM's native ones, so that comparison is not an independent
+  check. Additivity against the model output is the independent one. This is stated in the report flags.
+- Attr21 missingness is reported as a pattern only, as required. Its flags were generated from the numbers.
+- `src/explain.py` replaced the Phase 0 stub. `shap` is pinned to the installed version in `requirements.txt`.

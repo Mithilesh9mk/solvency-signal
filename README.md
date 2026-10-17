@@ -2,7 +2,7 @@
 
 An early-warning neural network for corporate financial distress.
 
-> Status: Phase 5 done (final one-shot test evaluation). The test split was read once and is now locked.
+> Status: Phase 6 done (SHAP explanations of the frozen LightGBM + Platt model). The test split was read once, in Phase 5, and is locked.
 
 ## Problem
 
@@ -29,6 +29,9 @@ Citation: Tomczak, S. (2016). Polish Companies Bankruptcy. UCI Machine Learning 
 - **Validation strategy:** PR AUC as the primary metric, bootstrap confidence intervals, train-only cross-validation for
   any configuration choice. Validation is used to choose between the three models and, by user decision, to fit the
   band cuts (see docs/decisions.md), so validation numbers at the cuts are in-sample.
+- **Explanations:** TreeSHAP on train and validation only, on the calibrated log-odds scale after a check that the Platt
+  slope conversion reproduces the calibrator. Feature names are the UCI formulas, with doubtful definitions marked UNVERIFIED.
+  Categories (Liquidity, Leverage, Profitability, Cash Flow, Other) are assigned by this project, since UCI gives none.
 - **Test:** read once in Phase 5 with frozen artifacts and a pre-stated verdict rule. Nothing was changed afterwards.
 - **Calibration (Phase 4):** Platt, isotonic or none, fitted on 5-fold out-of-fold predictions on train, chosen by
   cross-validated log loss. Low, Watch and High bands are set from a rule stated before results.
@@ -72,6 +75,33 @@ One-shot result on the test split (878 firms, 61 bankrupt), frozen LightGBM + Pl
 | Watch+High recall | 0.803 (0.705 to 0.902) |
 | Watch band (firms, bankrupt) | 16, 3 |
 
+What drives the model, SHAP on train and validation (Phase 6):
+
+SHAP for the frozen LightGBM + Platt model on validation, in calibrated log odds (Platt slope check passed on train and validation: True). Categories are assigned by this project (UCI gives none). Full report: reports/phase6_explanations.md.
+
+| Top feature | Category | Mean abs SHAP (95% CI) |
+|---|---|---|
+| Attr27: profit on operating activities / financial expenses | Profitability | 0.641 (0.606 to 0.680) |
+| Attr21: sales (n) / sales (n-1) | Other | 0.389 (0.353 to 0.431) |
+| Attr34: operating expenses / total liabilities | Other | 0.254 (0.243 to 0.264) |
+| Attr46: (current assets - inventory) / short-term liabilities | Liquidity | 0.253 (0.243 to 0.263) |
+| Attr25: (equity - share capital) / total assets | Leverage | 0.191 (0.183 to 0.200) |
+
+| Category | Share of total importance (validation) |
+|---|---|
+| Profitability | 34.4% |
+| Other | 28.8% |
+| Liquidity | 16.2% |
+| Leverage | 13.3% |
+| Cash Flow | 7.3% |
+
+| Attr21 | Split | Firms | Bankrupt | Rate |
+|---|---|---|---|---|
+| missing | train | 73 | 71 | 0.973 |
+| present | train | 4021 | 215 | 0.053 |
+| missing | val | 12 | 11 | 0.917 |
+| present | val | 866 | 50 | 0.058 |
+
 Details, reliability diagrams, band tables, cost framing and the model decision: [reports/phase4_calibration.md](reports/phase4_calibration.md). Earlier phases: [reports/models_val.md](reports/models_val.md).
 
 ### Flags
@@ -101,6 +131,21 @@ Details, reliability diagrams, band tables, cost framing and the model decision:
 23. Phase 5: Calibrators and band cuts were fitted on fold models, while the scored model is refit on all of train. The test run does not isolate this mismatch.
 24. Phase 5: Attr21 (sales_growth) needs last year's sales, and it is the second strongest feature.
 25. Phase 5: Nothing was retrained, recalibrated or re-cut after seeing these results, by protocol.
+26. Phase 6: SHAP describes what the model does, not what causes bankruptcy. A large contribution is a model pattern, not a cause.
+27. Phase 6: Correlated ratios split credit, so one ratio can look less important because a close twin shares its signal. Known near twins: Attr2 and Attr17 (exact reciprocals), Attr9 and Attr36 (near duplicates). Category sums are only a partial remedy.
+28. Phase 6: The five categories are assigned by this project from each formula. They are not in the UCI description or the dictionary. Borderline cases are Attr27, Attr30, Attr33, Attr34, Attr37 and Attr58. The full map is in the appendix.
+29. Phase 6: 3 of the 10 most important features have UNVERIFIED definitions (Attr24, Attr38, Attr13). Read their plain-language names as the UCI wording, which the dictionary marks as possibly mistranslated, unclear or inconsistent.
+30. Phase 6: Importance stability: Spearman correlation of mean |SHAP| between train and validation is 0.999, and 10 of the top 10 features agree. Agreement with LightGBM gain importance (Spearman) is 0.831.
+31. Phase 6: Cross-checks: SHAP additivity error against the model output is at most 2.1e-14. The shap library differs from LightGBM's native contributions by at most 0.0e+00; a difference of exactly zero suggests the library delegates to LightGBM's own routine for this model type, so that comparison is not an independent check.
+32. Phase 6: The frozen model is refit on all of train, while the Platt slope was fitted on fold models. The slope is applied to the refit model. Whether that mismatch matters is not verified.
+33. Phase 6: The base value is the model's average output over the training trees, not the observed bankruptcy rate, so it need not equal the prevalence.
+34. Phase 6: Example firms were chosen by a rule fixed in advance, and there is no company id, so they are identified by validation row number.
+35. Phase 6: Validation has 61 bankrupt firms and importance is an average over all 878 firms. The intervals show the sampling noise.
+36. Phase 6: Test split untouched in this phase.
+37. Phase 6: In 2 of the 3 example firms (highest_scoring_true_positive, highest_scoring_false_alarm) the largest driver is Attr21 being missing. The model gives such firms a very large score on that signal alone.
+38. Phase 6: Attr21 missing vs present SHAP: mean abs SHAP is 5.190 when missing vs 0.322 when present (validation; 12 firms have it missing). Pattern only.
+39. Phase 6: Attr21 train: bankruptcy rate 0.973 when missing (73 firms) vs 0.053 when present (4021 firms); the 95% Wilson intervals do not overlap. Pattern only.
+40. Phase 6: Attr21 val: bankruptcy rate 0.917 when missing (12 firms) vs 0.058 when present (866 firms); the 95% Wilson intervals do not overlap. Pattern only.
 
 <!-- RESULTS:END -->
 
@@ -148,6 +193,13 @@ Final one-shot test evaluation (already run; the script refuses to run a second 
 ```bash
 python -m scripts.final_test_eval
 python -m scripts.update_state --phase "Phase 5: final test evaluation"
+```
+
+SHAP explanations (train and validation only), then refresh the generated state files:
+
+```bash
+python -m scripts.run_phase6
+python -m scripts.update_state --phase "Phase 6: SHAP explanations"
 ```
 
 TODO: Commands for the app.
