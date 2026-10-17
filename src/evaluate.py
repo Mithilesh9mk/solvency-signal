@@ -1,4 +1,4 @@
-"""Model evaluation for Early Tremor.
+"""Model evaluation for solvency-signal.
 
 Metrics suited to heavy class imbalance:
 - PR AUC (average precision). A random model scores the positive rate.

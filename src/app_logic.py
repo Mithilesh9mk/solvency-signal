@@ -1,4 +1,4 @@
-"""Logic behind the Early Tremor app. No Streamlit, no shap, no scripts imports, no test split.
+"""Logic behind the solvency-signal app. No Streamlit, no shap, no scripts imports, no test split.
 
 Policy (docs/decisions.md, Phase 8 protocol):
 - A firm whose Attr21 is blank is not scored (policy A).

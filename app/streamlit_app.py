@@ -1,4 +1,4 @@
-"""Early Tremor: a screening signal for corporate financial distress (Streamlit app).
+"""solvency-signal: a screening signal for corporate financial distress (Streamlit app).
 
 Run from the repo root: streamlit run app/streamlit_app.py
 
@@ -28,7 +28,7 @@ ATTRIBUTION = (f"Data: {CITATION} Licensed under CC BY 4.0 (https://creativecomm
                "This project changed the data: exact duplicates dropped, a stratified random 70/15/15 split, and model scores derived from it.")
 PRIVACY = "Uploaded data is processed in memory and is not written to disk by this app."
 
-st.set_page_config(page_title="Early Tremor", layout="wide")
+st.set_page_config(page_title="solvency-signal", layout="wide")
 
 
 @st.cache_resource
@@ -53,7 +53,7 @@ try:
     frozen = get_frozen()
     numbers = get_json("reports/phase8_app_numbers.json")
 except A.FrozenArtifactError as exc:
-    st.title("Early Tremor")
+    st.title("solvency-signal")
     st.error(f"The frozen model files do not match their recorded hashes, so scoring is disabled. {exc}")
     st.stop()
 try:
@@ -61,12 +61,12 @@ try:
     BLOCKED = rule["blocked"]
     phase9 = get_json("reports/phase9_blanks.json")
 except (A.BlankRuleError, OSError, ValueError) as exc:
-    st.title("Early Tremor")
+    st.title("solvency-signal")
     st.error(f"The blank-attribute rule could not be read, so scoring is disabled. {exc}")
     st.stop()
 REFUSED = A.refused_blank_names(BLOCKED)
 
-st.title("Early Tremor")
+st.title("solvency-signal")
 st.write(CLAIM)
 tab_score, tab_valid, tab_drivers, tab_limits = st.tabs(
     ["Score a firm", "How it was checked", "What drives the model", "Limitations and data"])
@@ -139,7 +139,7 @@ with tab_score:
                  + (f" or {REFUSED} blank" if BLOCKED else "")
                  + f" is not scored, and a firm with more than {A.MAX_OTHER_BLANKS} other blank attributes is not scored. "
                  f"At most {A.MAX_ROWS} rows.")
-        st.download_button("Download a header-only template", A.template_csv(), "early_tremor_template.csv", "text/csv")
+        st.download_button("Download a header-only template", A.template_csv(), "solvency_signal_template.csv", "text/csv")
         up = st.file_uploader("CSV file", type=["csv"])
         if up is not None:
             try:

@@ -1,4 +1,4 @@
-# Early Tremor
+# solvency-signal
 
 An early-warning neural network for corporate financial distress.
 

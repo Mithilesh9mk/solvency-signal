@@ -1,1 +1,1 @@
-"""Early Tremor source package."""
+"""solvency-signal source package."""

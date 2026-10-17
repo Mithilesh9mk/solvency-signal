@@ -1,4 +1,4 @@
-# Early Tremor
+# solvency-signal
 
 Early-warning model for corporate financial distress. Trains logistic regression,
 LightGBM and a PyTorch MLP (TremorNet) on the Polish companies bankruptcy data

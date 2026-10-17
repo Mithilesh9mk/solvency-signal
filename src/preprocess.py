@@ -1,4 +1,4 @@
-"""Data preprocessing for Early Tremor.
+"""Data preprocessing for solvency-signal.
 
 Primary dataset: Polish companies bankruptcy data (UCI id 365), file
 5year.arff. Ratios come from the last year of the forecast period and the

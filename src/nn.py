@@ -1,4 +1,4 @@
-"""Neural network early-warning model for Early Tremor.
+"""Neural network early-warning model for solvency-signal.
 
 A small multilayer perceptron in PyTorch, wrapped with the scikit-learn
 fit / predict_proba interface so it plugs into the same training and

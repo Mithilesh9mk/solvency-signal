@@ -1,6 +1,6 @@
 # Data report: Polish companies bankruptcy, 5year
 
-Primary dataset for Early Tremor. Produced in Phase 1 by `src/preprocess.py`.
+Primary dataset for solvency-signal. Produced in Phase 1 by `src/preprocess.py`.
 
 ## Source
 

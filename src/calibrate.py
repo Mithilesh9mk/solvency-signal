@@ -1,4 +1,4 @@
-"""Probability calibration, risk bands and cost thresholds for Early Tremor.
+"""Probability calibration, risk bands and cost thresholds for solvency-signal.
 
 Design (rules fixed before looking at results, see docs/decisions.md):
 - Calibrators are fitted on 5-fold out-of-fold (OOF) predictions on the

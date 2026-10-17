@@ -1,4 +1,4 @@
-"""Shared plot style for Early Tremor.
+"""Shared plot style for solvency-signal.
 
 Colors come from the Okabe-Ito colorblind-safe palette, limited to the three
 hues that keep at least 3:1 contrast against the white background (checked by

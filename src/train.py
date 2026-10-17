@@ -1,4 +1,4 @@
-"""Model training for Early Tremor.
+"""Model training for solvency-signal.
 
 Trains every model in FACTORIES on the Polish 5year splits:
 - Logistic regression on the shared preprocessor (train-fitted clipping,
