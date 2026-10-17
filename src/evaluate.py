@@ -11,7 +11,7 @@ Metrics suited to heavy class imbalance:
 Bootstrap confidence intervals are included because the validation split
 has only 61 bankrupt firms.
 
-Phases 2 and 3 score validation only. The test split stays untouched until the
+Phases 2 to 4 score validation only. The test split stays untouched until the
 final model is chosen.
 
 All randomness uses SEED = 42.
@@ -94,42 +94,33 @@ def paired_bootstrap(y_true, score_a, score_b, n: int = 2000, seed: int = SEED) 
     return out
 
 
-SURFACE, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e6e5e1"
-SERIES = [("lightgbm", "LightGBM", "#2a78d6"), ("logistic_regression", "Logistic regression", "#eb6834"),
-          ("neural_net", "Neural network", "#1baf7a")]
-
-
 def plot_val_curves(pred_csv, out_png) -> None:
     """Precision-recall and ROC curves for every model on validation."""
-    import matplotlib
-
-    matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     import pandas as pd
     from sklearn.metrics import precision_recall_curve, roc_curve
 
+    from src.plotting import GRID, INK2, MODEL_STYLE, SURFACE, apply_style, style_axes
+
     p = pd.read_csv(pred_csv)
     y = p["bankrupt"]
-    plt.rcParams.update({"font.size": 10, "axes.edgecolor": INK2, "axes.labelcolor": INK2,
-                         "xtick.color": INK2, "ytick.color": INK2, "text.color": INK})
+    apply_style()
     fig, ax = plt.subplots(1, 2, figsize=(11, 4.6), facecolor=SURFACE)
     for a in ax:
-        a.set_facecolor(SURFACE)
-        a.grid(color=GRID, lw=0.8)
-        a.set_axisbelow(True)
-        for side in ("top", "right"):
-            a.spines[side].set_visible(False)
+        style_axes(a)
         a.set_xlim(0, 1)
         a.set_ylim(0, 1.02)
-    for col, label, color in SERIES:
+    for col, (label, color, ls, marker) in MODEL_STYLE.items():
         prec, rec, _ = precision_recall_curve(y, p[col])
-        ax[0].plot(rec, prec, color=color, lw=2, drawstyle="steps-post",
+        ax[0].plot(rec, prec, color=color, lw=2, ls=ls, marker=marker, markevery=0.1, ms=6,
+                   drawstyle="steps-post",
                    label=f"{label} (AP {average_precision_score(y, p[col]):.3f})")
         fpr, tpr, _ = roc_curve(y, p[col])
-        ax[1].plot(fpr, tpr, color=color, lw=2, label=f"{label} (AUC {roc_auc_score(y, p[col]):.3f})")
-    ax[0].axhline(y.mean(), color=INK2, lw=1, ls="--")
+        ax[1].plot(fpr, tpr, color=color, lw=2, ls=ls, marker=marker, markevery=0.1, ms=6,
+                   label=f"{label} (AUC {roc_auc_score(y, p[col]):.3f})")
+    ax[0].axhline(y.mean(), color=INK2, lw=1, ls=(0, (1, 3)))
     ax[0].text(0.01, y.mean() + 0.025, f"No skill: {y.mean():.3f}", color=INK2, fontsize=9)
-    ax[1].plot([0, 1], [0, 1], color=INK2, lw=1, ls="--")
+    ax[1].plot([0, 1], [0, 1], color=INK2, lw=1, ls=(0, (1, 3)))
     ax[1].axvline(0.05, color=GRID, lw=1.5)
     ax[1].text(0.06, 0.25, "5% FPR", color=INK2, fontsize=9)
     ax[0].set(xlabel="Recall", ylabel="Precision")

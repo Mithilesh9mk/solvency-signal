@@ -69,7 +69,10 @@ def make_lgbm() -> lgb.LGBMClassifier:
 FACTORIES = {"logistic_regression": make_logreg, "lightgbm": make_lgbm, "neural_net": TremorNet}
 
 
-def load_split(name: str) -> tuple[pd.DataFrame, pd.Series]:
+def load_split(name: str, allow_test: bool = False) -> tuple[pd.DataFrame, pd.Series]:
+    """Load a processed split. The test split is refused unless explicitly allowed."""
+    if name == "test" and not allow_test:
+        raise PermissionError("test split is locked until the final model is approved")
     df = pd.read_csv(PROCESSED / f"polish_5year_{name}.csv")
     return df[FEATURE_NAMES], df[TARGET]
 

@@ -1,0 +1,39 @@
+{
+ "seed": 42,
+ "folds": 5,
+ "ece_bins": 10,
+ "log_loss_eps": 0.0001,
+ "methods": [
+  "none",
+  "platt",
+  "isotonic"
+ ],
+ "band_rule": {
+  "high_min_precision": 0.25,
+  "watch_min_recall": 0.8
+ },
+ "cost_ratios_assumed": [
+  5,
+  10,
+  20
+ ],
+ "alt_band_rule_post_hoc": {
+  "high_min_precision": 0.5,
+  "watch_min_recall": 0.8
+ },
+ "bootstrap_n": 1000,
+ "selection_rule": "lowest CV log loss on train OOF, simplest within 1 SE",
+ "fit_data": "train OOF only; validation reports only",
+ "test_split_read": false,
+ "train_rows": 4094,
+ "val_rows": 878,
+ "versions": {
+  "python": "3.11.4",
+  "sklearn": "1.9.1",
+  "numpy": "2.4.6"
+ },
+ "data_sha256": {
+  "train": "fc21473e5488c1f574e6c5eb8c1513be0a3bdf11338f206c73f14d6d295dde73",
+  "val": "1c8b2f1f3ace1592fb488978020399f91bcbf58853c817896640e6472ae23a08"
+ }
+}

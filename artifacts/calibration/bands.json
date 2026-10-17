@@ -1,0 +1,67 @@
+{
+ "logistic_regression": {
+  "t_watch": 0.03525573091150453,
+  "t_high": 0.03525573091150453,
+  "rule": {
+   "high_min_precision": 0.25,
+   "watch_min_recall": 0.8
+  },
+  "notes": [
+   "recall floor is reached only above the High cut; Watch band is empty"
+  ],
+  "selected_method": "none",
+  "alt": {
+   "t_watch": 0.059850391858492065,
+   "t_high": 0.14075896979645763,
+   "rule": {
+    "high_min_precision": 0.25,
+    "watch_min_recall": 0.8
+   },
+   "notes": []
+  }
+ },
+ "lightgbm": {
+  "t_watch": 0.0226152975933971,
+  "t_high": 0.0226152975933971,
+  "rule": {
+   "high_min_precision": 0.25,
+   "watch_min_recall": 0.8
+  },
+  "notes": [
+   "recall floor is reached only above the High cut; Watch band is empty"
+  ],
+  "selected_method": "platt",
+  "alt": {
+   "t_watch": 0.08902323614840067,
+   "t_high": 0.08902323614840067,
+   "rule": {
+    "high_min_precision": 0.25,
+    "watch_min_recall": 0.8
+   },
+   "notes": [
+    "recall floor is reached only above the High cut; Watch band is empty"
+   ]
+  }
+ },
+ "neural_net": {
+  "t_watch": 0.028549810871481895,
+  "t_high": 0.028549810871481895,
+  "rule": {
+   "high_min_precision": 0.25,
+   "watch_min_recall": 0.8
+  },
+  "notes": [
+   "recall floor is reached only above the High cut; Watch band is empty"
+  ],
+  "selected_method": "none",
+  "alt": {
+   "t_watch": 0.10998386889696121,
+   "t_high": 0.13568079471588135,
+   "rule": {
+    "high_min_precision": 0.25,
+    "watch_min_recall": 0.8
+   },
+   "notes": []
+  }
+ }
+}

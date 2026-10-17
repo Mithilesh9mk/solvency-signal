@@ -1,0 +1,2080 @@
+{
+ "config": {
+  "seed": 42,
+  "folds": 5,
+  "ece_bins": 10,
+  "log_loss_eps": 0.0001,
+  "methods": [
+   "none",
+   "platt",
+   "isotonic"
+  ],
+  "band_rule": {
+   "high_min_precision": 0.25,
+   "watch_min_recall": 0.8
+  },
+  "cost_ratios_assumed": [
+   5,
+   10,
+   20
+  ],
+  "alt_band_rule_post_hoc": {
+   "high_min_precision": 0.5,
+   "watch_min_recall": 0.8
+  },
+  "bootstrap_n": 1000,
+  "selection_rule": "lowest CV log loss on train OOF, simplest within 1 SE",
+  "fit_data": "train OOF only; validation reports only",
+  "test_split_read": false,
+  "train_rows": 4094,
+  "val_rows": 878,
+  "versions": {
+   "python": "3.11.4",
+   "sklearn": "1.9.1",
+   "numpy": "2.4.6"
+  },
+  "data_sha256": {
+   "train": "fc21473e5488c1f574e6c5eb8c1513be0a3bdf11338f206c73f14d6d295dde73",
+   "val": "1c8b2f1f3ace1592fb488978020399f91bcbf58853c817896640e6472ae23a08"
+  }
+ },
+ "flags": [
+  "Validation has only 61 bankrupt firms and ECE uses 10 equal-frequency bins of about 87 firms (about 6 positives each), so ECE and the reliability points are noisy. Read them with the CIs.",
+  "Calibrators and bands were fitted on 5-fold out-of-fold scores of the train split (286 bankrupt). The saved models are refit on all of train, so they are slightly stronger than the fold models the calibrators saw. Direction of the bias is not verified.",
+  "Cost ratios 5:1, 10:1 and 20:1 are assumptions, not estimates from any lender or data.",
+  "Band rule wording: the approved text said 'lowest threshold' for Watch recall, which taken literally flags every firm. It was applied as the highest threshold that still reaches the recall floor.",
+  "logistic_regression: recall floor is reached only above the High cut; Watch band is empty.",
+  "logistic_regression: validation High-band precision (0.228) is below the 0.25 target met on OOF train (0.250).",
+  "logistic_regression: isotonic gives exactly 0 or 1 to 19 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.",
+  "lightgbm: recall floor is reached only above the High cut; Watch band is empty.",
+  "lightgbm: validation High-band precision (0.210) is below the 0.25 target met on OOF train (0.250).",
+  "lightgbm (alternative rule): recall floor is reached only above the High cut; Watch band is empty.",
+  "lightgbm (alternative rule): validation High-band precision (0.427) is more than 0.05 below OOF train (0.500).",
+  "lightgbm: isotonic gives exactly 0 or 1 to 151 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss.",
+  "neural_net: recall floor is reached only above the High cut; Watch band is empty.",
+  "neural_net: isotonic gives exactly 0 or 1 to 33 validation firms (log loss clips at 0.0001), which is overconfident and costs log loss."
+ ],
+ "models": {
+  "logistic_regression": {
+   "precision_floor_diagnostic": [
+    {
+     "precision_floor": 0.25,
+     "threshold": 0.03525573091150453,
+     "recall": 0.8636363636363636,
+     "share_flagged": 0.24132877381533951
+    },
+    {
+     "precision_floor": 0.35,
+     "threshold": 0.061229101881496946,
+     "recall": 0.7972027972027972,
+     "share_flagged": 0.1590131900341964
+    },
+    {
+     "precision_floor": 0.5,
+     "threshold": 0.14075896979645763,
+     "recall": 0.7097902097902098,
+     "share_flagged": 0.0991695163654128
+    },
+    {
+     "precision_floor": 0.6,
+     "threshold": 0.22920907200552706,
+     "recall": 0.6503496503496503,
+     "share_flagged": 0.07572056668295066
+    },
+    {
+     "precision_floor": 0.7,
+     "threshold": 0.36664501733091287,
+     "recall": 0.5769230769230769,
+     "share_flagged": 0.05740107474352711
+    }
+   ],
+   "selection": {
+    "table": {
+     "none": {
+      "log_loss_mean": 0.14473711085462557,
+      "log_loss_se": 0.007269289906216894,
+      "brier_mean": 0.035606864058828666
+     },
+     "platt": {
+      "log_loss_mean": 0.14352166763831628,
+      "log_loss_se": 0.0058024056470177485,
+      "brier_mean": 0.035638573390215214
+     },
+     "isotonic": {
+      "log_loss_mean": 0.14202817568770332,
+      "log_loss_se": 0.006068738143766791,
+      "brier_mean": 0.03629587024877346
+     }
+    },
+    "best_by_mean": "isotonic",
+    "selected": "none",
+    "one_se_limit": 0.1480969138314701
+   },
+   "selected_method": "none",
+   "val": {
+    "none": {
+     "brier": 0.04112987882038825,
+     "log_loss": 0.17325034319448482,
+     "ece": 0.02353938160982879,
+     "pr_auc": 0.6101813624846939,
+     "mean_pred": 0.07514501271692581,
+     "observed_rate": 0.06947608200455581,
+     "ci": {
+      "brier": [
+       0.03211736171236918,
+       0.050541855562326814
+      ],
+      "log_loss": [
+       0.13151643035414243,
+       0.2246673305954143
+      ],
+      "ece": [
+       0.011255047209305999,
+       0.034880394728608925
+      ],
+      "pr_auc": [
+       0.49852114960821226,
+       0.7341370033286744
+      ]
+     },
+     "n_exact_zero_or_one": 0
+    },
+    "platt": {
+     "brier": 0.04036516967167299,
+     "log_loss": 0.16450676455382696,
+     "ece": 0.018393405938903592,
+     "pr_auc": 0.6101813624846939,
+     "mean_pred": 0.07344166709632056,
+     "observed_rate": 0.06947608200455581,
+     "ci": {
+      "brier": [
+       0.03225774577245154,
+       0.048982212563846654
+      ],
+      "log_loss": [
+       0.13016000128550861,
+       0.20581007845622348
+      ],
+      "ece": [
+       0.013154644139204724,
+       0.03056781858505776
+      ],
+      "pr_auc": [
+       0.49852114960821226,
+       0.7341370033286746
+      ]
+     },
+     "delta_vs_none": {
+      "brier": {
+       "ci": [
+        -0.002591840644776406,
+        0.0009347955734221814
+       ]
+      },
+      "log_loss": {
+       "ci": [
+        -0.019631129638360684,
+        -7.361033472642413e-05
+       ]
+      },
+      "ece": {
+       "ci": [
+        -0.006660346236017599,
+        0.009905230573763222
+       ]
+      },
+      "pr_auc": {
+       "ci": [
+        -2.220446049250313e-16,
+        2.220446049250313e-16
+       ]
+      }
+     },
+     "n_exact_zero_or_one": 0
+    },
+    "isotonic": {
+     "brier": 0.04074978440242676,
+     "log_loss": 0.1636621433360173,
+     "ece": 0.013786762918861644,
+     "pr_auc": 0.579069455841148,
+     "mean_pred": 0.07431518613932331,
+     "observed_rate": 0.06947608200455581,
+     "ci": {
+      "brier": [
+       0.03246589563734584,
+       0.04941185838318085
+      ],
+      "log_loss": [
+       0.1274992210146068,
+       0.2073684292669704
+      ],
+      "ece": [
+       0.01130959690234876,
+       0.032464667442817605
+      ],
+      "pr_auc": [
+       0.4607281976597868,
+       0.6995890403518111
+      ]
+     },
+     "delta_vs_none": {
+      "brier": {
+       "ci": [
+        -0.002034860223690488,
+        0.0010369085904274177
+       ]
+      },
+      "log_loss": {
+       "ci": [
+        -0.030469278703638913,
+        0.010000383795030193
+       ]
+      },
+      "ece": {
+       "ci": [
+        -0.008842120308220935,
+        0.00691073938911068
+       ]
+      },
+      "pr_auc": {
+       "ci": [
+        -0.06022815106654197,
+        -0.005997789931057581
+       ]
+      }
+     },
+     "n_exact_zero_or_one": 19
+    }
+   },
+   "bands": {
+    "t_watch": 0.03525573091150453,
+    "t_high": 0.03525573091150453,
+    "rule": {
+     "high_min_precision": 0.25,
+     "watch_min_recall": 0.8
+    },
+    "notes": [
+     "recall floor is reached only above the High cut; Watch band is empty"
+    ],
+    "selected_method": "none",
+    "oof_table": [
+     {
+      "band": "Low",
+      "firms": 3106,
+      "share_of_firms": 0.7586712261846604,
+      "bankrupt": 39,
+      "bankrupt_rate": 0.012556342562781713,
+      "share_of_all_bankrupt": 0.13636363636363635
+     },
+     {
+      "band": "Watch",
+      "firms": 0,
+      "share_of_firms": 0.0,
+      "bankrupt": 0,
+      "bankrupt_rate": null,
+      "share_of_all_bankrupt": 0.0
+     },
+     {
+      "band": "High",
+      "firms": 988,
+      "share_of_firms": 0.24132877381533951,
+      "bankrupt": 247,
+      "bankrupt_rate": 0.25,
+      "share_of_all_bankrupt": 0.8636363636363636
+     }
+    ],
+    "val_table": [
+     {
+      "band": "Low",
+      "firms": 646,
+      "share_of_firms": 0.7357630979498861,
+      "bankrupt": 8,
+      "bankrupt_rate": 0.01238390092879257,
+      "share_of_all_bankrupt": 0.13114754098360656
+     },
+     {
+      "band": "Watch",
+      "firms": 0,
+      "share_of_firms": 0.0,
+      "bankrupt": 0,
+      "bankrupt_rate": null,
+      "share_of_all_bankrupt": 0.0
+     },
+     {
+      "band": "High",
+      "firms": 232,
+      "share_of_firms": 0.2642369020501139,
+      "bankrupt": 53,
+      "bankrupt_rate": 0.22844827586206898,
+      "share_of_all_bankrupt": 0.8688524590163934
+     }
+    ],
+    "alt": {
+     "t_watch": 0.059850391858492065,
+     "t_high": 0.14075896979645763,
+     "rule": {
+      "high_min_precision": 0.25,
+      "watch_min_recall": 0.8
+     },
+     "notes": [],
+     "oof_table": [
+      {
+       "band": "Low",
+       "firms": 3436,
+       "share_of_firms": 0.8392769907181241,
+       "bankrupt": 57,
+       "bankrupt_rate": 0.01658905704307334,
+       "share_of_all_bankrupt": 0.1993006993006993
+      },
+      {
+       "band": "Watch",
+       "firms": 252,
+       "share_of_firms": 0.061553492916463115,
+       "bankrupt": 26,
+       "bankrupt_rate": 0.10317460317460317,
+       "share_of_all_bankrupt": 0.09090909090909091
+      },
+      {
+       "band": "High",
+       "firms": 406,
+       "share_of_firms": 0.0991695163654128,
+       "bankrupt": 203,
+       "bankrupt_rate": 0.5,
+       "share_of_all_bankrupt": 0.7097902097902098
+      }
+     ],
+     "val_table": [
+      {
+       "band": "Low",
+       "firms": 729,
+       "share_of_firms": 0.8302961275626424,
+       "bankrupt": 11,
+       "bankrupt_rate": 0.015089163237311385,
+       "share_of_all_bankrupt": 0.18032786885245902
+      },
+      {
+       "band": "Watch",
+       "firms": 60,
+       "share_of_firms": 0.0683371298405467,
+       "bankrupt": 7,
+       "bankrupt_rate": 0.11666666666666667,
+       "share_of_all_bankrupt": 0.11475409836065574
+      },
+      {
+       "band": "High",
+       "firms": 89,
+       "share_of_firms": 0.10136674259681093,
+       "bankrupt": 43,
+       "bankrupt_rate": 0.48314606741573035,
+       "share_of_all_bankrupt": 0.7049180327868853
+      }
+     ]
+    }
+   },
+   "cost": {
+    "5": {
+     "ratio": 5,
+     "t_theory": 0.16666666666666666,
+     "t_empirical": 0.2235225279438027,
+     "theory": {
+      "threshold": 0.16666666666666666,
+      "flagged": 86,
+      "recall": 0.6885245901639344,
+      "precision": 0.4883720930232558,
+      "cost_per_1000": 158.3143507972665
+     },
+     "empirical": {
+      "threshold": 0.2235225279438027,
+      "flagged": 78,
+      "recall": 0.6721311475409836,
+      "precision": 0.5256410256410257,
+      "cost_per_1000": 156.0364464692483
+     },
+     "flag_nobody_cost_per_1000": 347.380410022779,
+     "flag_everybody_cost_per_1000": 930.5239179954442
+    },
+    "10": {
+     "ratio": 10,
+     "t_theory": 0.09090909090909091,
+     "t_empirical": 0.06688529569430685,
+     "theory": {
+      "threshold": 0.09090909090909091,
+      "flagged": 111,
+      "recall": 0.7540983606557377,
+      "precision": 0.4144144144144144,
+      "cost_per_1000": 244.874715261959
+     },
+     "empirical": {
+      "threshold": 0.06688529569430685,
+      "flagged": 136,
+      "recall": 0.7868852459016393,
+      "precision": 0.35294117647058826,
+      "cost_per_1000": 248.29157175398635
+     },
+     "flag_nobody_cost_per_1000": 694.760820045558,
+     "flag_everybody_cost_per_1000": 930.5239179954442
+    },
+    "20": {
+     "ratio": 20,
+     "t_theory": 0.047619047619047616,
+     "t_empirical": 0.044428852842147155,
+     "theory": {
+      "threshold": 0.047619047619047616,
+      "flagged": 184,
+      "recall": 0.8524590163934426,
+      "precision": 0.2826086956521739,
+      "cost_per_1000": 355.3530751708428
+     },
+     "empirical": {
+      "threshold": 0.044428852842147155,
+      "flagged": 197,
+      "recall": 0.8688524590163934,
+      "precision": 0.26903553299492383,
+      "cost_per_1000": 346.24145785876993
+     },
+     "flag_nobody_cost_per_1000": 1389.521640091116,
+     "flag_everybody_cost_per_1000": 930.5239179954442
+    }
+   },
+   "oof_metrics": {
+    "none": {
+     "brier": 0.03560818250068659,
+     "log_loss": 0.1447410451473748,
+     "ece": 0.010734946134219851,
+     "pr_auc": 0.6865467244256911,
+     "mean_pred": 0.07058861646094694,
+     "observed_rate": 0.06985832926233512
+    },
+    "platt": {
+     "brier": 0.0355231203697788,
+     "log_loss": 0.14311246166230623,
+     "ece": 0.011507036755243161,
+     "pr_auc": 0.6865460663657308,
+     "mean_pred": 0.06985015965650161,
+     "observed_rate": 0.06985832926233512
+    },
+    "isotonic": {
+     "brier": 0.03450326283465173,
+     "log_loss": 0.1333081078249128,
+     "ece": 0.0038174999019417333,
+     "pr_auc": 0.673468955439913,
+     "mean_pred": 0.06985832926233512,
+     "observed_rate": 0.06985832926233512
+    }
+   },
+   "tradeoff_oof": [
+    {
+     "threshold": 0.01,
+     "flagged": 2389,
+     "share_flagged": 0.5835368832437714,
+     "tp": 268,
+     "precision": 0.11218082879866052,
+     "recall": 0.9370629370629371
+    },
+    {
+     "threshold": 0.02,
+     "flagged": 1595,
+     "share_flagged": 0.38959452857840743,
+     "tp": 256,
+     "precision": 0.16050156739811913,
+     "recall": 0.8951048951048951
+    },
+    {
+     "threshold": 0.03,
+     "flagged": 1151,
+     "share_flagged": 0.28114313629702004,
+     "tp": 248,
+     "precision": 0.2154648132059079,
+     "recall": 0.8671328671328671
+    },
+    {
+     "threshold": 0.05,
+     "flagged": 745,
+     "share_flagged": 0.18197361993160724,
+     "tp": 234,
+     "precision": 0.31409395973154364,
+     "recall": 0.8181818181818182
+    },
+    {
+     "threshold": 0.075,
+     "flagged": 572,
+     "share_flagged": 0.13971665852467025,
+     "tp": 219,
+     "precision": 0.38286713286713286,
+     "recall": 0.7657342657342657
+    },
+    {
+     "threshold": 0.1,
+     "flagged": 481,
+     "share_flagged": 0.11748900830483634,
+     "tp": 210,
+     "precision": 0.4365904365904366,
+     "recall": 0.7342657342657343
+    },
+    {
+     "threshold": 0.15,
+     "flagged": 399,
+     "share_flagged": 0.09745969711773327,
+     "tp": 201,
+     "precision": 0.5037593984962406,
+     "recall": 0.7027972027972028
+    },
+    {
+     "threshold": 0.2,
+     "flagged": 340,
+     "share_flagged": 0.08304836345872008,
+     "tp": 190,
+     "precision": 0.5588235294117647,
+     "recall": 0.6643356643356644
+    },
+    {
+     "threshold": 0.25,
+     "flagged": 296,
+     "share_flagged": 0.0723009281875916,
+     "tp": 182,
+     "precision": 0.6148648648648649,
+     "recall": 0.6363636363636364
+    },
+    {
+     "threshold": 0.3,
+     "flagged": 264,
+     "share_flagged": 0.06448461162677088,
+     "tp": 173,
+     "precision": 0.6553030303030303,
+     "recall": 0.6048951048951049
+    },
+    {
+     "threshold": 0.4,
+     "flagged": 216,
+     "share_flagged": 0.05276013678553981,
+     "tp": 159,
+     "precision": 0.7361111111111112,
+     "recall": 0.5559440559440559
+    },
+    {
+     "threshold": 0.5,
+     "flagged": 190,
+     "share_flagged": 0.046409379579872984,
+     "tp": 148,
+     "precision": 0.7789473684210526,
+     "recall": 0.5174825174825175
+    },
+    {
+     "threshold": 0.6,
+     "flagged": 156,
+     "share_flagged": 0.038104543234000976,
+     "tp": 129,
+     "precision": 0.8269230769230769,
+     "recall": 0.45104895104895104
+    },
+    {
+     "threshold": 0.7,
+     "flagged": 138,
+     "share_flagged": 0.033707865168539325,
+     "tp": 121,
+     "precision": 0.8768115942028986,
+     "recall": 0.4230769230769231
+    },
+    {
+     "threshold": 0.8,
+     "flagged": 117,
+     "share_flagged": 0.028578407425500732,
+     "tp": 108,
+     "precision": 0.9230769230769231,
+     "recall": 0.3776223776223776
+    },
+    {
+     "threshold": 0.9,
+     "flagged": 94,
+     "share_flagged": 0.022960429897410845,
+     "tp": 90,
+     "precision": 0.9574468085106383,
+     "recall": 0.3146853146853147
+    }
+   ],
+   "tradeoff_val": [
+    {
+     "threshold": 0.01,
+     "flagged": 509,
+     "share_flagged": 0.5797266514806378,
+     "tp": 57,
+     "precision": 0.11198428290766209,
+     "recall": 0.9344262295081968
+    },
+    {
+     "threshold": 0.02,
+     "flagged": 349,
+     "share_flagged": 0.39749430523917995,
+     "tp": 57,
+     "precision": 0.16332378223495703,
+     "recall": 0.9344262295081968
+    },
+    {
+     "threshold": 0.03,
+     "flagged": 263,
+     "share_flagged": 0.29954441913439633,
+     "tp": 54,
+     "precision": 0.20532319391634982,
+     "recall": 0.8852459016393442
+    },
+    {
+     "threshold": 0.05,
+     "flagged": 176,
+     "share_flagged": 0.20045558086560364,
+     "tp": 52,
+     "precision": 0.29545454545454547,
+     "recall": 0.8524590163934426
+    },
+    {
+     "threshold": 0.075,
+     "flagged": 121,
+     "share_flagged": 0.1378132118451025,
+     "tp": 47,
+     "precision": 0.3884297520661157,
+     "recall": 0.7704918032786885
+    },
+    {
+     "threshold": 0.1,
+     "flagged": 107,
+     "share_flagged": 0.12186788154897495,
+     "tp": 46,
+     "precision": 0.42990654205607476,
+     "recall": 0.7540983606557377
+    },
+    {
+     "threshold": 0.15,
+     "flagged": 88,
+     "share_flagged": 0.10022779043280182,
+     "tp": 43,
+     "precision": 0.48863636363636365,
+     "recall": 0.7049180327868853
+    },
+    {
+     "threshold": 0.2,
+     "flagged": 81,
+     "share_flagged": 0.09225512528473805,
+     "tp": 42,
+     "precision": 0.5185185185185185,
+     "recall": 0.6885245901639344
+    },
+    {
+     "threshold": 0.25,
+     "flagged": 69,
+     "share_flagged": 0.0785876993166287,
+     "tp": 39,
+     "precision": 0.5652173913043478,
+     "recall": 0.639344262295082
+    },
+    {
+     "threshold": 0.3,
+     "flagged": 63,
+     "share_flagged": 0.07175398633257403,
+     "tp": 35,
+     "precision": 0.5555555555555556,
+     "recall": 0.5737704918032787
+    },
+    {
+     "threshold": 0.4,
+     "flagged": 52,
+     "share_flagged": 0.05922551252847381,
+     "tp": 33,
+     "precision": 0.6346153846153846,
+     "recall": 0.5409836065573771
+    },
+    {
+     "threshold": 0.5,
+     "flagged": 46,
+     "share_flagged": 0.05239179954441914,
+     "tp": 32,
+     "precision": 0.6956521739130435,
+     "recall": 0.5245901639344263
+    },
+    {
+     "threshold": 0.6,
+     "flagged": 41,
+     "share_flagged": 0.04669703872437358,
+     "tp": 29,
+     "precision": 0.7073170731707317,
+     "recall": 0.47540983606557374
+    },
+    {
+     "threshold": 0.7,
+     "flagged": 32,
+     "share_flagged": 0.03644646924829157,
+     "tp": 23,
+     "precision": 0.71875,
+     "recall": 0.3770491803278688
+    },
+    {
+     "threshold": 0.8,
+     "flagged": 26,
+     "share_flagged": 0.029612756264236904,
+     "tp": 20,
+     "precision": 0.7692307692307693,
+     "recall": 0.32786885245901637
+    },
+    {
+     "threshold": 0.9,
+     "flagged": 22,
+     "share_flagged": 0.025056947608200455,
+     "tp": 18,
+     "precision": 0.8181818181818182,
+     "recall": 0.29508196721311475
+    }
+   ],
+   "platt": {
+    "a": 0.7787935015470584,
+    "b": -0.46857975927626055
+   },
+   "isotonic_knots": 44
+  },
+  "lightgbm": {
+   "precision_floor_diagnostic": [
+    {
+     "precision_floor": 0.25,
+     "threshold": 0.0226152975933971,
+     "recall": 0.9370629370629371,
+     "share_flagged": 0.2618466047874939
+    },
+    {
+     "precision_floor": 0.35,
+     "threshold": 0.04070019676316154,
+     "recall": 0.9090909090909091,
+     "share_flagged": 0.18124084025403028
+    },
+    {
+     "precision_floor": 0.5,
+     "threshold": 0.08902323614840067,
+     "recall": 0.8461538461538461,
+     "share_flagged": 0.11822178798241328
+    },
+    {
+     "precision_floor": 0.6,
+     "threshold": 0.15330822678034736,
+     "recall": 0.7867132867132867,
+     "share_flagged": 0.09159745969711773
+    },
+    {
+     "precision_floor": 0.7,
+     "threshold": 0.284336733129758,
+     "recall": 0.7027972027972028,
+     "share_flagged": 0.07010258915486077
+    }
+   ],
+   "selection": {
+    "table": {
+     "none": {
+      "log_loss_mean": 0.12906272096364718,
+      "log_loss_se": 0.010644707619580904,
+      "brier_mean": 0.02942042586611237
+     },
+     "platt": {
+      "log_loss_mean": 0.1029118293715247,
+      "log_loss_se": 0.0056439926763853735,
+      "brier_mean": 0.027820152698535206
+     },
+     "isotonic": {
+      "log_loss_mean": 0.106975357787694,
+      "log_loss_se": 0.007095542490543827,
+      "brier_mean": 0.028268838560503877
+     }
+    },
+    "best_by_mean": "platt",
+    "selected": "platt",
+    "one_se_limit": 0.10855582204791007
+   },
+   "selected_method": "platt",
+   "val": {
+    "none": {
+     "brier": 0.030575308839711143,
+     "log_loss": 0.12573928749631305,
+     "ece": 0.01278121371184405,
+     "pr_auc": 0.7830833183831574,
+     "mean_pred": 0.0568448612592224,
+     "observed_rate": 0.06947608200455581,
+     "ci": {
+      "brier": [
+       0.022653094710782154,
+       0.0386686121345338
+      ],
+      "log_loss": [
+       0.08872584510291921,
+       0.1663707933313002
+      ],
+      "ece": [
+       0.009163688264813397,
+       0.026054898083152138
+      ],
+      "pr_auc": [
+       0.6972750076089075,
+       0.8627928537330898
+      ]
+     },
+     "n_exact_zero_or_one": 0
+    },
+    "platt": {
+     "brier": 0.030028893853212384,
+     "log_loss": 0.10877331553563017,
+     "ece": 0.013232175561187848,
+     "pr_auc": 0.7830833183831574,
+     "mean_pred": 0.07991559167016331,
+     "observed_rate": 0.06947608200455581,
+     "ci": {
+      "brier": [
+       0.023037893057331643,
+       0.03741269452024804
+      ],
+      "log_loss": [
+       0.08544460764383359,
+       0.13319672927967233
+      ],
+      "ece": [
+       0.008284180312321492,
+       0.027131728504484524
+      ],
+      "pr_auc": [
+       0.6972750076089075,
+       0.8627928537330898
+      ]
+     },
+     "delta_vs_none": {
+      "brier": {
+       "ci": [
+        -0.0025829930188490144,
+        0.0014640703312614905
+       ]
+      },
+      "log_loss": {
+       "ci": [
+        -0.034388238601675496,
+        -0.0015455208205086128
+       ]
+      },
+      "ece": {
+       "ci": [
+        -0.012285030447260283,
+        0.01011986006841894
+       ]
+      },
+      "pr_auc": {
+       "ci": [
+        0.0,
+        0.0
+       ]
+      }
+     },
+     "n_exact_zero_or_one": 0
+    },
+    "isotonic": {
+     "brier": 0.02857492628012922,
+     "log_loss": 0.10334219275001762,
+     "ece": 0.013833290342326457,
+     "pr_auc": 0.766780994382869,
+     "mean_pred": 0.07933706428446025,
+     "observed_rate": 0.06947608200455581,
+     "ci": {
+      "brier": [
+       0.02225105689213118,
+       0.03504181100429128
+      ],
+      "log_loss": [
+       0.08247562258520211,
+       0.12622398823334274
+      ],
+      "ece": [
+       0.008875339973170141,
+       0.027169460917660516
+      ],
+      "pr_auc": [
+       0.676122430094235,
+       0.8466059703285143
+      ]
+     },
+     "delta_vs_none": {
+      "brier": {
+       "ci": [
+        -0.004666399399938979,
+        0.0004978675491325558
+       ]
+      },
+      "log_loss": {
+       "ci": [
+        -0.04107826403226542,
+        -0.005086796574214998
+       ]
+      },
+      "ece": {
+       "ci": [
+        -0.010522260458812984,
+        0.010885214028019036
+       ]
+      },
+      "pr_auc": {
+       "ci": [
+        -0.024338229989913737,
+        -0.009685818016824027
+       ]
+      }
+     },
+     "n_exact_zero_or_one": 151
+    }
+   },
+   "bands": {
+    "t_watch": 0.0226152975933971,
+    "t_high": 0.0226152975933971,
+    "rule": {
+     "high_min_precision": 0.25,
+     "watch_min_recall": 0.8
+    },
+    "notes": [
+     "recall floor is reached only above the High cut; Watch band is empty"
+    ],
+    "selected_method": "platt",
+    "oof_table": [
+     {
+      "band": "Low",
+      "firms": 3022,
+      "share_of_firms": 0.7381533952125061,
+      "bankrupt": 18,
+      "bankrupt_rate": 0.005956320317670417,
+      "share_of_all_bankrupt": 0.06293706293706294
+     },
+     {
+      "band": "Watch",
+      "firms": 0,
+      "share_of_firms": 0.0,
+      "bankrupt": 0,
+      "bankrupt_rate": null,
+      "share_of_all_bankrupt": 0.0
+     },
+     {
+      "band": "High",
+      "firms": 1072,
+      "share_of_firms": 0.2618466047874939,
+      "bankrupt": 268,
+      "bankrupt_rate": 0.25,
+      "share_of_all_bankrupt": 0.9370629370629371
+     }
+    ],
+    "val_table": [
+     {
+      "band": "Low",
+      "firms": 606,
+      "share_of_firms": 0.6902050113895216,
+      "bankrupt": 4,
+      "bankrupt_rate": 0.006600660066006601,
+      "share_of_all_bankrupt": 0.06557377049180328
+     },
+     {
+      "band": "Watch",
+      "firms": 0,
+      "share_of_firms": 0.0,
+      "bankrupt": 0,
+      "bankrupt_rate": null,
+      "share_of_all_bankrupt": 0.0
+     },
+     {
+      "band": "High",
+      "firms": 272,
+      "share_of_firms": 0.3097949886104784,
+      "bankrupt": 57,
+      "bankrupt_rate": 0.20955882352941177,
+      "share_of_all_bankrupt": 0.9344262295081968
+     }
+    ],
+    "alt": {
+     "t_watch": 0.08902323614840067,
+     "t_high": 0.08902323614840067,
+     "rule": {
+      "high_min_precision": 0.25,
+      "watch_min_recall": 0.8
+     },
+     "notes": [
+      "recall floor is reached only above the High cut; Watch band is empty"
+     ],
+     "oof_table": [
+      {
+       "band": "Low",
+       "firms": 3610,
+       "share_of_firms": 0.8817782120175867,
+       "bankrupt": 44,
+       "bankrupt_rate": 0.01218836565096953,
+       "share_of_all_bankrupt": 0.15384615384615385
+      },
+      {
+       "band": "Watch",
+       "firms": 0,
+       "share_of_firms": 0.0,
+       "bankrupt": 0,
+       "bankrupt_rate": null,
+       "share_of_all_bankrupt": 0.0
+      },
+      {
+       "band": "High",
+       "firms": 484,
+       "share_of_firms": 0.11822178798241328,
+       "bankrupt": 242,
+       "bankrupt_rate": 0.5,
+       "share_of_all_bankrupt": 0.8461538461538461
+      }
+     ],
+     "val_table": [
+      {
+       "band": "Low",
+       "firms": 754,
+       "share_of_firms": 0.8587699316628702,
+       "bankrupt": 8,
+       "bankrupt_rate": 0.010610079575596816,
+       "share_of_all_bankrupt": 0.13114754098360656
+      },
+      {
+       "band": "Watch",
+       "firms": 0,
+       "share_of_firms": 0.0,
+       "bankrupt": 0,
+       "bankrupt_rate": null,
+       "share_of_all_bankrupt": 0.0
+      },
+      {
+       "band": "High",
+       "firms": 124,
+       "share_of_firms": 0.14123006833712984,
+       "bankrupt": 53,
+       "bankrupt_rate": 0.4274193548387097,
+       "share_of_all_bankrupt": 0.8688524590163934
+      }
+     ]
+    }
+   },
+   "cost": {
+    "5": {
+     "ratio": 5,
+     "t_theory": 0.16666666666666666,
+     "t_empirical": 0.12711679138073995,
+     "theory": {
+      "threshold": 0.16666666666666666,
+      "flagged": 91,
+      "recall": 0.8032786885245902,
+      "precision": 0.5384615384615384,
+      "cost_per_1000": 116.17312072892939
+     },
+     "empirical": {
+      "threshold": 0.12711679138073995,
+      "flagged": 104,
+      "recall": 0.8360655737704918,
+      "precision": 0.49038461538461536,
+      "cost_per_1000": 117.3120728929385
+     },
+     "flag_nobody_cost_per_1000": 347.380410022779,
+     "flag_everybody_cost_per_1000": 930.5239179954442
+    },
+    "10": {
+     "ratio": 10,
+     "t_theory": 0.09090909090909091,
+     "t_empirical": 0.08540070461975512,
+     "theory": {
+      "threshold": 0.09090909090909091,
+      "flagged": 122,
+      "recall": 0.8688524590163934,
+      "precision": 0.4344262295081967,
+      "cost_per_1000": 169.70387243735763
+     },
+     "empirical": {
+      "threshold": 0.08540070461975512,
+      "flagged": 128,
+      "recall": 0.8688524590163934,
+      "precision": 0.4140625,
+      "cost_per_1000": 176.5375854214123
+     },
+     "flag_nobody_cost_per_1000": 694.760820045558,
+     "flag_everybody_cost_per_1000": 930.5239179954442
+    },
+    "20": {
+     "ratio": 20,
+     "t_theory": 0.047619047619047616,
+     "t_empirical": 0.037534048190873276,
+     "theory": {
+      "threshold": 0.047619047619047616,
+      "flagged": 181,
+      "recall": 0.9016393442622951,
+      "precision": 0.30386740331491713,
+      "cost_per_1000": 280.18223234624145
+     },
+     "empirical": {
+      "threshold": 0.037534048190873276,
+      "flagged": 203,
+      "recall": 0.9344262295081968,
+      "precision": 0.28078817733990147,
+      "cost_per_1000": 257.4031890660592
+     },
+     "flag_nobody_cost_per_1000": 1389.521640091116,
+     "flag_everybody_cost_per_1000": 930.5239179954442
+    }
+   },
+   "oof_metrics": {
+    "none": {
+     "brier": 0.029421748939529514,
+     "log_loss": 0.12906790337605265,
+     "ece": 0.019096312088282937,
+     "pr_auc": 0.7999215568131193,
+     "mean_pred": 0.05077386100662446,
+     "observed_rate": 0.06985832926233512
+    },
+    "platt": {
+     "brier": 0.02772838522973923,
+     "log_loss": 0.10239266793694338,
+     "ece": 0.004947209224013748,
+     "pr_auc": 0.7999215568131193,
+     "mean_pred": 0.0698603044882948,
+     "observed_rate": 0.06985832926233512
+    },
+    "isotonic": {
+     "brier": 0.02665549235270923,
+     "log_loss": 0.09712390815643236,
+     "ece": 0.002201674336218224,
+     "pr_auc": 0.7932323219782154,
+     "mean_pred": 0.06985832926233512,
+     "observed_rate": 0.06985832926233512
+    }
+   },
+   "tradeoff_oof": [
+    {
+     "threshold": 0.01,
+     "flagged": 1750,
+     "share_flagged": 0.42745481191988277,
+     "tp": 280,
+     "precision": 0.16,
+     "recall": 0.9790209790209791
+    },
+    {
+     "threshold": 0.02,
+     "flagged": 1158,
+     "share_flagged": 0.2828529555446996,
+     "tp": 270,
+     "precision": 0.23316062176165803,
+     "recall": 0.9440559440559441
+    },
+    {
+     "threshold": 0.03,
+     "flagged": 896,
+     "share_flagged": 0.21885686370297996,
+     "tp": 267,
+     "precision": 0.29799107142857145,
+     "recall": 0.9335664335664335
+    },
+    {
+     "threshold": 0.05,
+     "flagged": 654,
+     "share_flagged": 0.15974596971177332,
+     "tp": 255,
+     "precision": 0.38990825688073394,
+     "recall": 0.8916083916083916
+    },
+    {
+     "threshold": 0.075,
+     "flagged": 526,
+     "share_flagged": 0.12848070346849047,
+     "tp": 246,
+     "precision": 0.467680608365019,
+     "recall": 0.8601398601398601
+    },
+    {
+     "threshold": 0.1,
+     "flagged": 462,
+     "share_flagged": 0.11284807034684904,
+     "tp": 238,
+     "precision": 0.5151515151515151,
+     "recall": 0.8321678321678322
+    },
+    {
+     "threshold": 0.15,
+     "flagged": 382,
+     "share_flagged": 0.09330727894479726,
+     "tp": 226,
+     "precision": 0.5916230366492147,
+     "recall": 0.7902097902097902
+    },
+    {
+     "threshold": 0.2,
+     "flagged": 331,
+     "share_flagged": 0.08085002442598925,
+     "tp": 212,
+     "precision": 0.6404833836858006,
+     "recall": 0.7412587412587412
+    },
+    {
+     "threshold": 0.25,
+     "flagged": 303,
+     "share_flagged": 0.07401074743527113,
+     "tp": 205,
+     "precision": 0.6765676567656765,
+     "recall": 0.7167832167832168
+    },
+    {
+     "threshold": 0.3,
+     "flagged": 275,
+     "share_flagged": 0.067171470444553,
+     "tp": 198,
+     "precision": 0.72,
+     "recall": 0.6923076923076923
+    },
+    {
+     "threshold": 0.4,
+     "flagged": 242,
+     "share_flagged": 0.05911089399120664,
+     "tp": 186,
+     "precision": 0.768595041322314,
+     "recall": 0.6503496503496503
+    },
+    {
+     "threshold": 0.5,
+     "flagged": 219,
+     "share_flagged": 0.053492916463116755,
+     "tp": 180,
+     "precision": 0.821917808219178,
+     "recall": 0.6293706293706294
+    },
+    {
+     "threshold": 0.6,
+     "flagged": 190,
+     "share_flagged": 0.046409379579872984,
+     "tp": 166,
+     "precision": 0.8736842105263158,
+     "recall": 0.5804195804195804
+    },
+    {
+     "threshold": 0.7,
+     "flagged": 167,
+     "share_flagged": 0.040791402051783096,
+     "tp": 154,
+     "precision": 0.9221556886227545,
+     "recall": 0.5384615384615384
+    },
+    {
+     "threshold": 0.8,
+     "flagged": 151,
+     "share_flagged": 0.03688324377137274,
+     "tp": 142,
+     "precision": 0.9403973509933775,
+     "recall": 0.4965034965034965
+    },
+    {
+     "threshold": 0.9,
+     "flagged": 114,
+     "share_flagged": 0.02784562774792379,
+     "tp": 111,
+     "precision": 0.9736842105263158,
+     "recall": 0.3881118881118881
+    }
+   ],
+   "tradeoff_val": [
+    {
+     "threshold": 0.01,
+     "flagged": 435,
+     "share_flagged": 0.49544419134396356,
+     "tp": 61,
+     "precision": 0.14022988505747128,
+     "recall": 1.0
+    },
+    {
+     "threshold": 0.02,
+     "flagged": 291,
+     "share_flagged": 0.3314350797266515,
+     "tp": 58,
+     "precision": 0.19931271477663232,
+     "recall": 0.9508196721311475
+    },
+    {
+     "threshold": 0.03,
+     "flagged": 240,
+     "share_flagged": 0.2733485193621868,
+     "tp": 57,
+     "precision": 0.2375,
+     "recall": 0.9344262295081968
+    },
+    {
+     "threshold": 0.05,
+     "flagged": 176,
+     "share_flagged": 0.20045558086560364,
+     "tp": 54,
+     "precision": 0.3068181818181818,
+     "recall": 0.8852459016393442
+    },
+    {
+     "threshold": 0.075,
+     "flagged": 133,
+     "share_flagged": 0.15148063781321183,
+     "tp": 53,
+     "precision": 0.39849624060150374,
+     "recall": 0.8688524590163934
+    },
+    {
+     "threshold": 0.1,
+     "flagged": 116,
+     "share_flagged": 0.13211845102505695,
+     "tp": 52,
+     "precision": 0.4482758620689655,
+     "recall": 0.8524590163934426
+    },
+    {
+     "threshold": 0.15,
+     "flagged": 95,
+     "share_flagged": 0.1082004555808656,
+     "tp": 50,
+     "precision": 0.5263157894736842,
+     "recall": 0.819672131147541
+    },
+    {
+     "threshold": 0.2,
+     "flagged": 80,
+     "share_flagged": 0.09111617312072894,
+     "tp": 46,
+     "precision": 0.575,
+     "recall": 0.7540983606557377
+    },
+    {
+     "threshold": 0.25,
+     "flagged": 74,
+     "share_flagged": 0.08428246013667426,
+     "tp": 45,
+     "precision": 0.6081081081081081,
+     "recall": 0.7377049180327869
+    },
+    {
+     "threshold": 0.3,
+     "flagged": 71,
+     "share_flagged": 0.08086560364464693,
+     "tp": 45,
+     "precision": 0.6338028169014085,
+     "recall": 0.7377049180327869
+    },
+    {
+     "threshold": 0.4,
+     "flagged": 62,
+     "share_flagged": 0.07061503416856492,
+     "tp": 43,
+     "precision": 0.6935483870967742,
+     "recall": 0.7049180327868853
+    },
+    {
+     "threshold": 0.5,
+     "flagged": 52,
+     "share_flagged": 0.05922551252847381,
+     "tp": 40,
+     "precision": 0.7692307692307693,
+     "recall": 0.6557377049180327
+    },
+    {
+     "threshold": 0.6,
+     "flagged": 46,
+     "share_flagged": 0.05239179954441914,
+     "tp": 36,
+     "precision": 0.782608695652174,
+     "recall": 0.5901639344262295
+    },
+    {
+     "threshold": 0.7,
+     "flagged": 38,
+     "share_flagged": 0.04328018223234624,
+     "tp": 32,
+     "precision": 0.8421052631578947,
+     "recall": 0.5245901639344263
+    },
+    {
+     "threshold": 0.8,
+     "flagged": 29,
+     "share_flagged": 0.03302961275626424,
+     "tp": 28,
+     "precision": 0.9655172413793104,
+     "recall": 0.45901639344262296
+    },
+    {
+     "threshold": 0.9,
+     "flagged": 25,
+     "share_flagged": 0.02847380410022779,
+     "tp": 25,
+     "precision": 1.0,
+     "recall": 0.4098360655737705
+    }
+   ],
+   "platt": {
+    "a": 0.6475164988326704,
+    "b": 0.4159008857583943
+   },
+   "isotonic_knots": 50
+  },
+  "neural_net": {
+   "precision_floor_diagnostic": [
+    {
+     "precision_floor": 0.25,
+     "threshold": 0.028549810871481895,
+     "recall": 0.9125874125874126,
+     "share_flagged": 0.25500732779677576
+    },
+    {
+     "precision_floor": 0.35,
+     "threshold": 0.0577065609395504,
+     "recall": 0.8636363636363636,
+     "share_flagged": 0.17220322423058135
+    },
+    {
+     "precision_floor": 0.5,
+     "threshold": 0.13568079471588135,
+     "recall": 0.7762237762237763,
+     "share_flagged": 0.1084513922813874
+    },
+    {
+     "precision_floor": 0.6,
+     "threshold": 0.2192615121603012,
+     "recall": 0.6958041958041958,
+     "share_flagged": 0.08085002442598925
+    },
+    {
+     "precision_floor": 0.7,
+     "threshold": 0.30933812260627747,
+     "recall": 0.6538461538461539,
+     "share_flagged": 0.06521739130434782
+    }
+   ],
+   "selection": {
+    "table": {
+     "none": {
+      "log_loss_mean": 0.11833361932493629,
+      "log_loss_se": 0.005840004279291632,
+      "brier_mean": 0.030517199668536433
+     },
+     "platt": {
+      "log_loss_mean": 0.11891812726621129,
+      "log_loss_se": 0.005125158906505981,
+      "brier_mean": 0.030705391051481547
+     },
+     "isotonic": {
+      "log_loss_mean": 0.12072015872483652,
+      "log_loss_se": 0.006382772592965242,
+      "brier_mean": 0.030953494552352707
+     }
+    },
+    "best_by_mean": "none",
+    "selected": "none",
+    "one_se_limit": 0.12417362360422791
+   },
+   "selected_method": "none",
+   "val": {
+    "none": {
+     "brier": 0.03207404920887341,
+     "log_loss": 0.13196760462752025,
+     "ece": 0.01680033847723231,
+     "pr_auc": 0.7226508513662138,
+     "mean_pred": 0.06211596812913217,
+     "observed_rate": 0.06947608200455581,
+     "ci": {
+      "brier": [
+       0.024118870062127262,
+       0.04034064029821667
+      ],
+      "log_loss": [
+       0.09585605018538686,
+       0.17163988028458174
+      ],
+      "ece": [
+       0.008005235746852824,
+       0.02818927986077445
+      ],
+      "pr_auc": [
+       0.6208437957750774,
+       0.8210605991937808
+      ]
+     },
+     "n_exact_zero_or_one": 0
+    },
+    "platt": {
+     "brier": 0.0317001466414044,
+     "log_loss": 0.12823801212724564,
+     "ece": 0.013950483959255872,
+     "pr_auc": 0.7226508513662138,
+     "mean_pred": 0.06237086478425704,
+     "observed_rate": 0.06947608200455581,
+     "ci": {
+      "brier": [
+       0.024049026191229107,
+       0.03990411950983278
+      ],
+      "log_loss": [
+       0.09449155387980754,
+       0.16579455276096924
+      ],
+      "ece": [
+       0.007269192414139303,
+       0.025432445957341537
+      ],
+      "pr_auc": [
+       0.6208437957750774,
+       0.8210605991937808
+      ]
+     },
+     "delta_vs_none": {
+      "brier": {
+       "ci": [
+        -0.0008892564982400222,
+        0.00014461828363071655
+       ]
+      },
+      "log_loss": {
+       "ci": [
+        -0.0070389432627670605,
+        -0.0006483549260643496
+       ]
+      },
+      "ece": {
+       "ci": [
+        -0.003294618636660263,
+        0.0011233139671430036
+       ]
+      },
+      "pr_auc": {
+       "ci": [
+        -2.220446049250313e-16,
+        2.220446049250313e-16
+       ]
+      }
+     },
+     "n_exact_zero_or_one": 0
+    },
+    "isotonic": {
+     "brier": 0.03185878642073403,
+     "log_loss": 0.13162947942520542,
+     "ece": 0.01383362401035476,
+     "pr_auc": 0.6962186831990652,
+     "mean_pred": 0.0629861548760704,
+     "observed_rate": 0.06947608200455581,
+     "ci": {
+      "brier": [
+       0.023861527232995252,
+       0.04039676964979572
+      ],
+      "log_loss": [
+       0.09740449961693828,
+       0.16975792177193202
+      ],
+      "ece": [
+       0.011420392817947083,
+       0.03361672216182656
+      ],
+      "pr_auc": [
+       0.5915360928485871,
+       0.7919532214830517
+      ]
+     },
+     "delta_vs_none": {
+      "brier": {
+       "ci": [
+        -0.0010279408691642278,
+        0.000604435119934307
+       ]
+      },
+      "log_loss": {
+       "ci": [
+        -0.0065429488968960356,
+        0.0049170697788077
+       ]
+      },
+      "ece": {
+       "ci": [
+        -0.0011570684807556749,
+        0.01148660241821962
+       ]
+      },
+      "pr_auc": {
+       "ci": [
+        -0.04036114365561122,
+        -0.013874582138423864
+       ]
+      }
+     },
+     "n_exact_zero_or_one": 33
+    }
+   },
+   "bands": {
+    "t_watch": 0.028549810871481895,
+    "t_high": 0.028549810871481895,
+    "rule": {
+     "high_min_precision": 0.25,
+     "watch_min_recall": 0.8
+    },
+    "notes": [
+     "recall floor is reached only above the High cut; Watch band is empty"
+    ],
+    "selected_method": "none",
+    "oof_table": [
+     {
+      "band": "Low",
+      "firms": 3050,
+      "share_of_firms": 0.7449926722032242,
+      "bankrupt": 25,
+      "bankrupt_rate": 0.00819672131147541,
+      "share_of_all_bankrupt": 0.08741258741258741
+     },
+     {
+      "band": "Watch",
+      "firms": 0,
+      "share_of_firms": 0.0,
+      "bankrupt": 0,
+      "bankrupt_rate": null,
+      "share_of_all_bankrupt": 0.0
+     },
+     {
+      "band": "High",
+      "firms": 1044,
+      "share_of_firms": 0.25500732779677576,
+      "bankrupt": 261,
+      "bankrupt_rate": 0.25,
+      "share_of_all_bankrupt": 0.9125874125874126
+     }
+    ],
+    "val_table": [
+     {
+      "band": "Low",
+      "firms": 694,
+      "share_of_firms": 0.7904328018223234,
+      "bankrupt": 8,
+      "bankrupt_rate": 0.011527377521613832,
+      "share_of_all_bankrupt": 0.13114754098360656
+     },
+     {
+      "band": "Watch",
+      "firms": 0,
+      "share_of_firms": 0.0,
+      "bankrupt": 0,
+      "bankrupt_rate": null,
+      "share_of_all_bankrupt": 0.0
+     },
+     {
+      "band": "High",
+      "firms": 184,
+      "share_of_firms": 0.20956719817767655,
+      "bankrupt": 53,
+      "bankrupt_rate": 0.28804347826086957,
+      "share_of_all_bankrupt": 0.8688524590163934
+     }
+    ],
+    "alt": {
+     "t_watch": 0.10998386889696121,
+     "t_high": 0.13568079471588135,
+     "rule": {
+      "high_min_precision": 0.25,
+      "watch_min_recall": 0.8
+     },
+     "notes": [],
+     "oof_table": [
+      {
+       "band": "Low",
+       "firms": 3598,
+       "share_of_firms": 0.878847093307279,
+       "bankrupt": 57,
+       "bankrupt_rate": 0.01584213451917732,
+       "share_of_all_bankrupt": 0.1993006993006993
+      },
+      {
+       "band": "Watch",
+       "firms": 52,
+       "share_of_firms": 0.012701514411333659,
+       "bankrupt": 7,
+       "bankrupt_rate": 0.1346153846153846,
+       "share_of_all_bankrupt": 0.024475524475524476
+      },
+      {
+       "band": "High",
+       "firms": 444,
+       "share_of_firms": 0.1084513922813874,
+       "bankrupt": 222,
+       "bankrupt_rate": 0.5,
+       "share_of_all_bankrupt": 0.7762237762237763
+      }
+     ],
+     "val_table": [
+      {
+       "band": "Low",
+       "firms": 786,
+       "share_of_firms": 0.8952164009111617,
+       "bankrupt": 17,
+       "bankrupt_rate": 0.021628498727735368,
+       "share_of_all_bankrupt": 0.2786885245901639
+      },
+      {
+       "band": "Watch",
+       "firms": 10,
+       "share_of_firms": 0.011389521640091117,
+       "bankrupt": 2,
+       "bankrupt_rate": 0.2,
+       "share_of_all_bankrupt": 0.03278688524590164
+      },
+      {
+       "band": "High",
+       "firms": 82,
+       "share_of_firms": 0.09339407744874716,
+       "bankrupt": 42,
+       "bankrupt_rate": 0.5121951219512195,
+       "share_of_all_bankrupt": 0.6885245901639344
+      }
+     ]
+    }
+   },
+   "cost": {
+    "5": {
+     "ratio": 5,
+     "t_theory": 0.16666666666666666,
+     "t_empirical": 0.16816389560699463,
+     "theory": {
+      "threshold": 0.16666666666666666,
+      "flagged": 73,
+      "recall": 0.6885245901639344,
+      "precision": 0.5753424657534246,
+      "cost_per_1000": 143.50797266514806
+     },
+     "empirical": {
+      "threshold": 0.16816389560699463,
+      "flagged": 73,
+      "recall": 0.6885245901639344,
+      "precision": 0.5753424657534246,
+      "cost_per_1000": 143.50797266514806
+     },
+     "flag_nobody_cost_per_1000": 347.380410022779,
+     "flag_everybody_cost_per_1000": 930.5239179954442
+    },
+    "10": {
+     "ratio": 10,
+     "t_theory": 0.09090909090909091,
+     "t_empirical": 0.07896031439304352,
+     "theory": {
+      "threshold": 0.09090909090909091,
+      "flagged": 100,
+      "recall": 0.7377049180327869,
+      "precision": 0.45,
+      "cost_per_1000": 244.874715261959
+     },
+     "empirical": {
+      "threshold": 0.07896031439304352,
+      "flagged": 102,
+      "recall": 0.7377049180327869,
+      "precision": 0.4411764705882353,
+      "cost_per_1000": 247.15261958997723
+     },
+     "flag_nobody_cost_per_1000": 694.760820045558,
+     "flag_everybody_cost_per_1000": 930.5239179954442
+    },
+    "20": {
+     "ratio": 20,
+     "t_theory": 0.047619047619047616,
+     "t_empirical": 0.05445609241724014,
+     "theory": {
+      "threshold": 0.047619047619047616,
+      "flagged": 134,
+      "recall": 0.7704918032786885,
+      "precision": 0.35074626865671643,
+      "cost_per_1000": 417.99544419134395
+     },
+     "empirical": {
+      "threshold": 0.05445609241724014,
+      "flagged": 121,
+      "recall": 0.7377049180327869,
+      "precision": 0.371900826446281,
+      "cost_per_1000": 451.0250569476082
+     },
+     "flag_nobody_cost_per_1000": 1389.521640091116,
+     "flag_everybody_cost_per_1000": 930.5239179954442
+    }
+   },
+   "oof_metrics": {
+    "none": {
+     "brier": 0.030518919842377902,
+     "log_loss": 0.11833771874477717,
+     "ece": 0.00483531908281189,
+     "pr_auc": 0.7498749400717677,
+     "mean_pred": 0.07022117085707277,
+     "observed_rate": 0.06985832926233512
+    },
+    "platt": {
+     "brier": 0.03046029968532907,
+     "log_loss": 0.11773389628330802,
+     "ece": 0.003435878134873151,
+     "pr_auc": 0.7498749400717678,
+     "mean_pred": 0.06985718899987844,
+     "observed_rate": 0.06985832926233512
+    },
+    "isotonic": {
+     "brier": 0.029346468506888837,
+     "log_loss": 0.1114231782461941,
+     "ece": 0.0014502103052741932,
+     "pr_auc": 0.7321118937954825,
+     "mean_pred": 0.06985832926233511,
+     "observed_rate": 0.06985832926233512
+    }
+   },
+   "tradeoff_oof": [
+    {
+     "threshold": 0.01,
+     "flagged": 1716,
+     "share_flagged": 0.41914997557401074,
+     "tp": 274,
+     "precision": 0.15967365967365968,
+     "recall": 0.958041958041958
+    },
+    {
+     "threshold": 0.02,
+     "flagged": 1262,
+     "share_flagged": 0.3082559843673669,
+     "tp": 267,
+     "precision": 0.2115689381933439,
+     "recall": 0.9335664335664335
+    },
+    {
+     "threshold": 0.03,
+     "flagged": 1016,
+     "share_flagged": 0.24816805080605764,
+     "tp": 258,
+     "precision": 0.25393700787401574,
+     "recall": 0.9020979020979021
+    },
+    {
+     "threshold": 0.05,
+     "flagged": 771,
+     "share_flagged": 0.18832437713727407,
+     "tp": 251,
+     "precision": 0.32555123216601817,
+     "recall": 0.8776223776223776
+    },
+    {
+     "threshold": 0.075,
+     "flagged": 608,
+     "share_flagged": 0.14851001465559355,
+     "tp": 240,
+     "precision": 0.39473684210526316,
+     "recall": 0.8391608391608392
+    },
+    {
+     "threshold": 0.1,
+     "flagged": 513,
+     "share_flagged": 0.12530532486565707,
+     "tp": 230,
+     "precision": 0.44834307992202727,
+     "recall": 0.8041958041958042
+    },
+    {
+     "threshold": 0.15,
+     "flagged": 406,
+     "share_flagged": 0.0991695163654128,
+     "tp": 217,
+     "precision": 0.5344827586206896,
+     "recall": 0.7587412587412588
+    },
+    {
+     "threshold": 0.2,
+     "flagged": 344,
+     "share_flagged": 0.08402540302882266,
+     "tp": 205,
+     "precision": 0.5959302325581395,
+     "recall": 0.7167832167832168
+    },
+    {
+     "threshold": 0.25,
+     "flagged": 308,
+     "share_flagged": 0.07523204689789936,
+     "tp": 196,
+     "precision": 0.6363636363636364,
+     "recall": 0.6853146853146853
+    },
+    {
+     "threshold": 0.3,
+     "flagged": 278,
+     "share_flagged": 0.06790425012212994,
+     "tp": 188,
+     "precision": 0.6762589928057554,
+     "recall": 0.6573426573426573
+    },
+    {
+     "threshold": 0.4,
+     "flagged": 224,
+     "share_flagged": 0.05471421592574499,
+     "tp": 176,
+     "precision": 0.7857142857142857,
+     "recall": 0.6153846153846154
+    },
+    {
+     "threshold": 0.5,
+     "flagged": 196,
+     "share_flagged": 0.04787493893502687,
+     "tp": 167,
+     "precision": 0.8520408163265306,
+     "recall": 0.583916083916084
+    },
+    {
+     "threshold": 0.6,
+     "flagged": 183,
+     "share_flagged": 0.04469956033219345,
+     "tp": 161,
+     "precision": 0.8797814207650273,
+     "recall": 0.5629370629370629
+    },
+    {
+     "threshold": 0.7,
+     "flagged": 157,
+     "share_flagged": 0.03834880312652662,
+     "tp": 144,
+     "precision": 0.9171974522292994,
+     "recall": 0.5034965034965035
+    },
+    {
+     "threshold": 0.8,
+     "flagged": 138,
+     "share_flagged": 0.033707865168539325,
+     "tp": 128,
+     "precision": 0.927536231884058,
+     "recall": 0.44755244755244755
+    },
+    {
+     "threshold": 0.9,
+     "flagged": 107,
+     "share_flagged": 0.02613580850024426,
+     "tp": 102,
+     "precision": 0.9532710280373832,
+     "recall": 0.35664335664335667
+    }
+   ],
+   "tradeoff_val": [
+    {
+     "threshold": 0.01,
+     "flagged": 264,
+     "share_flagged": 0.30068337129840544,
+     "tp": 57,
+     "precision": 0.2159090909090909,
+     "recall": 0.9344262295081968
+    },
+    {
+     "threshold": 0.02,
+     "flagged": 203,
+     "share_flagged": 0.23120728929384965,
+     "tp": 53,
+     "precision": 0.26108374384236455,
+     "recall": 0.8688524590163934
+    },
+    {
+     "threshold": 0.03,
+     "flagged": 179,
+     "share_flagged": 0.20387243735763097,
+     "tp": 53,
+     "precision": 0.29608938547486036,
+     "recall": 0.8688524590163934
+    },
+    {
+     "threshold": 0.05,
+     "flagged": 128,
+     "share_flagged": 0.14578587699316628,
+     "tp": 46,
+     "precision": 0.359375,
+     "recall": 0.7540983606557377
+    },
+    {
+     "threshold": 0.075,
+     "flagged": 105,
+     "share_flagged": 0.11958997722095673,
+     "tp": 45,
+     "precision": 0.42857142857142855,
+     "recall": 0.7377049180327869
+    },
+    {
+     "threshold": 0.1,
+     "flagged": 97,
+     "share_flagged": 0.11047835990888383,
+     "tp": 45,
+     "precision": 0.4639175257731959,
+     "recall": 0.7377049180327869
+    },
+    {
+     "threshold": 0.15,
+     "flagged": 78,
+     "share_flagged": 0.0888382687927107,
+     "tp": 42,
+     "precision": 0.5384615384615384,
+     "recall": 0.6885245901639344
+    },
+    {
+     "threshold": 0.2,
+     "flagged": 63,
+     "share_flagged": 0.07175398633257403,
+     "tp": 40,
+     "precision": 0.6349206349206349,
+     "recall": 0.6557377049180327
+    },
+    {
+     "threshold": 0.25,
+     "flagged": 56,
+     "share_flagged": 0.06378132118451026,
+     "tp": 39,
+     "precision": 0.6964285714285714,
+     "recall": 0.639344262295082
+    },
+    {
+     "threshold": 0.3,
+     "flagged": 48,
+     "share_flagged": 0.05466970387243736,
+     "tp": 35,
+     "precision": 0.7291666666666666,
+     "recall": 0.5737704918032787
+    },
+    {
+     "threshold": 0.4,
+     "flagged": 43,
+     "share_flagged": 0.0489749430523918,
+     "tp": 34,
+     "precision": 0.7906976744186046,
+     "recall": 0.5573770491803278
+    },
+    {
+     "threshold": 0.5,
+     "flagged": 40,
+     "share_flagged": 0.04555808656036447,
+     "tp": 34,
+     "precision": 0.85,
+     "recall": 0.5573770491803278
+    },
+    {
+     "threshold": 0.6,
+     "flagged": 36,
+     "share_flagged": 0.04100227790432802,
+     "tp": 33,
+     "precision": 0.9166666666666666,
+     "recall": 0.5409836065573771
+    },
+    {
+     "threshold": 0.7,
+     "flagged": 33,
+     "share_flagged": 0.03758542141230068,
+     "tp": 31,
+     "precision": 0.9393939393939394,
+     "recall": 0.5081967213114754
+    },
+    {
+     "threshold": 0.8,
+     "flagged": 31,
+     "share_flagged": 0.03530751708428246,
+     "tp": 30,
+     "precision": 0.967741935483871,
+     "recall": 0.4918032786885246
+    },
+    {
+     "threshold": 0.9,
+     "flagged": 30,
+     "share_flagged": 0.03416856492027335,
+     "tp": 29,
+     "precision": 0.9666666666666667,
+     "recall": 0.47540983606557374
+    }
+   ],
+   "platt": {
+    "a": 0.8810266819145772,
+    "b": -0.2149920936637965
+   },
+   "isotonic_knots": 38
+  }
+ }
+}

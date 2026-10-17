@@ -18,6 +18,7 @@ env/
 data/raw/*
 !data/raw/.gitkeep
 data/processed/*
+!data/processed/summary.json
 !data/processed/.gitkeep
 *.csv
 *.arff
@@ -41,3 +42,6 @@ Thumbs.db
 
 # Streamlit secrets
 .streamlit/secrets.toml
+
+# Graphify output
+graphify-out/
