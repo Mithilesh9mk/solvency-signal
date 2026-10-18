@@ -1,0 +1,185 @@
+{
+ "no_skill_pr_auc": 0.009688975736850675,
+ "positives": 119,
+ "rows": 12282,
+ "models": {
+  "lightgbm": {
+   "pr_auc": 0.0987800674583164,
+   "roc_auc": 0.8404204236985431,
+   "pr_auc_ci": [
+    0.061531235821700725,
+    0.15644509204719378
+   ],
+   "roc_auc_ci": [
+    0.806118299136094,
+    0.8751879102269127
+   ],
+   "calibration": {
+    "mean_predicted": 0.007935345514011745,
+    "observed_rate": 0.009688975736850675,
+    "brier": 0.009231161005847368,
+    "ece": 0.002659533684125603
+   },
+   "by_year": [
+    {
+     "year": 2015,
+     "positives": 33,
+     "mean_predicted": 0.008083565344534738,
+     "observed_rate": 0.009838998211091235
+    },
+    {
+     "year": 2016,
+     "positives": 29,
+     "mean_predicted": 0.008180672100115386,
+     "observed_rate": 0.009088060169225948
+    },
+    {
+     "year": 2017,
+     "positives": 21,
+     "mean_predicted": 0.007434821376149009,
+     "observed_rate": 0.006967485069674851
+    },
+    {
+     "year": 2018,
+     "positives": 36,
+     "mean_predicted": 0.008019301923739054,
+     "observed_rate": 0.013220712449504223
+    }
+   ],
+   "flag": {
+    "top5": {
+     "cut": 0.022851818349144102,
+     "share_flagged": 0.05805243445692884,
+     "flagged": 713,
+     "true_positives": 53,
+     "precision": 0.07433380084151472,
+     "recall": 0.44537815126050423
+    },
+    "top10": {
+     "cut": 0.014953844983252706,
+     "share_flagged": 0.12066438690766976,
+     "flagged": 1482,
+     "true_positives": 69,
+     "precision": 0.0465587044534413,
+     "recall": 0.5798319327731093
+    }
+   },
+   "pr_auc_company_label": 0.09703635016243176,
+   "no_skill_company_label": 0.023367529718286924
+  },
+  "logistic": {
+   "pr_auc": 0.1201585979429338,
+   "roc_auc": 0.8057547445517711,
+   "pr_auc_ci": [
+    0.07235362898780723,
+    0.18286159489837162
+   ],
+   "roc_auc_ci": [
+    0.7625812514290754,
+    0.8458201994204326
+   ],
+   "calibration": {
+    "mean_predicted": 0.007130124133371696,
+    "observed_rate": 0.009688975736850675,
+    "brier": 0.009350785821701577,
+    "ece": 0.0035300889536130104
+   },
+   "by_year": [
+    {
+     "year": 2015,
+     "positives": 33,
+     "mean_predicted": 0.007469095247178699,
+     "observed_rate": 0.009838998211091235
+    },
+    {
+     "year": 2016,
+     "positives": 29,
+     "mean_predicted": 0.0071923958749408054,
+     "observed_rate": 0.009088060169225948
+    },
+    {
+     "year": 2017,
+     "positives": 21,
+     "mean_predicted": 0.006727192268666947,
+     "observed_rate": 0.006967485069674851
+    },
+    {
+     "year": 2018,
+     "positives": 36,
+     "mean_predicted": 0.007085621157670042,
+     "observed_rate": 0.013220712449504223
+    }
+   ],
+   "flag": {
+    "top5": {
+     "cut": 0.024265502235716913,
+     "share_flagged": 0.05121315746621072,
+     "flagged": 629,
+     "true_positives": 50,
+     "precision": 0.0794912559618442,
+     "recall": 0.42016806722689076
+    },
+    "top10": {
+     "cut": 0.018025711232058372,
+     "share_flagged": 0.10299625468164794,
+     "flagged": 1265,
+     "true_positives": 62,
+     "precision": 0.04901185770750988,
+     "recall": 0.5210084033613446
+    }
+   },
+   "pr_auc_company_label": 0.12128137350389236,
+   "no_skill_company_label": 0.023367529718286924
+  }
+ },
+ "paired_difference": {
+  "a": "lightgbm",
+  "b": "logistic",
+  "pr_auc": -0.02137853048461741,
+  "pr_auc_ci": [
+   -0.08020363640314256,
+   0.03431575370838804
+  ],
+  "roc_auc": 0.03466567914677199,
+  "roc_auc_ci": [
+   0.0009675434433254812,
+   0.06952595826673745
+  ]
+ },
+ "data": {
+  "test": {
+   "rows": 12282,
+   "companies": 3700,
+   "positives": 119,
+   "positive_rate": 0.009688975736850675,
+   "positives_company_label": 287
+  },
+  "test_by_year": [
+   {
+    "year": 2015,
+    "rows": 3354,
+    "positives": 33,
+    "positive_rate": 0.009838998211091235
+   },
+   {
+    "year": 2016,
+    "rows": 3191,
+    "positives": 29,
+    "positive_rate": 0.009088060169225948
+   },
+   {
+    "year": 2017,
+    "rows": 3014,
+    "positives": 21,
+    "positive_rate": 0.006967485069674851
+   },
+   {
+    "year": 2018,
+    "rows": 2723,
+    "positives": 36,
+    "positive_rate": 0.013220712449504223
+   }
+  ],
+  "artifact_sha256": "0b73477ba7606f7a2cbbbf8d87bed0117ae7f61b63415349a968230afda2295a"
+ }
+}

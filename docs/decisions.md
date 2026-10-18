@@ -522,3 +522,23 @@ logistic regression. The protocol did not say how to finish that case, so before
   diagnostic only.
 - Results are in `reports/us_validation.md`, written by `scripts/run_us_model.py`. No headline model is chosen. The test years are
   read once by `scripts/us_final_test.py` (lock written first) and have not been read.
+
+## 2026-10-18 (US model, headline decision and test approval)
+
+- Decision by the user: LightGBM is the US headline model. Logistic regression stays as the comparison baseline and is also scored on the
+  test years, because the protocol reports both.
+- Recommendation given before the decision: on validation the PR AUC gap was inside the noise (paired difference interval crossed zero)
+  while the ROC AUC gap was not. The choice rests on the ROC AUC gap and on LightGBM matching the Polish headline settings.
+- The user approved the one-shot read of the test years 2015 to 2018 with the frozen artifact `artifacts/us/us_model.json`. Nothing is
+  refit, recalibrated or re-cut. The usefulness rule is the one in section 7 of `docs/us_protocol.md`: the lower end of the PR AUC interval
+  must be above the no-skill level. Results are written by `scripts/us_final_test.py` to `reports/us_test_results.md`.
+
+## 2026-10-18 (US model, after the one-shot test)
+
+- The test years 2015 to 2018 were read once. The lock is `artifacts/us/test.lock`; results are in `reports/us_test_results.md` and `.json`.
+  Nothing was refit, recalibrated or re-cut, and no figure is typed here.
+- Usefulness rule (protocol section 7): the lower end of the headline PR AUC interval is above the no-skill level, so the headline model
+  is useful by the pre-stated rule.
+- Logistic regression has the higher test PR AUC and LightGBM the higher test ROC AUC, with overlapping PR AUC intervals. By the decision
+  above the headline stays LightGBM and logistic regression is reference only. The user may revisit.
+- Both models under-predict on test (mean predicted below observed), most in 2018. The Platt calibrator was not refitted.
