@@ -4,7 +4,7 @@ Early-warning model for corporate financial distress. Trains logistic regression
 LightGBM and a PyTorch MLP (TremorNet) on the Polish companies bankruptcy data
 (`5year.arff`, 1-year horizon, 5,850 firms after dedup, about 7% bankrupt),
 calibrates their probabilities, and maps them to Low, Watch and High risk bands.
-A Streamlit app and an Indian case study come in later phases.
+The Streamlit app is built. The Indian case study was dropped (see docs/decisions.md).
 
 ## Hard rules
 - Seed 42 everywhere. Fixed seeds in every script and test.
@@ -32,8 +32,8 @@ A Streamlit app and an Indian case study come in later phases.
 
 ## Status
 Headline model: LightGBM + Platt (user decision), frozen at fdef552. The neural network is the deep learning comparison, not deployed. Test result: reports/phase5_test_results.md.
-Current phase: US model: test read once, docs updated
-Last phase commit: 1a80627
+Current phase: Indian case study dropped, US model documented
+Last phase commit: 1787f21
 
 ## Pointers
 For details read docs/STATE.md, docs/decisions.md, docs/data_card.md only when needed.

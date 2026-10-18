@@ -542,3 +542,18 @@ logistic regression. The protocol did not say how to finish that case, so before
 - Logistic regression has the higher test PR AUC and LightGBM the higher test ROC AUC, with overlapping PR AUC intervals. By the decision
   above the headline stays LightGBM and logistic regression is reference only. The user may revisit.
 - Both models under-predict on test (mean predicted below observed), most in 2018. The Platt calibrator was not refitted.
+
+## 2026-10-18 (Indian case study dropped)
+
+- Decision by the user: drop the Indian case study. No Indian model, score or figure is part of the project.
+- Why, from a search and one inspected file (no data entered the repo):
+  - No public Indian dataset with insolvency labels and financial ratios was found. Published studies build their own from licensed
+    databases (CMIE Prowess, Capitaline), which need an institutional licence.
+  - The IBBI list of corporate debtors in insolvency has no export and shows no CIN as text. Reading it means scraping its pages.
+  - The one downloadable financials file found (a public GitHub repo, no licence, source not named) has 999 firms and 8,991 firm-years.
+    Every firm is still listed (last year 2025 or 2026) and almost all have the same ten years, so firms that failed and were delisted
+    are missing. It has no label. Only a handful of known insolvency cases appear in it, too few to fit or test anything.
+  - A negative-net-worth proxy label would be built from the same columns used as inputs, and it is not bankruptcy.
+- The file was downloaded to a scratchpad folder outside the project for inspection only. It is unlicensed, so it was not added to
+  the repo, and it is not redistributed.
+- If this is revisited, it needs a licensed source with delisted firms and a public insolvency list matched by CIN.

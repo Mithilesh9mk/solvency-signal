@@ -249,6 +249,11 @@ Details, reliability diagrams, band tables, cost framing and the model decision:
 Random split with no time ordering, a small validation set (wide confidence intervals), one country and one year file,
 and a feature (`sales_growth`) that needs the previous year's sales. See the Flags above and the reports for detail.
 
+No Indian case study. A public Indian dataset with insolvency labels and financial ratios does not exist, as far as a search found.
+The insolvent-firm list (IBBI) has no export, and the one downloadable financials file found holds only firms that are still
+listed, so it contains no firms that failed. Nothing here has been validated on Indian firms, and the Polish and US models should not
+be read as Indian risk scores. Reasons are recorded in docs/decisions.md.
+
 ## How to run
 
 ```bash
