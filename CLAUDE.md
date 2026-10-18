@@ -32,8 +32,8 @@ A Streamlit app and an Indian case study come in later phases.
 
 ## Status
 Headline model: LightGBM + Platt (user decision), frozen at fdef552. The neural network is the deep learning comparison, not deployed. Test result: reports/phase5_test_results.md.
-Current phase: Phase 10: Quick check (4-ratio model) added to the app
-Last phase commit: 47f4f98
+Current phase: US model: test read once, docs updated
+Last phase commit: 1a80627
 
 ## Pointers
 For details read docs/STATE.md, docs/decisions.md, docs/data_card.md only when needed.

@@ -1,20 +1,21 @@
 # solvency-signal
 
-An early-warning neural network for corporate financial distress.
+An early-warning model for corporate financial distress, with a neural network as the deep learning comparison.
 
-> Status: Phases 8 to 10 done (the Streamlit app with the Phase 9 blank rule and the Phase 10 four-ratio Quick check, deployed). Phase 7 was the Attr21 missingness analysis (descriptive). Phase 6 gave SHAP explanations of the frozen LightGBM + Platt model. The test split was read once, in Phase 5, and is locked.
+> Status: Phases 8 to 10 done (the Streamlit app with the Phase 9 blank rule and the Phase 10 four-ratio Quick check, deployed). Phase 7 was the Attr21 missingness analysis (descriptive). Phase 6 gave SHAP explanations of the frozen LightGBM + Platt model. The test split was read once, in Phase 5, and is locked. A separate US model (time split, LightGBM + Platt headline) has its validation report and a one-shot test result, both below.
 
 ## Problem
 
-TODO: Predict which companies are likely to go bankrupt or enter financial
-distress in the following period, early enough for the warning to be useful.
+Predict which companies are likely to go bankrupt in the following year, early enough for the warning to be useful, and say how
+sure the model is. Probabilities are calibrated and mapped to Low, Watch and High bands. The models rank firms in historical data
+and are not a lending decision tool.
 
 ## Data
 
 | Role | Dataset | Notes |
 |---|---|---|
 | Primary | Polish companies bankruptcy, `5year.arff` (UCI 365, CC BY 4.0) | 5,910 firms, 64 financial ratios, label is bankruptcy within 1 year |
-| Candidate | American companies, NYSE and NASDAQ 1999 to 2018 (CC BY 4.0) | 18 raw accounting variables, no operating cash flow; labels need checking |
+| Second model | American companies, NYSE and NASDAQ 1999 to 2018 (CC BY 4.0) | 18 raw accounting variables, no operating cash flow; one-year-ahead label derived by this project, time split, protocol in docs/us_protocol.md |
 | Optional benchmark | Taiwanese bankruptcy prediction (UCI) | Most features pre-scaled to 0 to 1, some contain values near 1e10 |
 
 Feature names, formulas, data quality flags and split sizes: [reports/data_report.md](reports/data_report.md).
@@ -153,6 +154,17 @@ A separate 4-ratio model (current ratio, debt-to-equity, net profit margin, cash
 | 4-ratio Quick check | 0.315 (0.235 to 0.435) | 0.837 | 0.0184 |
 | 64-ratio frozen model | 0.782 (0.698 to 0.867) | 0.957 | 0.0134 |
 
+US model, time split (separate from the Polish model):
+
+A separate model on 18 raw US accounting variables (NYSE and NASDAQ, 1999 to 2018), a derived one-year-ahead label, time split 1999 to 2011 train, 2012 to 2014 validation, 2015 to 2018 test. Headline model: LightGBM + Platt (user decision), logistic regression is the baseline. Not pooled with the Polish data and not comparable to it. Details: reports/us_validation.md, reports/us_test_results.md.
+
+| Years | Model | PR AUC (95% CI), no-skill | ROC AUC (95% CI) | Mean predicted | Observed | Top 5% flagged: precision, recall |
+|---|---|---|---|---|---|---|
+| validation | lightgbm | 0.107 (0.064 to 0.183), 0.0083 | 0.893 (0.862 to 0.919) | 0.73% | 0.83% | 7.6%, 43.7% |
+| validation | logistic | 0.082 (0.048 to 0.146), 0.0083 | 0.850 (0.815 to 0.881) | 0.67% | 0.83% | 7.4%, 36.8% |
+| test (read once) | lightgbm | 0.099 (0.062 to 0.156), 0.0097 | 0.840 (0.806 to 0.875) | 0.79% | 0.97% | 7.4%, 44.5% |
+| test (read once) | logistic | 0.120 (0.072 to 0.183), 0.0097 | 0.806 (0.763 to 0.846) | 0.71% | 0.97% | 7.9%, 42.0% |
+
 Details, reliability diagrams, band tables, cost framing and the model decision: [reports/phase4_calibration.md](reports/phase4_calibration.md). Earlier phases: [reports/models_val.md](reports/models_val.md).
 
 ### Flags
@@ -225,6 +237,10 @@ Details, reliability diagrams, band tables, cost framing and the model decision:
 66. Phase 9: The test split is spent, so no rule change can be checked on untouched data. Blanks in real use are probably not random like these.
 67. Phase 9: Test split untouched in this phase. No model, calibrator or cut was changed.
 68. Phase 10: the 4-ratio model ranks firms far worse than the 64-ratio model (see the table), and its cash earnings ratio is a proxy, not operating cash flow. The 1 to 10 scale is a rank within the Polish training data, not an absolute risk.
+69. US: the 18 variables have no dictionary in the repo and their units look mixed, so they are used raw and not interpreted.
+70. US: the label is derived from the README statement that the last fiscal year is the one before the filing. The provided status_label is company-level and is reported as a diagnostic only.
+71. US: failures cluster in 2002 to 2009, so each period has a different regime and base rate. US listed firms only.
+72. US: the test years were read once (artifacts/us/test.lock). Nothing was refit, recalibrated or re-cut afterwards.
 
 <!-- RESULTS:END -->
 
